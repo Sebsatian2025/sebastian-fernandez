@@ -462,9 +462,32 @@
       <div class="prism-line-footer"></div>
     </div>
   </footer>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cards = document.querySelectorAll(".pillar-servicios");
 
-<script src="/assets/js/custom.js" defer></script>
+      function activarHoverSimulado() {
+        const centroX = window.innerWidth / 2;
 
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const cardCentro = rect.left + rect.width / 2;
+
+          const estaEnZona = Math.abs(cardCentro - centroX) < rect.width / 2;
+
+          if (estaEnZona) {
+            card.classList.add("hover-simulada");
+          } else {
+            card.classList.remove("hover-simulada");
+          }
+        });
+      }
+
+      setInterval(activarHoverSimulado, 100);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/script.min.js?h=f590af6693f79b8f1f8ada53e556c032"></script>
 </body>
-</html>
 
+</html>
