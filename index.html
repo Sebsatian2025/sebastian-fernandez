@@ -454,30 +454,36 @@
   </footer>
 
   <!-- Hover simulado -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const cards = document.querySelectorAll(".pillar-servicios");
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".pillar-servicios");
+    let rects = [];
 
-      function activarHoverSimulado() {
-        const centroX = window.innerWidth / 2;
+    function calcularRectangulos() {
+      rects = Array.from(cards).map(card => card.getBoundingClientRect());
+    }
 
-        cards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const cardCentro = rect.left + rect.width / 2;
+    function activarHoverSimulado() {
+      const centroX = window.innerWidth / 2;
 
-          const estaEnZona = Math.abs(cardCentro - centroX) < rect.width / 2;
+      rects.forEach((rect, i) => {
+        const cardCentro = rect.left + rect.width / 2;
+        const estaEnZona = Math.abs(cardCentro - centroX) < rect.width / 2;
+        cards[i].classList.toggle("hover-simulada", estaEnZona);
+      });
+    }
 
-          if (estaEnZona) {
-            card.classList.add("hover-simulada");
-          } else {
-            card.classList.remove("hover-simulada");
-          }
-        });
-      }
+    calcularRectangulos(); // inicial
+    activarHoverSimulado();
 
-      setInterval(activarHoverSimulado, 100);
+    window.addEventListener("resize", () => {
+      calcularRectangulos();
+      activarHoverSimulado();
     });
-  </script>
+
+    setInterval(activarHoverSimulado, 200); // menos frecuencia
+  });
+</script>
 
   <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" defer></script>
