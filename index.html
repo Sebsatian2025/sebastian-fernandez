@@ -491,7 +491,7 @@
   <!-- Carga asincrónica del JSON -->
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      fetch('/js/lang.json')
+      fetch('/assets/js/lang.json')
         .then(res => res.json())
         .then(data => {
           // Si script.min.js necesita esto, debe acceder a window.langData
