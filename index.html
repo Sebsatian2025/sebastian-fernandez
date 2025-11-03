@@ -453,55 +453,7 @@
     </div>
   </footer>
 
-  <!-- Hover simulado -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const cards = document.querySelectorAll(".pillar-servicios");
-    let rects = [];
-
-    function calcularRectangulos() {
-      rects = Array.from(cards).map(card => card.getBoundingClientRect());
-    }
-
-    function activarHoverSimulado() {
-      const centroX = window.innerWidth / 2;
-
-      rects.forEach((rect, i) => {
-        const cardCentro = rect.left + rect.width / 2;
-        const estaEnZona = Math.abs(cardCentro - centroX) < rect.width / 2;
-        cards[i].classList.toggle("hover-simulada", estaEnZona);
-      });
-    }
-
-    calcularRectangulos(); // inicial
-    activarHoverSimulado();
-
-    window.addEventListener("resize", () => {
-      calcularRectangulos();
-      activarHoverSimulado();
-    });
-
-    setInterval(activarHoverSimulado, 200); // menos frecuencia
-  });
-</script>
-
-  <!-- Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" defer></script>
-
-  <!-- Script principal que depende del JSON -->
-  <script src="assets/js/script.min.js?h=f590af6693f79b8f1f8ada53e556c032" defer></script>
-
-  <!-- Carga asincrónica del JSON -->
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      fetch('/assets/js/lang.json')
-        .then(res => res.json())
-        .then(data => {
-          // Si script.min.js necesita esto, debe acceder a window.langData
-          window.langData = data;
-        });
-    });
-  </script>
+<script src="/assets/js/custom.js" defer></script>
 
 </body>
 </html>
