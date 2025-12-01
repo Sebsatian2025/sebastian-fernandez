@@ -366,21 +366,39 @@
         </div>
       </div>
     </section>
-    <section id="demos" class="contact-section">
+<section id="demos" class="contact-section">
       <div class="section-header">
         <h2 class="section-title" data-i18n="video.title"><strong>Edita, prueba y decide por ti mismo.</strong></h2>
-        <p class="section-subtitle" data-i18n="video.subtitle"> Edita textos, imágenes, colores y enlaces en tiempo
-          real. Sin límites, sin complicaciones</p>
+        <p class="section-subtitle" data-i18n="video.subtitle">
+          Mira nuestros diseños profesionales o prueba el editor en tiempo real. Sin límites, sin complicaciones.
+        </p>
       </div>
-      <div class="d-flex justify-content-center pb-6"><video class="placeholder" width="560" height="315" autoplay=""
-          loop="" muted=""
+
+      <!-- Video -->
+      <div class="d-flex justify-content-center pb-5">
+        <video class="placeholder" width="560" height="315" autoplay="" loop="" muted=""
           poster="assets/img/website-under-construction-maintenance-warning-sign-jditfw38e4rksvzj.webp?h=ce5353af753b284e0a59f739736ca320"
           controls="">
           <source type="video/webm">
           <track kind="subtitles">
-        </video></div>
-      <div class="d-flex justify-content-center contact-container"><a href="demos.html" target="_blank"><button
-            class="d-flex justify-content-center" type="button" style="width: 265px;">
+        </video>
+      </div>
+
+      <!-- Contenedor de Botones (Flexbox para alinearlos) -->
+      <div class="d-flex justify-content-center align-items-center gap-4 flex-column flex-md-row contact-container">
+        
+        <!-- BOTÓN 1: CATÁLOGO (Nuevo) -->
+        <!-- Enlaza a tu nuevo archivo Portfolio_Explorer.html -->
+        <a href="Portfolio_Explorer.html" target="_blank" style="text-decoration: none;">
+          <button class="d-flex justify-content-center btn btn-outline-light btn-lg align-items-center" type="button" style="width: 265px; height: 55px; border-radius: 50px; font-weight: 600; letter-spacing: 1px;">
+            <i class="fa-solid fa-layer-group me-2"></i> VER PLANTILLAS
+          </button>
+        </a>
+
+        <!-- BOTÓN 2: EDITOR (Existente) -->
+        <!-- Mantiene tu estilo original con el SVG animado -->
+        <a href="demos.html" target="_blank" style="text-decoration: none;">
+          <button class="d-flex justify-content-center align-items-center" type="button" style="width: 265px;">
             <div class="svg-wrapper-1">
               <div class="svg-wrapper">
                 <svg class="svg-icono" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -390,8 +408,12 @@
                   </path>
                 </svg>
               </div>
-            </div><span data-i18n="video.cta">Explorá el editor</span>
-          </button></a></div>
+            </div>
+            <span data-i18n="video.cta">PROBAR EDITOR</span>
+          </button>
+        </a>
+
+      </div>
     </section>
     <section id="contact" class="contact-section">
       <div class="section-header">
