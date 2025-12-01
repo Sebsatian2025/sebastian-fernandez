@@ -73,7 +73,8 @@
     "video": {
       "title": "Descubre nuestros diseños y prueba el editor.",
       "subtitle": "Navega por nuestra galería de plantillas profesionales o experimenta la libertad de editar una web en tiempo real.",
-      "cta": "PROBAR EDITOR"
+      "cta": "PROBAR EDITOR",
+      "templates": "VER PLANTILLAS"
     },
     "footer": {
       "title": "Seguime en redes",
@@ -189,7 +190,8 @@
     "video": {
       "title": "Discover our designs and test the editor.",
       "subtitle": "Browse our gallery of professional templates or experience the freedom of editing a website in real-time.",
-      "cta": "TRY EDITOR"
+      "cta": "TRY EDITOR",
+      "templates": "VIEW TEMPLATES"
     },
     "footer": {
       "title": "Follow me on social media",
