@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASH FIX | Reparaciones 24h</title>
+
+    <!-- 1. BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Oswald (Impacto) + Roboto (Lectura técnica) -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. ANIMATE.CSS (Para llamar la atención) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        :root {
+            --brand-yellow: #FFC107; /* Amarillo Seguridad */
+            --brand-dark: #212529;   /* Negro Industrial */
+            --brand-blue: #0D6EFD;   /* Azul Confianza */
+            --brand-red: #DC3545;    /* Rojo Urgencia */
+            --text-gray: #6c757d;
+            
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--brand-dark);
+            padding-bottom: 70px; /* Espacio para botón flotante móvil */
+        }
+
+        h1, h2, h3, h4, h5, .btn-main {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: var(--brand-dark);
+            color: white;
+            font-size: 0.9rem;
+            padding: 10px 0;
+        }
+        .emergency-blink {
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--brand-dark) !important;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: var(--brand-dark) !important;
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+        }
+        .nav-link:hover { color: var(--brand-yellow) !important; }
+
+        /* HERO SECTION */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            position: relative;
+        }
+        .hero-badge {
+            background-color: var(--brand-yellow);
+            color: var(--brand-dark);
+            padding: 5px 15px;
+            font-weight: 700;
+            font-family: var(--font-head);
+            display: inline-block;
+            transform: skew(-10deg);
+            margin-bottom: 20px;
+        }
+
+        /* FORMULARIO DE URGENCIA */
+        .urgent-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 5px solid var(--brand-yellow);
+        }
+        .btn-call {
+            background-color: var(--brand-red);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        .btn-call:hover {
+            background-color: #bb2d3b;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* SERVICIOS */
+        .service-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            text-align: center;
+            height: 100%;
+            background: #f8f9fa;
+        }
+        .service-card:hover {
+            border-color: var(--brand-yellow);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: var(--brand-dark);
+            color: var(--brand-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        /* POR QUÉ NOSOTROS (Trust) */
+        .trust-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .check-icon {
+            color: var(--brand-blue);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        /* BARRA FLOTANTE MÓVIL (Sticky Footer) */
+        .mobile-sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            flex: 1;
+            font-weight: 700;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 10px;
+        }
+        .btn-call-sticky {
+            background-color: var(--brand-red);
+            color: white;
+            flex: 1;
+            font-weight: 700;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        @media(min-width: 992px) {
+            .mobile-sticky-bar { display: none; }
+            body { padding-bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR (Desktop Only) -->
+    <div class="top-bar d-none d-lg-block">
+        <div class="container d-flex justify-content-between">
+            <div class="emergency-blink text-warning font-weight-bold">
+                <i class="fa-solid fa-circle-exclamation me-2"></i> SERVICIO DE URGENCIA 24 HORAS DISPONIBLE
+            </div>
+            <div>
+                <span class="me-4"><i class="fa-solid fa-location-dot text-warning me-1"></i> Madrid y Alrededores (30km)</span>
+                <span><i class="fa-solid fa-clock text-warning me-1"></i> Llegamos en 30-45 min</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa-solid fa-bolt text-warning me-1"></i> FLASH<span class="text-warning">FIX</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#garantia">Garantía</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#zonas">Zonas</a></li>
+                    <li class="nav-item ms-lg-3 d-none d-lg-block">
+                        <a href="tel:900123123" class="btn btn-danger fw-bold px-4 py-2" style="font-family: var(--font-head); letter-spacing: 1px;">
+                            <i class="fa-solid fa-phone me-2"></i> 900 123 123
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-center text-lg-start mb-5 mb-lg-0">
+                    <div class="hero-badge animate__animated animate__fadeInDown">
+                        <i class="fa-solid fa-check"></i> DISPONIBILIDAD INMEDIATA
+                    </div>
+                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInLeft">¿Problemas en casa? <br> <span class="text-warning">Lo arreglamos hoy.</span></h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInLeft animate__delay-1s">
+                        Fontanería, Electricidad y Cerrajería de Urgencia. <br>
+                        Técnicos certificados en tu puerta en menos de 1 hora.
+                    </p>
+                    <div class="d-none d-lg-block animate__animated animate__fadeInUp animate__delay-1s">
+                        <p class="fw-bold fs-5"><i class="fa-solid fa-thumbs-up text-warning me-2"></i> Sin costes ocultos. Presupuesto previo.</p>
+                    </div>
+                </div>
+                
+                <!-- Formulario de Conversión -->
+                <div class="col-lg-5">
+                    <div class="urgent-form animate__animated animate__zoomIn">
+                        <h3 class="text-center mb-2 fw-bold">SOLICITAR TÉCNICO</h3>
+                        <p class="text-center text-muted small mb-4">Te llamamos en menos de 5 minutos</p>
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Tu Problema</label>
+                                <select class="form-select">
+                                    <option selected>Selecciona avería...</option>
+                                    <option>Fuga de agua / Fontanería</option>
+                                    <option>Sin luz / Electricidad</option>
+                                    <option>Puerta bloqueada / Cerrajería</option>
+                                    <option>Aire Acondicionado</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Teléfono</label>
+                                <input type="tel" class="form-control" placeholder="600 000 000">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Código Postal</label>
+                                <input type="text" class="form-control" placeholder="Ej: 28001">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-warning fw-bold py-3 text-uppercase">
+                                    ¡Llámenme Ya!
+                                </button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <span class="text-muted small">O llama tú directamente:</span>
+                                <a href="tel:900123123" class="d-block fw-bold fs-4 text-dark text-decoration-none">900 123 123</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BARRA DE CONFIANZA (Logos/Stats) -->
+    <section class="bg-warning py-4">
+        <div class="container">
+            <div class="row text-center fw-bold text-dark g-3">
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-star me-2"></i> 4.9/5 Reseñas
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-id-card me-2"></i> Licencia Oficial
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-shield-halved me-2"></i> Seguro R.C.
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-file-invoice-dollar me-2"></i> Factura Legal
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Nuestros Servicios</h2>
+                <div class="bg-warning mx-auto mt-2" style="width: 60px; height: 4px;"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-faucet-drip"></i>
+                        </div>
+                        <h4>Fontanería</h4>
+                        <p class="text-muted small">Fugas, desatascos, roturas de tubería, calderas y termos. Reparación inmediata.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Ver Precios</a>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h4>Electricidad</h4>
+                        <p class="text-muted small">Apagones, cortocircuitos, enchufes quemados, cuadro eléctrico. Boletines urgentes.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Ver Precios</a>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-key"></i>
+                        </div>
+                        <h4>Cerrajería</h4>
+                        <p class="text-muted small">Apertura de puertas sin romper (90% casos), cambio de bombín, persianas atascadas.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Ver Precios</a>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-snowflake"></i>
+                        </div>
+                        <h4>Climatización</h4>
+                        <p class="text-muted small">Reparación de Aire Acondicionado y calefacción. Carga de gas y mantenimiento.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Ver Precios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONFIANZA (Garantía) -->
+    <section id="garantia" class="py-5 bg-dark text-white">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <!-- Pexels: Worker fixing something -->
+                    <img src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-fluid rounded border border-warning border-3 shadow" alt="Técnico trabajando">
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <h2 class="mb-4">¿Por qué elegir Flash Fix?</h2>
+                    
+                    <div class="trust-item">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Garantía de 6 Meses</h5>
+                            <p class="text-secondary small mb-0">Todas nuestras reparaciones tienen garantía por escrito en mano de obra.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trust-item">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Presupuesto Cerrado</h5>
+                            <p class="text-secondary small mb-0">El técnico te da el precio ANTES de tocar nada. Sin sorpresas finales.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trust-item">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Técnicos Propios</h5>
+                            <p class="text-secondary small mb-0">No somos intermediarios. Nuestro equipo está en plantilla y uniformado.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="tel:900123123" class="btn btn-warning btn-lg fw-bold px-5">
+                            <i class="fa-solid fa-phone me-2"></i> LLAMAR AHORA
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="py-5 bg-light">
+        <div class="container py-4">
+            <h3 class="text-center mb-5 fw-bold">Clientes Satisfechos</h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="bg-white p-4 rounded shadow-sm h-100">
+                        <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="small fst-italic">"Se me rompió la tubería un domingo a las 10 de la noche. En 40 minutos estaba el fontanero en casa. Increíble servicio."</p>
+                        <p class="fw-bold mb-0 small">- Marta R. (Madrid)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white p-4 rounded shadow-sm h-100">
+                        <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="small fst-italic">"Muy profesionales. Me dieron el precio antes de empezar y limpiaron todo al terminar."</p>
+                        <p class="fw-bold mb-0 small">- Carlos G. (Alcobendas)</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-white p-4 rounded shadow-sm h-100">
+                        <div class="text-warning mb-2"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                        <p class="small fst-italic">"Buen servicio de cerrajería. Rápido y efectivo, aunque un poco caro por ser festivo, pero valió la pena."</p>
+                        <p class="fw-bold mb-0 small">- Luis P. (Getafe)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white pt-5 pb-2 border-top border-secondary">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <h4 class="fw-bold text-warning mb-3">FLASH FIX</h4>
+                    <p class="text-secondary small">Empresa líder en reparaciones de urgencia del hogar. Disponibles 24 horas, 365 días al año.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Contacto</h5>
+                    <ul class="list-unstyled text-secondary small">
+                        <li class="mb-2"><i class="fa-solid fa-phone me-2 text-white"></i> 900 123 123 (Gratuito)</li>
+                        <li class="mb-2"><i class="fa-brands fa-whatsapp me-2 text-white"></i> 600 00 00 00</li>
+                        <li class="mb-2"><i class="fa-solid fa-envelope me-2 text-white"></i> aviso@flashfix.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-4" id="zonas">
+                    <h5 class="fw-bold mb-3">Zonas de Cobertura</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-secondary">Madrid Capital</span>
+                        <span class="badge bg-secondary">Alcobendas</span>
+                        <span class="badge bg-secondary">Pozuelo</span>
+                        <span class="badge bg-secondary">Getafe</span>
+                        <span class="badge bg-secondary">Leganés</span>
+                        <span class="badge bg-secondary">Las Rozas</span>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary">
+            <div class="text-center text-secondary small">
+                © 2025 Flash Fix Reparaciones S.L. | Aviso Legal | Política de Privacidad
+            </div>
+        </div>
+    </footer>
+
+    <!-- STICKY MOBILE BAR (Solo visible en movil) -->
+    <div class="mobile-sticky-bar">
+        <a href="https://wa.me/123456789" class="btn-whatsapp">
+            <i class="fa-brands fa-whatsapp me-2 fs-4"></i> WhatsApp
+        </a>
+        <a href="tel:900123123" class="btn-call-sticky">
+            <i class="fa-solid fa-phone me-2 fs-4"></i> Llamar
+        </a>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // No usé AOS en el código para no sobrecargarlo, pero está linkeado si quieres activarlo.
+        // Aquí uso Animate.css que es más directo para landing pages de urgencia.
+    </script>
+</body>
+</html>

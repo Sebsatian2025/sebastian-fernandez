@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiny Care | Pediatría y Odontopediatría</title>
+
+    <!-- 1. BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 2. GOOGLE FONTS (Nunito: Redondeada y Amigable) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4ECDC4; /* Turquesa */
+            --secondary: #FF6B6B; /* Coral */
+            --accent: #FFE66D; /* Amarillo */
+            --dark: #2F2F2F;
+            --light-bg: #F7FFF7;
+            --font-head: 'Fredoka', sans-serif;
+            --font-body: 'Nunito', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--dark);
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, .navbar-brand {
+            font-family: var(--font-head);
+        }
+
+        /* BOTONES JUGUETONES */
+        .btn-fun {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 0 #D44646; /* Efecto 3D */
+            transition: all 0.2s;
+        }
+        .btn-fun:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #D44646;
+            color: white;
+        }
+        .btn-fun-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        .btn-fun-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        .nav-link {
+            color: var(--dark) !important;
+            font-weight: 700;
+            margin: 0 10px;
+            font-size: 1.1rem;
+        }
+        .nav-link:hover { color: var(--primary) !important; }
+
+        /* HERO SHAPES */
+        .hero-section {
+            padding: 80px 0 150px;
+            position: relative;
+        }
+        .blob-shape {
+            position: absolute;
+            z-index: -1;
+        }
+        
+        /* CARDS */
+        .service-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        .icon-bubble {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        /* WAVE DIVIDERS */
+        .wave-top {
+            position: absolute;
+            top: 0; left: 0; width: 100%; overflow: hidden; line-height: 0;
+            transform: rotate(180deg);
+        }
+        .wave-bottom {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; overflow: hidden; line-height: 0;
+        }
+        .wave-svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 150px;
+        }
+        .shape-fill { fill: var(--light-bg); }
+
+        /* DOCTORS */
+        .doc-img-wrapper {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 5px solid var(--accent);
+        }
+        .doc-img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* FORM */
+        .form-control-fun {
+            background-color: #f0f8ff;
+            border: 2px solid #e0efff;
+            border-radius: 15px;
+            padding: 15px;
+            font-weight: 600;
+        }
+        .form-control-fun:focus {
+            background-color: white;
+            border-color: var(--primary);
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="fa-solid fa-hippo fs-2" style="color: var(--primary);"></i>
+                <span style="color: var(--secondary); font-weight: 600;">Tiny</span><span style="color: var(--primary); font-weight: 600;">Care</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars text-primary fs-3"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">La Clínica</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#equipo">El Equipo</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="#contacto" class="btn-fun">
+                            <i class="fa-solid fa-calendar-check me-2"></i>Pedir Cita
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero-section d-flex align-items-center">
+        <!-- Blobs Decorativos -->
+        <svg class="blob-shape" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="top: -50px; left: -50px; width: 400px; fill: #FFE66D; opacity: 0.3;">
+            <path d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-5.3C93.5,8.6,82.2,21.5,71.1,33.1C60,44.7,49.1,54.9,37.1,62.5C25.1,70.1,12,75,-0.6,76C-13.2,77.1,-25.9,74.2,-37.2,67.3C-48.5,60.4,-58.4,49.5,-66.4,37.1C-74.4,24.7,-80.5,10.8,-79.8,-2.7C-79.1,-16.2,-71.6,-29.3,-62.1,-40.3C-52.6,-51.3,-41.1,-60.2,-28.9,-68.3C-16.7,-76.4,-3.8,-83.7,6.8,-95.5L44.7,-76.4Z" transform="translate(100 100)" />
+        </svg>
+
+        <div class="container mt-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="d-inline-block py-1 px-3 rounded-pill bg-white text-primary border border-primary fw-bold mb-3 small">
+                        🌟 ¡Adiós al miedo al doctor!
+                    </span>
+                    <h1 class="display-3 fw-bold mb-4" style="color: var(--dark);">
+                        Cuidamos la sonrisa de tus <span style="color: var(--secondary);">pequeños</span> héroes
+                    </h1>
+                    <p class="lead mb-5" style="color: #666; font-weight: 600;">
+                        Una clínica diseñada para niños. Pediatría y Odontología con juegos, magia y cero lágrimas. Porque su salud puede ser divertida.
+                    </p>
+                    <div class="d-flex gap-3 flex-column flex-sm-row">
+                        <a href="#contacto" class="btn-fun text-center">Agendar Visita</a>
+                        <a href="#servicios" class="btn-fun-outline text-center">Ver Especialidades</a>
+                    </div>
+                    
+                    <div class="mt-5 d-flex align-items-center gap-3">
+                        <div class="d-flex">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                        </div>
+                        <span class="fw-bold small text-muted">500+ Papás felices</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 position-relative mt-5 mt-lg-0" data-aos="zoom-in">
+                    <!-- Imagen Principal (Pexels) -->
+                    <div style="position: relative;">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1.2); z-index: -1; fill: #4ECDC4;">
+                            <path d="M42.7,-72.2C54.6,-66.7,63.1,-53.4,70.9,-40.4C78.7,-27.4,85.8,-14.7,83.9,-2.8C82,9.1,71.1,20.2,61.7,30.3C52.3,40.4,44.4,49.5,34.8,55.9C25.2,62.3,13.9,66,1.4,63.6C-11.1,61.2,-24.8,52.7,-37.2,44.2C-49.6,35.7,-60.7,27.2,-67.2,15.7C-73.7,4.2,-75.6,-10.3,-70.7,-22.8C-65.8,-35.3,-54.1,-45.8,-42.1,-51.3C-30.1,-56.8,-17.8,-57.3,-4.2,-50.1L42.7,-72.2Z" transform="translate(100 100)" />
+                        </svg>
+                        <img src="https://images.pexels.com/photos/4546132/pexels-photo-4546132.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                             class="img-fluid rounded-circle border border-5 border-white shadow-lg" 
+                             alt="Doctora jugando con niño">
+                        
+                        <!-- Floating Card -->
+                        <div class="position-absolute bottom-0 start-0 bg-white p-3 rounded-4 shadow-lg animate__animated animate__bounceIn" style="max-width: 180px;">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="bg-warning rounded-circle p-2 text-white"><i class="fa-solid fa-gift"></i></div>
+                                <div>
+                                    <small class="d-block fw-bold lh-1">Regalo Sorpresa</small>
+                                    <small class="text-muted" style="font-size: 0.7rem;">En cada visita</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-5 position-relative bg-white">
+        <div class="wave-top">
+            <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+
+        <div class="container py-5 mt-5">
+            <div class="text-center mb-5">
+                <span class="text-primary fw-bold text-uppercase ls-2">¿Qué hacemos?</span>
+                <h2 class="display-5 fw-bold mt-2" style="color: var(--dark);">Especialidades Mágicas</h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="icon-bubble" style="background-color: var(--primary);">
+                            <i class="fa-solid fa-stethoscope"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Pediatría General</h4>
+                        <p class="text-muted">Revisiones de niño sano, vacunas y control de crecimiento. Todo explicado con títeres.</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="icon-bubble" style="background-color: var(--secondary);">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Odontopediatría</h4>
+                        <p class="text-muted">El Ratoncito Pérez trabaja con nosotros. Prevención de caries y ortodoncia infantil.</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="icon-bubble" style="background-color: var(--accent);">
+                            <i class="fa-solid fa-apple-whole"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Nutrición Infantil</h4>
+                        <p class="text-muted">Aprendemos a comer sano jugando. Planes personalizados para crecer fuertes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wave-bottom">
+            <svg class="wave-svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- EQUIPO -->
+    <section id="equipo" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Conoce a tus Súper Docs</h2>
+            </div>
+            
+            <div class="row justify-content-center g-4">
+                <!-- Doc 1 -->
+                <div class="col-md-6 col-lg-3 text-center" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="doc-img-wrapper">
+                        <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=800" class="doc-img" alt="Doctora">
+                    </div>
+                    <h5 class="fw-bold mb-1">Dra. Clara</h5>
+                    <span class="badge bg-primary rounded-pill mb-2">Pediatra</span>
+                    <p class="small text-muted">Experta en curar pupas y contar chistes malos.</p>
+                </div>
+                
+                <!-- Doc 2 -->
+                <div class="col-md-6 col-lg-3 text-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="doc-img-wrapper" style="border-color: var(--secondary);">
+                        <img src="https://images.pexels.com/photos/5327656/pexels-photo-5327656.jpeg?auto=compress&cs=tinysrgb&w=800" class="doc-img" alt="Doctor">
+                    </div>
+                    <h5 class="fw-bold mb-1">Dr. Pablo</h5>
+                    <span class="badge bg-secondary rounded-pill mb-2">Dentista</span>
+                    <p class="small text-muted">Cazador de caries y amigo del Ratoncito Pérez.</p>
+                </div>
+                
+                <!-- Doc 3 -->
+                <div class="col-md-6 col-lg-3 text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="doc-img-wrapper" style="border-color: var(--primary);">
+                        <img src="https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=800" class="doc-img" alt="Enfermera">
+                    </div>
+                    <h5 class="fw-bold mb-1">Enf. Sofía</h5>
+                    <span class="badge bg-primary rounded-pill mb-2">Vacunación</span>
+                    <p class="small text-muted">Tiene las manos más suaves y las tiritas más chulas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO (Fun Form) -->
+    <section id="contacto" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="bg-white p-5 rounded-5 shadow-lg border-bottom border-5 border-warning position-relative overflow-hidden">
+                        <!-- Decoración -->
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--accent); border-radius: 50%; opacity: 0.5;"></div>
+                        
+                        <div class="row">
+                            <div class="col-md-5 mb-4 mb-md-0">
+                                <h3 class="fw-bold mb-4">¡Ven a jugar! <br> (y a revisarte)</h3>
+                                <p class="text-muted mb-4">Déjanos tus datos y te llamaremos para encontrar el mejor hueco entre la merienda y el parque.</p>
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-light p-3 rounded-circle me-3 text-primary"><i class="fa-solid fa-phone"></i></div>
+                                    <div>
+                                        <small class="text-muted d-block fw-bold">Teléfono Mágico</small>
+                                        <span class="fw-bold">900 123 456</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light p-3 rounded-circle me-3 text-secondary"><i class="fa-solid fa-location-dot"></i></div>
+                                    <div>
+                                        <small class="text-muted d-block fw-bold">La Casita</small>
+                                        <span class="fw-bold">Calle Arcoíris 12, Madrid</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-7">
+                                <form>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control-fun" placeholder="Nombre de Mamá/Papá">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control-fun" placeholder="Nombre del Peque">
+                                        </div>
+                                        <div class="col-12">
+                                            <input type="tel" class="form-control-fun" placeholder="Teléfono de contacto">
+                                        </div>
+                                        <div class="col-12">
+                                            <select class="form-select form-control-fun">
+                                                <option selected disabled>¿Qué necesitamos?</option>
+                                                <option>Revisión General</option>
+                                                <option>Dentista (Caries/Ortodoncia)</option>
+                                                <option>Vacunación</option>
+                                                <option>Urgencia (Fiebre/Dolor)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 mt-4">
+                                            <button class="btn-fun w-100 py-3">¡Enviar Mensaje!</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pt-5 pb-3 mt-5 text-center" style="background-color: white;">
+        <div class="container">
+            <div class="mb-4">
+                <a href="#" class="text-decoration-none d-inline-flex align-items-center gap-2">
+                    <i class="fa-solid fa-hippo fs-3" style="color: var(--primary);"></i>
+                    <span class="fs-4 fw-bold text-dark">TinyCare</span>
+                </a>
+            </div>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="#" class="text-secondary fs-4"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-primary fs-4"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="text-warning fs-4"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+            <p class="small text-muted">© 2025 Tiny Care. Hecho con ❤️ y sin azúcar.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800
+        });
+    </script>
+</body>
+</html>

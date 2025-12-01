@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUSTITIA & PARTNERS | Abogados</title>
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Playfair Display (Autoridad) + Lora (Lectura académica) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lex-navy': '#0F172A',   /* Azul Marino Profundo */
+                        'lex-gold': '#C5A059',   /* Dorado Clásico */
+                        'lex-cream': '#F9F8F4',  /* Fondo Papel */
+                        'lex-text': '#334155',   /* Gris Texto */
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'body': ['Lora', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Detalles Clásicos */
+        .border-double-gold {
+            border: 4px double #C5A059;
+        }
+        .text-justify-classic {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    </style>
+</head>
+<body class="bg-lex-cream text-lex-text font-body antialiased selection:bg-lex-navy selection:text-lex-gold">
+
+    <!-- TOP BAR (Datos de Contacto) -->
+    <div class="bg-lex-navy text-gray-300 py-3 text-xs md:text-sm border-b border-lex-gold/30">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-2">
+            <div class="flex gap-6">
+                <span><i class="fa-solid fa-phone text-lex-gold mr-2"></i> +34 91 555 00 00</span>
+                <span class="hidden md:inline">|</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-envelope text-lex-gold mr-2"></i> contacto@justitia.com</span>
+            </div>
+            <div class="flex gap-4">
+                <span>Calle Velázquez 42, Madrid</span>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-24 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex flex-col leading-none group">
+                <span class="font-serif text-2xl md:text-3xl font-bold text-lex-navy tracking-wide uppercase border-b-2 border-lex-gold pb-1 mb-1">Justitia</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] text-lex-gold font-bold group-hover:text-lex-navy transition-colors">& Partners</span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-widest text-lex-navy">
+                <a href="#firma" class="hover:text-lex-gold transition-colors">La Firma</a>
+                <a href="#areas" class="hover:text-lex-gold transition-colors">Áreas</a>
+                <a href="#equipo" class="hover:text-lex-gold transition-colors">Abogados</a>
+                <a href="#contacto" class="hover:text-lex-gold transition-colors">Contacto</a>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="#contacto" class="hidden md:block bg-lex-navy text-white px-6 py-3 text-xs font-bold uppercase tracking-widest hover:bg-lex-gold transition-colors border border-lex-navy hover:border-lex-gold">
+                Consulta Inicial
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl text-lex-navy"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-[600px] md:h-[80vh] flex items-center justify-center bg-lex-navy overflow-hidden">
+        <!-- Background Image (Pexels: Architecture/Columns) -->
+        <div class="absolute inset-0 opacity-40">
+            <img src="https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg?auto=compress&cs=tinysrgb&w=1920" class="w-full h-full object-cover" alt="Columnas Corte">
+        </div>
+        
+        <!-- Overlay Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-lex-navy via-transparent to-lex-navy/80"></div>
+
+        <div class="relative z-10 text-center max-w-3xl px-6">
+            <div class="w-16 h-1 bg-lex-gold mx-auto mb-8"></div>
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl text-white mb-6 leading-tight">
+                Defendiendo su legado, <br> <span class="italic text-lex-gold">protegiendo su futuro.</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl mb-10 font-light max-w-xl mx-auto">
+                Más de 40 años de excelencia en derecho corporativo, civil y penal. Resultados probados, discreción garantizada.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#areas" class="bg-transparent border border-lex-gold text-lex-gold px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-lex-gold hover:text-white transition-all">
+                    Nuestras Áreas
+                </a>
+                <a href="#contacto" class="bg-white text-lex-navy px-8 py-3 text-sm font-bold uppercase tracking-widest hover:bg-gray-200 transition-all">
+                    Contactar
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- LA FIRMA (About) -->
+    <section id="firma" class="py-20 md:py-32 bg-white">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <!-- Texto -->
+            <div class="order-2 md:order-1">
+                <span class="text-lex-gold font-bold uppercase tracking-widest text-xs mb-2 block">Sobre Nosotros</span>
+                <h2 class="font-serif text-4xl text-lex-navy mb-6">Excelencia jurídica desde 1985</h2>
+                <div class="w-12 h-1 bg-lex-navy mb-6"></div>
+                <p class="mb-6 leading-relaxed text-justify-classic">
+                    Fundado bajo los principios de integridad, rigor y excelencia, <strong>Justitia & Partners</strong> se ha consolidado como un referente en el panorama legal nacional. Entendemos que detrás de cada caso hay una persona, una familia o una empresa que confía en nosotros.
+                </p>
+                <p class="mb-8 leading-relaxed text-justify-classic">
+                    Nuestro enfoque combina la tradición del derecho clásico con estrategias legales modernas para ofrecer soluciones efectivas en un mundo complejo.
+                </p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Signature_sample.svg" class="h-12 opacity-60" alt="Firma">
+                <p class="text-xs uppercase tracking-widest mt-2 font-bold">Roberto García - Socio Fundador</p>
+            </div>
+
+            <!-- Imagen -->
+            <div class="order-1 md:order-2 relative p-4">
+                <div class="absolute inset-0 border-double-gold translate-x-4 translate-y-4 z-0"></div>
+                <!-- Pexels: Meeting -->
+                <img src="https://images.pexels.com/photos/4427430/pexels-photo-4427430.jpeg?auto=compress&cs=tinysrgb&w=800" class="relative z-10 w-full shadow-xl filter grayscale hover:grayscale-0 transition-all duration-700" alt="Reunión Abogados">
+            </div>
+        </div>
+    </section>
+
+    <!-- ÁREAS DE PRÁCTICA -->
+    <section id="areas" class="py-20 bg-lex-cream border-t border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-4xl text-lex-navy mb-4">Áreas de Práctica</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Especialización y profundidad en las ramas más complejas del derecho.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-10 border border-gray-200 hover:border-lex-gold transition-colors group cursor-pointer shadow-sm hover:shadow-lg">
+                    <i class="fa-solid fa-scale-balanced text-4xl text-lex-navy mb-6 group-hover:text-lex-gold transition-colors"></i>
+                    <h3 class="font-serif text-xl font-bold mb-4 text-lex-navy">Derecho Penal</h3>
+                    <p class="text-sm leading-relaxed mb-6">Defensa experta en delitos económicos, societarios y contra la administración pública.</p>
+                    <a href="#" class="text-xs font-bold uppercase tracking-widest text-lex-gold border-b border-lex-gold pb-1">Leer más</a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-10 border border-gray-200 hover:border-lex-gold transition-colors group cursor-pointer shadow-sm hover:shadow-lg transform md:-translate-y-4">
+                    <i class="fa-solid fa-building text-4xl text-lex-navy mb-6 group-hover:text-lex-gold transition-colors"></i>
+                    <h3 class="font-serif text-xl font-bold mb-4 text-lex-navy">Derecho Mercantil</h3>
+                    <p class="text-sm leading-relaxed mb-6">Fusiones, adquisiciones, reestructuraciones y asesoramiento a consejos de administración.</p>
+                    <a href="#" class="text-xs font-bold uppercase tracking-widest text-lex-gold border-b border-lex-gold pb-1">Leer más</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-10 border border-gray-200 hover:border-lex-gold transition-colors group cursor-pointer shadow-sm hover:shadow-lg">
+                    <i class="fa-solid fa-users text-4xl text-lex-navy mb-6 group-hover:text-lex-gold transition-colors"></i>
+                    <h3 class="font-serif text-xl font-bold mb-4 text-lex-navy">Derecho de Familia</h3>
+                    <p class="text-sm leading-relaxed mb-6">Gestión patrimonial, herencias, sucesiones y divorcios de alto perfil con total discreción.</p>
+                    <a href="#" class="text-xs font-bold uppercase tracking-widest text-lex-gold border-b border-lex-gold pb-1">Leer más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+    <section class="bg-lex-navy text-white py-16">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+            <div>
+                <div class="font-serif text-4xl text-lex-gold mb-2">35+</div>
+                <div class="text-xs uppercase tracking-widest">Años de Historia</div>
+            </div>
+            <div>
+                <div class="font-serif text-4xl text-lex-gold mb-2">98%</div>
+                <div class="text-xs uppercase tracking-widest">Casos Exitosos</div>
+            </div>
+            <div>
+                <div class="font-serif text-4xl text-lex-gold mb-2">50M€</div>
+                <div class="text-xs uppercase tracking-widest">Recuperados</div>
+            </div>
+            <div>
+                <div class="font-serif text-4xl text-lex-gold mb-2">24</div>
+                <div class="text-xs uppercase tracking-widest">Abogados Senior</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EQUIPO -->
+    <section id="equipo" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="text-lex-gold font-bold uppercase tracking-widest text-xs mb-2 block">Profesionales</span>
+                    <h2 class="font-serif text-4xl text-lex-navy">Socios Directores</h2>
+                </div>
+                <a href="#" class="hidden md:block text-lex-navy font-bold uppercase text-xs tracking-widest hover:text-lex-gold transition-colors mt-4 md:mt-0">Ver equipo completo &rarr;</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Partner 1 -->
+                <div class="group">
+                    <div class="h-[400px] bg-gray-200 mb-6 overflow-hidden relative">
+                        <!-- Pexels: Mature man suit -->
+                        <img src="https://images.pexels.com/photos/3778603/pexels-photo-3778603.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Abogado">
+                        <div class="absolute bottom-0 left-0 w-full bg-lex-navy/90 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <p class="text-lex-gold text-xs uppercase tracking-widest mb-1">Especialidad</p>
+                            <p class="text-white text-sm">Derecho Corporativo y Fusiones</p>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-2xl text-lex-navy">Roberto García</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-500 mt-1">Socio Fundador</p>
+                </div>
+
+                <!-- Partner 2 -->
+                <div class="group">
+                    <div class="h-[400px] bg-gray-200 mb-6 overflow-hidden relative">
+                        <!-- Pexels: Woman suit -->
+                        <img src="https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Abogada">
+                        <div class="absolute bottom-0 left-0 w-full bg-lex-navy/90 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <p class="text-lex-gold text-xs uppercase tracking-widest mb-1">Especialidad</p>
+                            <p class="text-white text-sm">Derecho Penal y Litigios</p>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-2xl text-lex-navy">Elena Valdés</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-500 mt-1">Socia Senior</p>
+                </div>
+
+                <!-- Partner 3 -->
+                <div class="group">
+                    <div class="h-[400px] bg-gray-200 mb-6 overflow-hidden relative">
+                        <!-- Pexels: Man glasses suit -->
+                        <img src="https://images.pexels.com/photos/3778876/pexels-photo-3778876.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Abogado">
+                        <div class="absolute bottom-0 left-0 w-full bg-lex-navy/90 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                            <p class="text-lex-gold text-xs uppercase tracking-widest mb-1">Especialidad</p>
+                            <p class="text-white text-sm">Fiscalidad Internacional</p>
+                        </div>
+                    </div>
+                    <h3 class="font-serif text-2xl text-lex-navy">Carlos Méndez</h3>
+                    <p class="text-xs uppercase tracking-widest text-gray-500 mt-1">Socio Director</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-20 bg-lex-cream relative">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="bg-white shadow-2xl p-8 md:p-12 border-t-4 border-lex-navy">
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-3xl md:text-4xl text-lex-navy mb-4">Solicite una Consulta</h2>
+                    <p class="text-gray-500">Evaluaremos su caso con la máxima confidencialidad. Primera respuesta en menos de 24 horas.</p>
+                </div>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-lex-navy mb-2">Nombre Completo</label>
+                            <input type="text" class="w-full bg-gray-50 border border-gray-300 p-3 focus:border-lex-navy focus:outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-lex-navy mb-2">Teléfono</label>
+                            <input type="tel" class="w-full bg-gray-50 border border-gray-300 p-3 focus:border-lex-navy focus:outline-none transition-colors">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-lex-navy mb-2">Correo Electrónico</label>
+                        <input type="email" class="w-full bg-gray-50 border border-gray-300 p-3 focus:border-lex-navy focus:outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-lex-navy mb-2">Asunto Legal</label>
+                        <select class="w-full bg-gray-50 border border-gray-300 p-3 focus:border-lex-navy focus:outline-none transition-colors">
+                            <option>Seleccione un área...</option>
+                            <option>Derecho Penal</option>
+                            <option>Derecho Mercantil</option>
+                            <option>Derecho Civil / Familia</option>
+                            <option>Herencias</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-lex-navy mb-2">Detalles del Caso</label>
+                        <textarea rows="4" class="w-full bg-gray-50 border border-gray-300 p-3 focus:border-lex-navy focus:outline-none transition-colors"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="bg-lex-navy text-white px-10 py-4 text-sm font-bold uppercase tracking-widest hover:bg-lex-gold transition-colors w-full md:w-auto">
+                            Enviar Consulta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Decoration BG -->
+        <div class="absolute bottom-0 left-0 w-full h-1/2 bg-lex-navy z-0"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-lex-navy text-white pt-16 pb-8 border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="font-serif text-2xl font-bold uppercase block mb-6">Justitia <span class="text-lex-gold">& Partners</span></a>
+                <p class="text-gray-400 text-sm max-w-sm leading-relaxed mb-6">
+                    Firma legal comprometida con la defensa de los intereses de nuestros clientes a través de la excelencia técnica y la ética profesional.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-lex-gold hover:border-lex-gold transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="w-10 h-10 border border-white/20 flex items-center justify-center hover:bg-lex-gold hover:border-lex-gold transition-all"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold uppercase tracking-widest text-xs mb-6 text-lex-gold">Madrid</h4>
+                <p class="text-gray-400 text-sm mb-2">Calle Velázquez 42, 3º Izq.</p>
+                <p class="text-gray-400 text-sm mb-2">28001 Madrid, España</p>
+                <p class="text-gray-400 text-sm">+34 91 555 00 00</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold uppercase tracking-widest text-xs mb-6 text-lex-gold">Barcelona</h4>
+                <p class="text-gray-400 text-sm mb-2">Passeig de Gràcia 105</p>
+                <p class="text-gray-400 text-sm mb-2">08008 Barcelona, España</p>
+                <p class="text-gray-400 text-sm">+34 93 444 00 00</p>
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-6 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 uppercase tracking-wider">
+            <p>© 2025 Justitia & Partners. Todos los derechos reservados.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
+                <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+                <a href="#" class="hover:text-white transition-colors">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

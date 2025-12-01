@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMASH DISTRICT | The Real Burger</title>
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Anton (Impacto) + Poppins (Lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-orange': '#FF4D00', /* Naranja Eléctrico */
+                        'brand-yellow': '#FFD600', /* Amarillo Queso */
+                        'brand-dark': '#111111',
+                        'brand-gray': '#F4F4F4',
+                    },
+                    fontFamily: {
+                        'display': ['Anton', 'sans-serif'],
+                        'body': ['Poppins', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'pattern': "url('https://www.transparenttextures.com/patterns/diagmonds-light.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones personalizadas */
+        .hover-bounce:hover { animation: bounce-slight 0.5s infinite alternate; }
+        @keyframes bounce-slight { from { transform: translateY(0); } to { transform: translateY(-5px); } }
+        
+        .text-stroke {
+            -webkit-text-stroke: 2px black;
+            color: transparent;
+        }
+        
+        .blob-bg {
+            position: absolute;
+            z-index: 0;
+            filter: blur(50px);
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="font-body bg-brand-gray text-brand-dark overflow-x-hidden selection:bg-brand-orange selection:text-white">
+
+    <!-- NAVBAR STICKY -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b-4 border-brand-dark shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-burger text-4xl text-brand-orange animate-bounce"></i>
+                    <span class="font-display text-3xl uppercase tracking-wider">Smash<span class="text-brand-orange">District</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center font-bold uppercase text-sm tracking-wide">
+                    <a href="#menu" class="hover:text-brand-orange transition-colors">Burgers</a>
+                    <a href="#sides" class="hover:text-brand-orange transition-colors">Sides</a>
+                    <a href="#locations" class="hover:text-brand-orange transition-colors">Locales</a>
+                    <a href="#" class="bg-brand-dark text-white px-6 py-3 rounded-full hover:bg-brand-orange transition-all transform hover:scale-105 shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-motorcycle"></i> Pedir Ya
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button class="md:hidden text-3xl text-brand-dark"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-16 lg:pt-48 lg:pb-32 overflow-hidden bg-brand-yellow">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/checkered-pattern.png');"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Texto -->
+                <div class="text-center lg:text-left">
+                    <span class="bg-brand-dark text-white font-bold px-4 py-1 rounded-full text-sm uppercase mb-4 inline-block transform -rotate-2">
+                        🔥 Votada Mejor Burger 2024
+                    </span>
+                    <h1 class="font-display text-7xl lg:text-9xl uppercase leading-[0.9] mb-6 drop-shadow-sm">
+                        Real <br>
+                        <span class="text-white text-stroke drop-shadow-none">Smash</span> <br>
+                        Taste
+                    </h1>
+                    <p class="font-body text-lg lg:text-xl font-medium mb-8 max-w-lg mx-auto lg:mx-0">
+                        Carne 100% Angus, aplastada en la plancha para conseguir ese borde crujiente perfecto. Sin tonterías.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="bg-brand-orange text-white font-display text-2xl uppercase px-10 py-4 rounded-xl border-4 border-brand-dark hover:bg-white hover:text-brand-dark transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
+                            Ver Menú
+                        </button>
+                        <button class="bg-white text-brand-dark font-display text-2xl uppercase px-10 py-4 rounded-xl border-4 border-brand-dark hover:bg-brand-dark hover:text-white transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px]">
+                            Promos
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Imagen Hero (Pexels) -->
+                <div class="relative">
+                    <!-- Blob naranja decorativo -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white rounded-full blur-3xl opacity-50 z-0"></div>
+                    
+                    <img src="https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                         alt="Giant Smash Burger" 
+                         class="relative z-10 w-full hover-bounce transform rotate-3 hover:rotate-6 transition-all duration-500 drop-shadow-2xl">
+                    
+                    <!-- Floating Price Tag -->
+                    <div class="absolute -bottom-10 right-10 z-20 bg-brand-orange text-white p-6 rounded-full border-4 border-brand-dark shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] animate-bounce hidden md:block">
+                        <span class="block font-display text-xl uppercase">Desde</span>
+                        <span class="block font-display text-4xl">8.90€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPS (CÓMO FUNCIONA) -->
+    <section class="py-16 bg-white border-b-4 border-brand-dark">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6">
+                    <div class="w-20 h-20 bg-brand-gray rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-brand-dark">
+                        <i class="fa-solid fa-mobile-screen text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl uppercase mb-2">1. Pides</h3>
+                    <p class="text-gray-600 font-medium">Desde la web o en el local. Sin esperas.</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-20 h-20 bg-brand-orange text-white rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-brand-dark">
+                        <i class="fa-solid fa-fire-burner text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl uppercase mb-2">2. Smasheamos</h3>
+                    <p class="text-gray-600 font-medium">Carne fresca a 200°C. Maillard reaction baby.</p>
+                </div>
+                <div class="p-6">
+                    <div class="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-brand-dark">
+                        <i class="fa-solid fa-face-grin-tongue-squint text-3xl"></i>
+                    </div>
+                    <h3 class="font-display text-2xl uppercase mb-2">3. Devoras</h3>
+                    <p class="text-gray-600 font-medium">Prepárate para mancharte las manos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU GRID -->
+    <section id="menu" class="py-20 bg-brand-gray">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-6xl uppercase mb-4">The <span class="text-brand-orange">Burgers</span></h2>
+                <p class="font-bold text-gray-500 uppercase tracking-widest">Warning: Highly Addictive Content</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden border-4 border-brand-dark shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-5px] transition-transform">
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-brand-yellow text-brand-dark font-bold px-3 py-1 rounded-md border-2 border-brand-dark text-xs uppercase">
+                            Best Seller
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-3xl uppercase">Classic Smash</h3>
+                            <span class="font-display text-2xl text-brand-orange">9.50€</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-6 font-medium">Doble carne 180g, queso cheddar americano x2, cebolla picada, pepinillos y salsa secreta.</p>
+                        <button class="w-full bg-brand-dark text-white font-bold py-3 rounded-xl uppercase tracking-wider hover:bg-brand-orange transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden border-4 border-brand-dark shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-5px] transition-transform">
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-3xl uppercase">Bacon Beast</h3>
+                            <span class="font-display text-2xl text-brand-orange">11.00€</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-6 font-medium">Doble carne, cuádruple bacon crujiente, salsa BBQ ahumada y cebolla caramelizada.</p>
+                        <button class="w-full bg-brand-dark text-white font-bold py-3 rounded-xl uppercase tracking-wider hover:bg-brand-orange transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden border-4 border-brand-dark shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-5px] transition-transform">
+                    <div class="h-64 overflow-hidden relative group">
+                        <img src="https://images.pexels.com/photos/2282532/pexels-photo-2282532.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-green-400 text-brand-dark font-bold px-3 py-1 rounded-md border-2 border-brand-dark text-xs uppercase">
+                            Veggie
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-3xl uppercase">Green Smash</h3>
+                            <span class="font-display text-2xl text-brand-orange">10.50€</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-6 font-medium">Burger Beyond Meat, queso vegano fundido, lechuga, tomate y mayonesa vegetal.</p>
+                        <button class="w-full bg-brand-dark text-white font-bold py-3 rounded-xl uppercase tracking-wider hover:bg-brand-orange transition-colors flex justify-center items-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border-b-4 border-brand-dark text-xl font-bold uppercase hover:text-brand-orange transition-colors">Ver Menú Completo (Fries & Shakes)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMO BANNER -->
+    <section class="py-20 bg-brand-orange relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/diagmonds-light.png');"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div class="text-white text-center md:text-left">
+                <h2 class="font-display text-6xl md:text-8xl uppercase leading-none mb-4">Martes <br> 2x1</h2>
+                <p class="font-bold text-2xl mb-8">En todas las Classic Smash. Solo para llevar.</p>
+                <div class="bg-white text-brand-dark font-mono font-bold text-xl px-6 py-3 inline-block transform -rotate-2 border-2 border-black">
+                    CÓDIGO: TUESDAYSMASH
+                </div>
+            </div>
+            <!-- Pexels: Fries -->
+            <img src="https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-64 md:w-96 rounded-full border-8 border-white shadow-2xl animate-pulse">
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left">
+            <div class="col-span-1 md:col-span-2">
+                <span class="font-display text-4xl uppercase tracking-wider">Smash<span class="text-brand-orange">District</span></span>
+                <p class="mt-4 text-gray-400 max-w-sm mx-auto md:mx-0">
+                    Hacemos burgers reales para gente real. Sin congelados. Sin microondas. Solo fuego y pasión.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-display text-2xl uppercase mb-6 text-brand-yellow">Locations</h4>
+                <ul class="space-y-3 font-bold text-gray-300">
+                    <li>📍 Madrid Centro</li>
+                    <li>📍 Barcelona Gracia</li>
+                    <li>📍 Valencia Ruzafa</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-display text-2xl uppercase mb-6 text-brand-yellow">Social</h4>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="#" class="w-12 h-12 bg-white text-brand-dark rounded-full flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all text-xl"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-12 h-12 bg-white text-brand-dark rounded-full flex items-center justify-center hover:bg-brand-orange hover:text-white transition-all text-xl"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-16 pt-8 border-t border-gray-800 text-gray-500 font-bold text-sm">
+            © 2025 SMASH DISTRICT BURGERS. STAY HUNGRY.
+        </div>
+    </footer>
+
+</body>
+</html>

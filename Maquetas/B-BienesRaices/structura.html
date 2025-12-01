@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STRUCTURA | Real Estate Development</title>
+
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Space Grotesk (Títulos Técnicos) + IBM Plex Mono (Datos) -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'struct-black': '#121212',
+                        'struct-yellow': '#EDF228', /* Amarillo ácido/técnico */
+                        'struct-gray': '#F4F4F4',
+                    },
+                    fontFamily: {
+                        'sans': ['Space Grotesk', 'sans-serif'],
+                        'mono': ['IBM Plex Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* GRID LINES BACKGROUND */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        }
+        
+        /* HOVER REVEAL EFFECT */
+        .reveal-image {
+            clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+            transition: clip-path 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .reveal-image {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        /* MARQUEE ANIMATION */
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 20s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
+</head>
+<body class="bg-white text-struct-black font-sans selection:bg-struct-yellow selection:text-black">
+
+    <!-- LINES DECORATIVAS FIXED -->
+    <div class="fixed inset-0 pointer-events-none z-0 flex justify-between px-4 md:px-12 w-full h-full">
+        <div class="w-px h-full bg-black/5"></div>
+        <div class="w-px h-full bg-black/5 hidden md:block"></div>
+        <div class="w-px h-full bg-black/5 hidden md:block"></div>
+        <div class="w-px h-full bg-black/5"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-black">
+        <div class="px-6 md:px-12 h-20 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tighter uppercase flex items-center gap-2">
+                <div class="w-4 h-4 bg-struct-black"></div>
+                Structura<span class="text-xs align-top font-mono mt-1 opacity-50">DEV</span>
+            </a>
+            
+            <div class="hidden md:flex gap-8 font-mono text-sm uppercase tracking-wide">
+                <a href="#proyectos" class="hover:bg-struct-yellow px-2 transition-colors">Proyectos</a>
+                <a href="#filosofia" class="hover:bg-struct-yellow px-2 transition-colors">Estudio</a>
+                <a href="#contacto" class="hover:bg-struct-yellow px-2 transition-colors">Contacto</a>
+            </div>
+
+            <button class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 px-6 md:px-12 min-h-screen flex flex-col justify-center bg-grid z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            <!-- Texto Principal -->
+            <div class="lg:col-span-8">
+                <div class="font-mono text-sm mb-4 flex items-center gap-3">
+                    <span class="w-2 h-2 rounded-full bg-struct-yellow animate-pulse"></span>
+                    <span>DISPONIBLE: FASE 3</span>
+                    <span class="text-gray-400">///</span>
+                    <span>MADRID - BCN</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold leading-[0.9] tracking-tighter uppercase mb-8">
+                    Living <br>
+                    <span class="outline-text text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-500" style="-webkit-text-stroke: 2px black;">Structure</span>
+                </h1>
+            </div>
+            
+            <!-- Bloque Lateral -->
+            <div class="lg:col-span-4 flex flex-col justify-end pb-4">
+                <p class="font-mono text-sm leading-relaxed text-gray-600 mb-8 border-l-2 border-struct-yellow pl-4">
+                    Redefiniendo el paisaje urbano a través de espacios residenciales honestos. Materiales crudos, luz natural y geometría pura.
+                </p>
+                <a href="#proyectos" class="group flex items-center justify-between border border-black p-4 hover:bg-black hover:text-white transition-colors">
+                    <span class="font-bold uppercase tracking-wider">Ver Unidades</span>
+                    <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform duration-300"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Imagen Hero (PEXELS Arquitectura) -->
+        <div class="mt-12 w-full h-[50vh] overflow-hidden relative group cursor-crosshair">
+            <img src="https://images.pexels.com/photos/302769/pexels-photo-302769.jpeg?auto=compress&cs=tinysrgb&w=1920" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter grayscale group-hover:grayscale-0" alt="Edificio Brutalista">
+            
+            <div class="absolute bottom-0 right-0 bg-struct-yellow p-4 md:p-8 font-mono text-xs md:text-sm">
+                <div class="block font-bold">PROYECTO: VOID_01</div>
+                <div class="block">COORDS: 40.4168° N, 3.7038° W</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE INFINITO -->
+    <div class="py-6 border-y border-black bg-struct-black text-white overflow-hidden marquee-container z-20 relative">
+        <div class="marquee-content font-mono text-lg md:text-xl uppercase tracking-widest">
+            Architecture / Development / Interior Design / Urban Planning / Sustainable Living / Concrete Aesthetics / Architecture / Development / Interior Design / Urban Planning / Sustainable Living / Concrete Aesthetics /
+        </div>
+    </div>
+
+    <!-- PROYECTOS (LISTA TÉCNICA) -->
+    <section id="proyectos" class="py-20 px-6 md:px-12 bg-white relative z-10">
+        <div class="flex justify-between items-end mb-16">
+            <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-tighter">Proyectos <span class="text-gray-300">Seleccionados</span></h2>
+            <div class="hidden md:block font-mono text-right">
+                <div class="text-xs text-gray-400">ESTADO</div>
+                <div>EN VENTA / ALQUILER</div>
+            </div>
+        </div>
+
+        <!-- Lista de Proyectos -->
+        <div class="flex flex-col border-t border-black">
+            
+            <!-- Item 1 -->
+            <div class="group border-b border-black relative">
+                <a href="#" class="block py-12 flex flex-col md:flex-row md:items-center justify-between hover:px-4 transition-all duration-300">
+                    <div class="flex items-baseline gap-6 z-10">
+                        <span class="font-mono text-sm text-gray-400">01</span>
+                        <h3 class="text-3xl md:text-5xl font-bold uppercase">The Concrete Loft</h3>
+                    </div>
+                    <div class="flex items-center gap-12 mt-4 md:mt-0 z-10 font-mono text-sm">
+                        <span class="hidden md:block">BARCELONA, POBLENOU</span>
+                        <span class="bg-black text-white px-2 py-1">ÚLTIMA UNIDAD</span>
+                    </div>
+                </a>
+                <!-- Imagen al hover (flotante) -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 shadow-2xl rotate-3">
+                    <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover border-2 border-struct-yellow">
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="group border-b border-black relative">
+                <a href="#" class="block py-12 flex flex-col md:flex-row md:items-center justify-between hover:px-4 transition-all duration-300">
+                    <div class="flex items-baseline gap-6 z-10">
+                        <span class="font-mono text-sm text-gray-400">02</span>
+                        <h3 class="text-3xl md:text-5xl font-bold uppercase">Glass House IV</h3>
+                    </div>
+                    <div class="flex items-center gap-12 mt-4 md:mt-0 z-10 font-mono text-sm">
+                        <span class="hidden md:block">MADRID, SIERRA</span>
+                        <span class="border border-black px-2 py-1">EN CONSTRUCCIÓN</span>
+                    </div>
+                </a>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 shadow-2xl -rotate-2">
+                    <img src="https://images.pexels.com/photos/276554/pexels-photo-276554.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover border-2 border-struct-yellow">
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="group border-b border-black relative">
+                <a href="#" class="block py-12 flex flex-col md:flex-row md:items-center justify-between hover:px-4 transition-all duration-300">
+                    <div class="flex items-baseline gap-6 z-10">
+                        <span class="font-mono text-sm text-gray-400">03</span>
+                        <h3 class="text-3xl md:text-5xl font-bold uppercase">Industrial Hub</h3>
+                    </div>
+                    <div class="flex items-center gap-12 mt-4 md:mt-0 z-10 font-mono text-sm">
+                        <span class="hidden md:block">VALENCIA, PUERTO</span>
+                        <span class="bg-struct-yellow text-black px-2 py-1">VENDIDO</span>
+                    </div>
+                </a>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[500px] h-[300px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 shadow-2xl rotate-1">
+                    <img src="https://images.pexels.com/photos/271649/pexels-photo-271649.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover border-2 border-struct-yellow">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ESTADÍSTICAS (GRID) -->
+    <section class="grid grid-cols-2 md:grid-cols-4 border-b border-black bg-struct-gray font-mono">
+        <div class="p-8 md:p-12 border-r border-b md:border-b-0 border-black hover:bg-struct-yellow transition-colors">
+            <div class="text-3xl md:text-4xl font-bold mb-2">240+</div>
+            <div class="text-xs uppercase">Unidades Entregadas</div>
+        </div>
+        <div class="p-8 md:p-12 border-r border-b md:border-b-0 border-black hover:bg-struct-yellow transition-colors">
+            <div class="text-3xl md:text-4xl font-bold mb-2">18</div>
+            <div class="text-xs uppercase">Premios Diseño</div>
+        </div>
+        <div class="p-8 md:p-12 border-r border-black hover:bg-struct-yellow transition-colors">
+            <div class="text-3xl md:text-4xl font-bold mb-2">100%</div>
+            <div class="text-xs uppercase">Sostenibilidad</div>
+        </div>
+        <div class="p-8 md:p-12 hover:bg-struct-yellow transition-colors">
+            <div class="text-3xl md:text-4xl font-bold mb-2">24/7</div>
+            <div class="text-xs uppercase">Facility Mgmt</div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-20 px-6 md:px-12 bg-struct-black text-white relative">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div>
+                <span class="font-mono text-struct-yellow mb-4 block">/// INICIAR CONVERSACIÓN</span>
+                <h2 class="text-5xl md:text-7xl font-bold uppercase tracking-tighter leading-none mb-8">
+                    ¿Tienes un <br> solar? <br>
+                    <span class="text-gray-600">Hablemos.</span>
+                </h2>
+                <div class="font-mono space-y-4 text-sm md:text-base">
+                    <p>Oficinas Centrales:</p>
+                    <p class="text-gray-400">Av. Diagonal 123, Planta 4<br>08018, Barcelona</p>
+                    <p class="text-struct-yellow hover:underline cursor-pointer">hello@structura.dev</p>
+                </div>
+            </div>
+
+            <div class="border border-white/20 p-8 bg-white/5 backdrop-blur-sm">
+                <form class="space-y-6">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="font-mono text-xs uppercase text-gray-400">Nombre</label>
+                            <input type="text" class="w-full bg-transparent border-b border-white/30 focus:border-struct-yellow outline-none py-2 transition-colors font-mono">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-mono text-xs uppercase text-gray-400">Empresa</label>
+                            <input type="text" class="w-full bg-transparent border-b border-white/30 focus:border-struct-yellow outline-none py-2 transition-colors font-mono">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-mono text-xs uppercase text-gray-400">Email</label>
+                        <input type="email" class="w-full bg-transparent border-b border-white/30 focus:border-struct-yellow outline-none py-2 transition-colors font-mono">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-mono text-xs uppercase text-gray-400">Interés</label>
+                        <select class="w-full bg-transparent border-b border-white/30 focus:border-struct-yellow outline-none py-2 transition-colors font-mono text-white">
+                            <option class="bg-black">Comprar Propiedad</option>
+                            <option class="bg-black">Vender Terreno</option>
+                            <option class="bg-black">Prensa / Medios</option>
+                        </select>
+                    </div>
+                    <button class="w-full bg-struct-yellow text-black font-bold uppercase py-4 mt-8 hover:bg-white transition-colors tracking-widest">
+                        Enviar Datos
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER MINIMAL -->
+    <footer class="py-8 px-6 md:px-12 bg-white flex flex-col md:flex-row justify-between items-center font-mono text-xs border-t border-black">
+        <div class="flex gap-4 mb-4 md:mb-0">
+            <a href="#" class="hover:bg-struct-yellow">INSTAGRAM</a>
+            <a href="#" class="hover:bg-struct-yellow">LINKEDIN</a>
+            <a href="#" class="hover:bg-struct-yellow">ARCHDAILY</a>
+        </div>
+        <div>
+            © 2025 STRUCTURA DEV. TODOS LOS DERECHOS RESERVADOS.
+        </div>
+    </footer>
+
+</body>
+</html>

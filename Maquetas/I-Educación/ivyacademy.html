@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVY ACADEMY | Excellence in Education</title>
+
+    <!-- 1. BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Merriweather (Académico) + Open Sans (Limpio) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --ivy-blue: #002147;    /* Azul Oxford */
+            --ivy-gold: #D4AF37;    /* Dorado Institucional */
+            --ivy-light: #F4F4F4;   /* Gris Piedra */
+            --font-serif: 'Merriweather', serif;
+            --font-sans: 'Open Sans', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: #333;
+            background-color: #fff;
+        }
+
+        h1, h2, h3, h4, h5, .navbar-brand {
+            font-family: var(--font-serif);
+            color: #ffffff;
+        }
+
+        .text-gold { color: var(--ivy-gold) !important; }
+        .bg-blue { background-color: var(--ivy-blue) !important; }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: var(--ivy-blue);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .top-bar a { color: rgba(255,255,255,0.8); text-decoration: none; transition: 0.3s; }
+        .top-bar a:hover { color: var(--ivy-gold); }
+
+        /* NAVBAR */
+        .navbar {
+            padding: 1rem 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .nav-link {
+            font-weight: 600;
+            color: var(--ivy-blue) !important;
+            margin: 0 10px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--ivy-gold) !important; }
+        .btn-apply {
+            background-color: var(--ivy-gold);
+            color: var(--ivy-blue);
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 10px 25px;
+            border-radius: 2px;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-apply:hover {
+            background-color: #b5952f;
+            color: white;
+        }
+
+        /* HERO SECTION - CONTRASTE MEJORADO */
+        .hero-section {
+            /* Degradado más oscuro (0.9 y 0.8 de opacidad) para asegurar legibilidad */
+            background: linear-gradient(rgba(0, 15, 35, 0.9), rgba(0, 33, 71, 0.8)), url('https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            /* Sombra de texto para separar del fondo */
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            opacity: 1; /* Aumentado a 1 para máxima claridad */
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* PROGRAM CARDS */
+        .program-card {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: 0.3s;
+            height: 100%;
+            background: white;
+        }
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: var(--ivy-gold);
+        }
+        .program-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        .program-body {
+            padding: 25px;
+        }
+        .program-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--ivy-blue);
+            color: var(--ivy-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-top: -50px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        /* STATS */
+        .stat-box {
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+        .stat-box:last-child { border-right: none; }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: var(--font-serif);
+            color: var(--ivy-gold);
+        }
+
+        /* TESTIMONIALS */
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--ivy-gold);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--ivy-blue);
+            color: rgba(255,255,255,0.7);
+            padding: 60px 0 20px;
+        }
+        .footer-title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: var(--font-serif);
+        }
+        .footer-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+        .footer-link:hover { color: var(--ivy-gold); padding-left: 5px; }
+        
+        /* Mobile fixes */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .stat-box { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; margin-bottom: 20px; }
+            .stat-box:last-child { border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <span class="me-3"><i class="fa-solid fa-phone me-1"></i> +34 91 123 45 67</span>
+                <span class="d-none d-md-inline"><i class="fa-solid fa-envelope me-1"></i> admisiones@ivyacademy.edu</span>
+            </div>
+            <div>
+                <a href="#" class="me-3">Alumnos</a>
+                <a href="#">Profesores</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="fa-solid fa-building-columns text-gold fs-2"></i>
+                <div class="d-flex flex-column">
+                    <span class="fw-bold lh-1 fs-4">IVY ACADEMY</span>
+                    <span class="fs-6 text-muted small fw-normal text-uppercase ls-1">Est. 1985</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">La Academia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#programas">Programas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#metodologia">Metodología</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#noticias">Noticias</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="#contacto" class="btn btn-apply">Admisiones Abiertas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero-section">
+        <div class="container" data-aos="fade-up">
+            <h1 class="hero-title">Formando a los Líderes <br> del Mañana</h1>
+            <p class="hero-subtitle">
+                Una educación integral basada en la excelencia académica, el pensamiento crítico y los valores humanistas. Tu futuro comienza aquí.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#programas" class="btn btn-apply btn-lg px-5">Explorar Cursos</a>
+                <a href="#nosotros" class="btn btn-outline-light btn-lg px-5" style="border-radius: 2px; font-weight: 600;">Conocer Más</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS -->
+    <section class="bg-blue text-white py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 stat-box">
+                    <div class="stat-number">35</div>
+                    <p class="text-uppercase ls-1 small mt-2">Años de Historia</p>
+                </div>
+                <div class="col-md-3 stat-box">
+                    <div class="stat-number">5k+</div>
+                    <p class="text-uppercase ls-1 small mt-2">Graduados</p>
+                </div>
+                <div class="col-md-3 stat-box">
+                    <div class="stat-number">98%</div>
+                    <p class="text-uppercase ls-1 small mt-2">Aprobados Selectividad</p>
+                </div>
+                <div class="col-md-3 stat-box">
+                    <div class="stat-number">1:15</div>
+                    <p class="text-uppercase ls-1 small mt-2">Ratio Profesor/Alumno</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BIENVENIDA -->
+    <section id="nosotros" class="py-5 my-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-fluid rounded shadow" alt="Biblioteca">
+                </div>
+                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
+                    <span class="text-gold fw-bold text-uppercase small ls-1">Mensaje del Director</span>
+                    <h2 class="display-6 fw-bold mb-4 mt-2">Bienvenidos a Ivy Academy</h2>
+                    <p class="text-secondary mb-4">
+                        Nuestra misión es proporcionar un entorno de aprendizaje estimulante donde cada estudiante pueda alcanzar su máximo potencial. Creemos que la educación no es solo llenar un cubo, sino encender un fuego.
+                    </p>
+                    <p class="text-secondary mb-4">
+                        Combinamos la tradición académica con las últimas tecnologías educativas para preparar a nuestros alumnos para los retos del siglo XXI.
+                    </p>
+                    <div class="border-start border-4 border-gold ps-4 fst-italic text-dark">
+                        "La educación es el arma más poderosa que puedes usar para cambiar el mundo."
+                    </div>
+                    <p class="mt-3 fw-bold small text-end">- Nelson Mandela</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMAS -->
+    <section id="programas" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Nuestra Oferta Educativa</h2>
+                <p class="text-secondary">Programas diseñados para cada etapa del desarrollo intelectual.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Program 1 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="program-card">
+                        <img src="https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?auto=compress&cs=tinysrgb&w=800" class="program-img" alt="Idiomas">
+                        <div class="program-body position-relative">
+                            <div class="program-icon"><i class="fa-solid fa-language"></i></div>
+                            <h4 class="mb-3">Escuela de Idiomas</h4>
+                            <p class="text-secondary small mb-4">Inglés, Francés y Alemán. Preparación para exámenes oficiales Cambridge y Delf. Profesores nativos.</p>
+                            <a href="#" class="text-decoration-none fw-bold text-gold text-uppercase small">Ver Niveles <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="program-card">
+                        <img src="https://images.pexels.com/photos/256417/pexels-photo-256417.jpeg?auto=compress&cs=tinysrgb&w=800" class="program-img" alt="Bachillerato">
+                        <div class="program-body position-relative">
+                            <div class="program-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <h4 class="mb-3">Bachillerato Internacional</h4>
+                            <p class="text-secondary small mb-4">Programa de diploma reconocido mundialmente. Enfoque en investigación y pensamiento crítico.</p>
+                            <a href="#" class="text-decoration-none fw-bold text-gold text-uppercase small">Plan de Estudios <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="program-card">
+                        <img src="https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?auto=compress&cs=tinysrgb&w=800" class="program-img" alt="Ciencias">
+                        <div class="program-body position-relative">
+                            <div class="program-icon"><i class="fa-solid fa-microscope"></i></div>
+                            <h4 class="mb-3">Ciencias y Tecnología</h4>
+                            <p class="text-secondary small mb-4">Laboratorios de última generación. Robótica, programación y matemáticas avanzadas.</p>
+                            <a href="#" class="text-decoration-none fw-bold text-gold text-uppercase small">Instalaciones <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADMISIONES CTA -->
+    <section class="py-5 bg-blue text-white text-center">
+        <div class="container py-4">
+            <h2 class="mb-4">Abierto Plazo de Matrícula 2025/2026</h2>
+            <p class="mb-5 opacity-75 mx-auto" style="max-width: 600px;">
+                Las plazas son limitadas. Reserve una visita guiada al campus o solicite una entrevista con nuestro equipo de orientación.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#contacto" class="btn btn-apply px-5">Solicitar Entrevista</a>
+                <a href="#" class="btn btn-outline-light px-5" style="border-radius: 2px; font-weight: 600;">Descargar Folleto</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="py-5 my-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Comunidad Ivy</h2>
+                <p class="text-secondary">Lo que dicen nuestros antiguos alumnos y padres.</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="bg-light p-4 rounded h-100 border-start border-4 border-gold">
+                        <div class="d-flex gap-3 align-items-start">
+                            <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150" class="testimonial-img" alt="Alumna">
+                            <div>
+                                <p class="fst-italic text-secondary mb-3">"La preparación que recibí aquí fue fundamental para mi éxito universitario. No solo aprendí contenidos, aprendí a pensar."</p>
+                                <h6 class="fw-bold mb-0">Sofía R.</h6>
+                                <small class="text-muted">Graduada 2018, Medicina</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-light p-4 rounded h-100 border-start border-4 border-gold">
+                        <div class="d-flex gap-3 align-items-start">
+                            <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150" class="testimonial-img" alt="Padre">
+                            <div>
+                                <p class="fst-italic text-secondary mb-3">"Estamos encantados con la atención personalizada. Los profesores realmente se preocupan por el desarrollo de cada niño."</p>
+                                <h6 class="fw-bold mb-0">Carlos M.</h6>
+                                <small class="text-muted">Padre de alumno de Secundaria</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO FORM -->
+    <section id="contacto" class="py-5 bg-light">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="bg-white p-5 rounded shadow-sm">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold">Contacta con Admisiones</h3>
+                            <p class="text-secondary small">Rellena el formulario y nos pondremos en contacto contigo en breve.</p>
+                        </div>
+                        
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Nombre del Padre/Tutor</label>
+                                    <input type="text" class="form-control bg-light border-0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Email</label>
+                                    <input type="email" class="form-control bg-light border-0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Teléfono</label>
+                                    <input type="tel" class="form-control bg-light border-0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Interés</label>
+                                    <select class="form-select bg-light border-0">
+                                        <option>Idiomas</option>
+                                        <option>Bachillerato</option>
+                                        <option>Secundaria</option>
+                                        <option>Actividades Extraescolares</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold">Mensaje / Dudas</label>
+                                    <textarea rows="4" class="form-control bg-light border-0"></textarea>
+                                </div>
+                                <div class="col-12 text-center mt-4">
+                                    <button class="btn btn-apply w-100 py-3">Enviar Solicitud</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-white mb-3">
+                        <i class="fa-solid fa-building-columns text-gold fs-4"></i>
+                        <span class="fw-bold fs-5 font-serif">IVY ACADEMY</span>
+                    </a>
+                    <p class="small opacity-75">
+                        Centro educativo comprometido con la excelencia académica y la formación en valores.
+                    </p>
+                    <div class="mt-4 d-flex gap-3">
+                        <a href="#" class="text-white opacity-75 hover-opacity-100"><i class="fa-brands fa-facebook fs-5"></i></a>
+                        <a href="#" class="text-white opacity-75 hover-opacity-100"><i class="fa-brands fa-instagram fs-5"></i></a>
+                        <a href="#" class="text-white opacity-75 hover-opacity-100"><i class="fa-brands fa-linkedin fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="footer-title h6">La Academia</h5>
+                    <a href="#" class="footer-link small">Historia</a>
+                    <a href="#" class="footer-link small">Equipo Directivo</a>
+                    <a href="#" class="footer-link small">Instalaciones</a>
+                    <a href="#" class="footer-link small">Trabaja con nosotros</a>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="footer-title h6">Admisiones</h5>
+                    <a href="#" class="footer-link small">Proceso</a>
+                    <a href="#" class="footer-link small">Tasas y Becas</a>
+                    <a href="#" class="footer-link small">Visitas</a>
+                    <a href="#" class="footer-link small">FAQ</a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="footer-title h6">Contacto</h5>
+                    <p class="small opacity-75 mb-2"><i class="fa-solid fa-location-dot text-gold me-2"></i> Calle de la Ciencia 42, Madrid</p>
+                    <p class="small opacity-75 mb-2"><i class="fa-solid fa-phone text-gold me-2"></i> +34 91 123 45 67</p>
+                    <p class="small opacity-75"><i class="fa-solid fa-envelope text-gold me-2"></i> info@ivyacademy.edu</p>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="text-center small opacity-50">
+                &copy; 2025 Ivy Academy. Todos los derechos reservados. | Aviso Legal | Privacidad
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+    </script>
+</body>
+</html>

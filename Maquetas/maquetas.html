@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Diseños Web | Selección de Nicho</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <!-- Configuración de Colores y Modo Oscuro -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Activación manual del modo oscuro
+            theme: {
+                extend: {
+                    colors: {
+                        'stone-50': '#fafaf9',
+                        'stone-100': '#f5f5f4',
+                        'stone-200': '#e7e5e4',
+                        'stone-800': '#292524',
+                        'stone-900': '#1c1917',
+                        'stone-950': '#0c0a09', // Más oscuro para fondo dark mode
+                        'accent-gold': '#d4af37',
+                        'accent-gold-light': '#e6c86e', // Dorado más claro para dark mode
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Transiciones suaves para el cambio de tema */
+        body, div, h1, h2, p, button, a {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Efecto Hover en las Tarjetas de Nicho */
+        .niche-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .niche-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #d4af37; 
+        }
+        /* Ajuste hover en modo oscuro */
+        .dark .niche-card:hover {
+            border-color: #e6c86e;
+            background-color: #292524; /* stone-800 */
+        }
+
+        .niche-card.active {
+            border-color: #1c1917;
+            background-color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            ring: 2px solid #1c1917;
+        }
+        /* Ajuste active en modo oscuro */
+        .dark .niche-card.active {
+            border-color: #e6c86e;
+            background-color: #292524;
+            ring: 2px solid #e6c86e;
+        }
+
+        /* Swatch de colores */
+        .swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.1);
+            display: inline-block;
+            margin-right: -5px;
+            position: relative;
+            z-index: 1;
+        }
+        .dark .swatch {
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Botón de Demo */
+        .btn-demo {
+            transition: all 0.2s;
+        }
+        .btn-demo:hover {
+            background-color: #1c1917;
+            color: white;
+        }
+        .dark .btn-demo {
+            border-color: #57534e; /* stone-600 */
+            color: #d6d3d1; /* stone-300 */
+        }
+        .dark .btn-demo:hover {
+            background-color: #e6c86e; /* gold light */
+            color: #1c1917; /* dark text */
+            border-color: #e6c86e;
+        }
+
+        /* Animación Preloader */
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loader-ring {
+            animation: spin-slow 2s linear infinite;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100 overflow-hidden">
+
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-stone-50 dark:bg-stone-950 transition-opacity duration-700 ease-out">
+        <div class="relative flex flex-col items-center">
+            <!-- Anillo Giratorio -->
+            <div class="w-20 h-20 border-4 border-stone-200 dark:border-stone-800 rounded-full loader-ring border-t-accent-gold mb-6"></div>
+            
+            <!-- Icono Central -->
+            <div class="absolute top-0 left-0 w-20 h-20 flex items-center justify-center mb-6">
+                <i class="fa-solid fa-layer-group text-stone-300 dark:text-stone-600 text-2xl"></i>
+            </div>
+            
+            <!-- Texto de Carga -->
+            <div class="text-center space-y-2">
+                <h2 class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-50 tracking-wider">PORTFOLIO</h2>
+                <p class="text-xs uppercase tracking-[0.3em] text-accent-gold font-semibold animate-pulse">Cargando Experiencia</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 py-6 px-4 md:px-8 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left flex-grow">
+                <h1 class="font-serif text-2xl md:text-3xl font-bold text-stone-900 dark:text-stone-50">Galería de Diseños</h1>
+                <p class="text-stone-500 dark:text-stone-400 text-sm mt-1">Selecciona tu industria para ver las opciones disponibles.</p>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <!-- Estadísticas Pequeñas -->
+                <div class="hidden md:flex gap-4 text-xs font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-accent-gold"></span>
+                        12 Nichos
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-stone-800 dark:bg-stone-200"></span>
+                        36 Plantillas
+                    </div>
+                </div>
+
+                <!-- Botón Modo Oscuro -->
+                <button id="themeToggle" class="p-2 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors focus:outline-none focus:ring-2 focus:ring-accent-gold" title="Cambiar Tema">
+                    <!-- Icono Sol (se muestra en dark) -->
+                    <i class="fa-solid fa-sun hidden dark:inline-block"></i>
+                    <!-- Icono Luna (se muestra en light) -->
+                    <i class="fa-solid fa-moon inline-block dark:hidden"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow p-4 md:p-8 max-w-7xl mx-auto w-full">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start h-full">
+            
+            <!-- COLUMNA IZQUIERDA: Selector de Nichos -->
+            <div class="lg:col-span-4 space-y-4">
+                <div class="flex justify-between items-center mb-2 px-1">
+                    <h2 class="font-bold text-stone-800 dark:text-stone-200 uppercase tracking-wide text-xs">Categorías</h2>
+                    <i class="fa-solid fa-layer-group text-stone-400 dark:text-stone-600"></i>
+                </div>
+                
+                <!-- Grid de nichos (Scrollable en móvil) -->
+                <!-- Ajuste responsive: grid-cols-1 en móvil para tarjetas más grandes y tocables -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 overflow-y-auto lg:max-h-[calc(100vh-200px)] pr-2 pb-4 scrollbar-thin scrollbar-thumb-stone-300 dark:scrollbar-thumb-stone-700" id="nicheList">
+                    <!-- Javascript generará las tarjetas aquí -->
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Vista de Detalles (Sticky) -->
+            <div class="lg:col-span-8 lg:sticky lg:top-28">
+                <div id="detailPanel" class="bg-white dark:bg-stone-900 rounded-2xl shadow-xl border border-stone-100 dark:border-stone-800 overflow-hidden min-h-[500px] flex flex-col transition-colors duration-300">
+                    
+                    <!-- Cabecera del Panel (Dinámica) -->
+                    <div class="bg-stone-900 dark:bg-stone-950 text-white p-8 md:p-10 relative overflow-hidden transition-colors duration-300">
+                        <!-- Decoración de fondo -->
+                        <div class="absolute top-0 right-0 opacity-10 dark:opacity-20 transform translate-x-1/4 -translate-y-1/4 transition-opacity">
+                            <i id="headerIconBg" class="fa-solid fa-scissors text-9xl"></i>
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="bg-accent-gold text-stone-900 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Categoría Seleccionada</span>
+                            </div>
+                            <h2 id="detailTitle" class="font-serif text-3xl md:text-5xl mb-2 text-stone-50">Belleza y Estética</h2>
+                            <p id="detailDesc" class="text-stone-400 text-lg font-light max-w-xl">Imagen personal, cuidado y estilo.</p>
+                        </div>
+                    </div>
+
+                    <!-- Lista de Plantillas (Contenido) -->
+                    <div id="detailContent" class="p-6 md:p-8 space-y-6 bg-stone-50 dark:bg-stone-800/50 flex-grow transition-colors duration-300">
+                        <!-- Las plantillas se inyectan aquí -->
+                    </div>
+                    
+                    <!-- Footer del Panel -->
+                    <div class="bg-white dark:bg-stone-900 p-4 border-t border-stone-100 dark:border-stone-800 text-center text-xs text-stone-400 transition-colors duration-300">
+                        * Haz clic en "Ver Demo en Vivo" para abrir el diseño completo.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- DATOS Y LÓGICA -->
+    <script>
+        // --- LÓGICA DE MODO OSCURO ---
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // 1. Cargar preferencia guardada
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        // 2. Función toggle
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        // --- PRELOADER LOGIC ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const body = document.body;
+            
+            // Simular un poco de tiempo para que se aprecie la animación (1.5 segundos)
+            setTimeout(() => {
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+                body.classList.remove('overflow-hidden'); // Permitir scroll una vez cargado
+            }, 1500);
+        });
+
+// --- BASE DE DATOS DE PLANTILLAS ---
+const catalogData = [
+  {
+    id: 1,
+    name: "Belleza y Estética",
+    icon: "fa-scissors",
+    focus: "Imagen personal, cuidado y estilo.",
+    templates: [
+      {
+        name: "Aura",
+        style: "Premium / Lujo",
+        concept: "Dark Luxury. Misterio y alta costura.",
+        colors: ["#0a0a0a", "#D4AF37"],
+        url: 'A-Estetica/aura.html'
+      },
+      {
+        name: "Pure Skin",
+        style: "Minimalista / Clínica",
+        concept: "Clinical Clean. Higiene y dermatología.",
+        colors: ["#94a399", "#f9f8f6"],
+        url: 'A-Estetica/pureskin.html'
+      },
+      {
+        name: "Blade & Soul",
+        style: "Urbano / Barbería",
+        concept: "Street Industrial. Energía masculina.",
+        colors: ["#0f0f0f", "#FF2E00"],
+        url: 'A-Estetica/bladesoul.html'
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: "Bienes Raíces",
+    icon: "fa-house",
+    focus: "Propiedades, arquitectura y hogar.",
+    templates: [
+      {
+        name: "UrbanLiving",
+        style: "Corporativa / Funcional",
+        concept: "Confianza y claridad para encontrar hogar.",
+        colors: ["#0F172A", "#3B82F6"],
+        url: 'B-BienesRaices/urbanliving.html'
+      },
+      {
+        name: "Opulence",
+        style: "Lujo / High-End",
+        concept: "Cinematic. Venta de estilos de vida.",
+        colors: ["#0B0B0B", "#C5A059"],
+        url: 'B-BienesRaices/opulence.html'
+      },
+      {
+        name: "Structura",
+        style: "Arquitectura / Moderno",
+        concept: "Brutalismo suave, técnico y de diseño.",
+        colors: ["#FFFFFF", "#000000", "#EDF228"],
+        url: 'B-BienesRaices/structura.html'
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: "Gastronomía",
+    icon: "fa-utensils",
+    focus: "Apetito, experiencia y sabor.",
+    templates: [
+      {
+        name: "Lumière",
+        style: "Fine Dining / Elegante",
+        concept: "Intimidad. Cena romántica.",
+        colors: ["#0f0f0f", "#D4AF37"],
+        url: 'C-Gastronomia/lumiere.html'
+      },
+      {
+        name: "Smash District",
+        style: "Fast Food / Burger",
+        concept: "High Energy. Sabor y volumen.",
+        colors: ["#FF4D00", "#FFD600"],
+        url: 'C-Gastronomia/smashdistrict.html'
+      },
+      {
+        name: "Brew & Botanicals",
+        style: "Cafetería / Hipster",
+        concept: "Slow Coffee. Orgánico y natural.",
+        colors: ["#84A98C", "#352208"],
+        url: 'C-Gastronomia/brewbotanicals.html'
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: "Salud y Bienestar",
+    icon: "fa-heart-pulse",
+    focus: "Sanación, calma y cuidado.",
+    templates: [
+      {
+        name: "MediCore",
+        style: "Clínica Médica",
+        concept: "Confianza Total. Estéril y seguro.",
+        colors: ["#0056b3", "#FFFFFF"],
+        url: 'D-Salud/medicore.html'
+      },
+      {
+        name: "Gaia Wellness",
+        style: "Holístico / Natural",
+        concept: "Equilibrio. Conexión con la tierra.",
+        colors: ["#D4A373", "#588157"],
+        url: 'D-Salud/gaiawellness.html'
+      },
+      {
+        name: "Tiny Care",
+        style: "Pediatría / Infantil",
+        concept: "Sin Lágrimas. Juguetón y suave.",
+        colors: ["#4ECDC4", "#FF6B6B"],
+        url: 'D-Salud/tinycare.html'
+      }
+    ]
+  },
+  {
+    id: 5,
+    name: "Servicios Prof.",
+    icon: "fa-briefcase",
+    focus: "Autoridad, éxito y estrategia.",
+    templates: [
+      {
+        name: "Justitia & Partners",
+        style: "Bufete Clásico",
+        concept: "Legado. Tradición y leyes.",
+        colors: ["#0F172A", "#C5A059"],
+        url: 'E-Servicios/justitia.html'
+      },
+      {
+        name: "NexGen Strategy",
+        style: "Consultora Tech",
+        concept: "Futuro. Datos y tecnología.",
+        colors: ["#4F46E5", "#06B6D4"],
+        url: 'E-Servicios/nexgen.html'
+      },
+      {
+        name: "Alex Studio",
+        style: "Marca Personal",
+        concept: "Swiss Style. Diseño gráfico audaz.",
+        colors: ["#0a0a0a", "#2563EB"],
+        url: 'E-Servicios/alex.html'
+      }
+    ]
+  },
+  {
+    id: 6,
+    name: "Oficios / Hogar",
+    icon: "fa-wrench",
+    focus: "Solución, urgencia y habilidad.",
+    templates: [
+      {
+        name: "Flash Fix",
+        style: "Urgencias 24h",
+        concept: "Alerta. Atención inmediata.",
+        colors: ["#FFC107", "#000000"],
+        url: 'F-Oficios/flashfix.html'
+      },
+      {
+        name: "Renova Studio",
+        style: "Reformas / Diseño",
+        concept: "Transformación. El antes y después.",
+        colors: ["#2c3e50", "#c0a062"],
+        url: 'F-Oficios/renova.html'
+      },
+      {
+        name: "Fixit Pro",
+        style: "Multiservicios",
+        concept: "Vecinal. Tu manitas de confianza.",
+        colors: ["#003049", "#F77F00"],
+        url: 'F-Oficios/fixitpro.html'
+      }
+    ]
+  },
+  {
+    id: 7,
+    name: "Fitness",
+    icon: "fa-dumbbell",
+    focus: "Motivación, cuerpo y rendimiento.",
+    templates: [
+      {
+        name: "Iron Forge",
+        style: "Crossfit / Gym",
+        concept: "Raw Power. Metal y esfuerzo.",
+        colors: ["#0a0a0a", "#ccff00"],
+        url: 'G-Fitnnes/ironforge.html'
+      },
+      {
+        name: "Flow State",
+        style: "Yoga / Pilates",
+        concept: "Zen Architecture. Silencio visual.",
+        colors: ["#EAE7E2", "#D6D2CE"],
+        url: 'G-Fitnnes/flow.html'
+      },
+      {
+        name: "Apex Performance",
+        style: "Coach Online",
+        concept: "Liderazgo. Mentoring y transformación.",
+        colors: ["#050505", "#3B82F6"],
+        url: 'G-Fitnnes/apex.html'
+      }
+    ]
+  },
+  {
+    id: 8,
+    name: "Automotriz",
+    icon: "fa-car",
+    focus: "Máquinas, velocidad y brillo.",
+    templates: [
+      {
+        name: "Gearhead Garage",
+        style: "Taller Técnico",
+        concept: "Ingeniería. Precisión mecánica.",
+        colors: ["#457B9D", "#E63946"],
+        url: 'H-Automotriz/gearhead.html'
+      },
+      {
+        name: "Onyx Auto Spa",
+        style: "Detailing Lujo",
+        concept: "Joya. Brillo extremo y nocturno.",
+        colors: ["#050505", "#8B5CF6"],
+        url: 'H-Automotriz/onix.html'
+      },
+      {
+        name: "Turbo Pitstop",
+        style: "Servicio Rápido",
+        concept: "Fórmula 1. Velocidad y eficiencia.",
+        colors: ["#0066FF", "#FAFF00"],
+        url: 'H-Automotriz/turbopit.html'
+      }
+    ]
+  },
+  {
+    id: 9,
+    name: "Educación",
+    icon: "fa-graduation-cap",
+    focus: "Aprendizaje, crecimiento y futuro.",
+    templates: [
+      {
+        name: "Ivy Academy",
+        style: "Institución Académica",
+        concept: "Prestigio. Historia y excelencia.",
+        colors: ["#002147", "#D4AF37"],
+        url: 'I-Educación/ivyacademy.html'
+      },
+      {
+        name: "Little Explorers",
+        style: "Infantil / Jardín",
+        concept: "Diversión. Colores primarios.",
+        colors: ["#EF476F", "#FFD166"],
+        url: 'I-Educación/littleexplorers.html'
+      },
+      {
+        name: "Skill Master",
+        style: "Curso Digital",
+        concept: "Venta Directa. Persuasión y urgencia.",
+        colors: ["#6D28D9", "#D9F99D"],
+        url: 'I-Educación/masterclass.html'
+      }
+    ]
+  },
+  {
+    id: 10,
+    name: "Turismo",
+    icon: "fa-plane",
+    focus: "Experiencia, escape y confort.",
+    templates: [
+      {
+        name: "Velvet Suites",
+        style: "Hotel Lujo",
+        concept: "Sofisticación. Servicio 5 estrellas.",
+        colors: ["#0A192F", "#D4AF37"],
+        url: 'J-Turismo/velvet.html'
+      },
+      {
+        name: "Wild Horizon",
+        style: "Aventura / Eco",
+        concept: "Naturaleza. Aire libre.",
+        colors: ["#2D6A4F", "#E36414"],
+        url: 'J-Turismo/wildhorizon.html'
+      },
+      {
+        name: "Casa Viva",
+        style: "Alquiler Vacacional",
+        concept: "Hogar. Acogedor y local.",
+        colors: ["#E07A5F", "#3D405B"],
+        url: 'J-Turismo/casaviva.html'
+      }
+    ]
+  },
+  {
+    id: 11,
+    name: "Eventos",
+    icon: "fa-champagne-glasses",
+    focus: "Emoción, celebración y momentos.",
+    templates: [
+      {
+        name: "Eternal Love",
+        style: "Bodas",
+        concept: "Romance. Etéreo y delicado.",
+        colors: ["#E8D6CB", "#9CAF88"],
+        url: 'K-Eventos/anaydavid.html'
+      },
+      {
+        name: "Neon Beat",
+        style: "Fiesta / DJ",
+        concept: "Nightlife. Oscuridad y luces.",
+        colors: ["#050505", "#00FFFF"],
+        url: 'K-Eventos/neonbeat.html'
+      },
+      {
+        name: "Nexus Summit",
+        style: "Corporativo",
+        concept: "Conexión. Negocios y agenda.",
+        colors: ["#0056D2", "#F8FAFC"],
+        url: 'K-Eventos/nexus.html'
+      }
+    ]
+  },
+  {
+    id: 12,
+    name: "Tienda Local",
+    icon: "fa-store",
+    focus: "Producto, compra y deseo.",
+    templates: [
+      {
+        name: "Urban Store",
+        style: "Catálogo General",
+        concept: "Invisible. Resalta el producto.",
+        colors: ["#FFFFFF", "#111827"],
+        url: 'L-Tienda/urbanstore.html'
+      },
+      {
+        name: "Clay & Soul",
+        style: "Artesanal / Boutique",
+        concept: "Humano. Imperfección y textura.",
+        colors: ["#C08552", "#5F6F52"],
+        url: 'L-Tienda/claysoul.html'
+      },
+      {
+        name: "Zenith Audio",
+        style: "Producto Único",
+        concept: "Desire. Tecnología de consumo.",
+        colors: ["#050505", "#00FF9D"],
+        url: 'L-Tienda/zenith.html'
+      }
+    ]
+  }
+];
+
+
+        // --- LÓGICA DE INTERFAZ ---
+        function initGrid() {
+            const list = document.getElementById('nicheList');
+            list.innerHTML = '';
+
+            catalogData.forEach((niche, index) => {
+                const card = document.createElement('div');
+                // Estilos base y dark mode para las tarjetas
+                card.className = `niche-card bg-white dark:bg-stone-900 p-4 rounded-lg border border-stone-200 dark:border-stone-800 cursor-pointer flex items-center justify-between group ${index === 0 ? 'active' : ''}`;
+                card.onclick = () => selectNiche(index);
+                card.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-stone-100 dark:bg-stone-800 rounded-full flex items-center justify-center text-stone-500 dark:text-stone-400 group-hover:bg-accent-gold group-hover:text-white dark:group-hover:text-stone-900 transition-colors">
+                            <i class="fa-solid ${niche.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-stone-800 dark:text-stone-100">${niche.name}</h4>
+                            <p class="text-[10px] text-stone-400 dark:text-stone-500 uppercase tracking-wider">${niche.templates.length} Variantes</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-stone-300 dark:text-stone-700 text-xs group-hover:text-stone-800 dark:group-hover:text-stone-200"></i>
+                `;
+                list.appendChild(card);
+            });
+
+            // Seleccionar el primero por defecto
+            selectNiche(0);
+        }
+
+        function selectNiche(index) {
+            const niche = catalogData[index];
+            const cards = document.getElementById('nicheList').children;
+            
+            // Actualizar estado visual de la lista
+            Array.from(cards).forEach((c, i) => {
+                if(i === index) c.classList.add('active');
+                else c.classList.remove('active');
+            });
+
+            // Actualizar Cabecera del Panel
+            document.getElementById('headerIconBg').className = `fa-solid ${niche.icon} text-9xl`;
+            document.getElementById('detailTitle').innerText = niche.name;
+            document.getElementById('detailDesc').innerText = niche.focus;
+
+            // Generar Contenido (Tarjetas de Plantilla)
+            const content = document.getElementById('detailContent');
+            content.innerHTML = '';
+
+            niche.templates.forEach((tpl, i) => {
+                // Crear paleta de colores visual
+                const colorSwatches = tpl.colors.map(c => 
+                    `<div class="swatch" style="background-color: ${c}" title="${c}"></div>`
+                ).join('');
+
+                const templateHTML = `
+                    <div class="bg-white dark:bg-stone-900 p-6 rounded-xl shadow-sm border border-stone-100 dark:border-stone-800 hover:shadow-md transition-all flex flex-col md:flex-row gap-6 items-start md:items-center animate-[fadeIn_0.3s_ease-out_forwards]" style="animation-delay: ${i * 100}ms">
+                        
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-stone-50 dark:bg-stone-800 rounded-lg flex flex-col items-center justify-center border border-stone-200 dark:border-stone-700">
+                                <span class="text-xs font-bold uppercase text-stone-400 dark:text-stone-500">Opción</span>
+                                <span class="text-2xl font-serif font-bold text-stone-800 dark:text-stone-200">${String.fromCharCode(65+i)}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow space-y-2">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white">${tpl.name}</h3>
+                                <span class="bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide border border-stone-200 dark:border-stone-700">${tpl.style}</span>
+                            </div>
+                            <p class="text-sm text-stone-500 dark:text-stone-400 leading-relaxed max-w-lg">
+                                ${tpl.concept}
+                            </p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-[10px] uppercase text-stone-400 dark:text-stone-500 font-bold tracking-widest">Paleta:</span>
+                                <div class="flex pl-1">
+                                    ${colorSwatches}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 w-full md:w-auto">
+                            <a href="${tpl.url}" target="_blank" class="btn-demo w-full md:w-auto inline-flex items-center justify-center gap-2 border border-stone-300 dark:border-stone-600 text-stone-700 dark:text-stone-200 px-6 py-3 rounded-lg font-bold text-sm uppercase tracking-wide hover:shadow-lg">
+                                <span>Ver Demo</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                content.innerHTML += templateHTML;
+            });
+        }
+
+        // --- INICIAR ---
+        window.addEventListener('load', () => {
+            initGrid();
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX | High Performance Coaching</title>
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Bebas Neue (Títulos Fuertes) + Inter (Lectura Moderna) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apex-black': '#050505',    /* Negro Profundo */
+                        'apex-gray': '#121212',     /* Gris Fondo Secundario */
+                        'apex-blue': '#3B82F6',     /* Azul Eléctrico */
+                        'apex-accent': '#60A5FA',   /* Azul Claro */
+                    },
+                    fontFamily: {
+                        'display': ['Bebas Neue', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Gradiente en texto */
+        .text-gradient {
+            background: linear-gradient(to right, #3B82F6, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Imagen del coach recortada (efecto) */
+        .coach-cutout {
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        }
+
+        /* Botón brillante */
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-apex-black text-gray-300 font-body antialiased selection:bg-apex-blue selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-apex-black/90 backdrop-blur border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="font-display text-3xl text-white tracking-wider">
+                    APEX<span class="text-apex-blue">.</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-bold uppercase tracking-widest">
+                    <a href="#metodo" class="hover:text-apex-blue transition-colors">Método</a>
+                    <a href="#transformaciones" class="hover:text-apex-blue transition-colors">Resultados</a>
+                    <a href="#planes" class="hover:text-apex-blue transition-colors">Planes</a>
+                    <a href="#faq" class="hover:text-apex-blue transition-colors">FAQ</a>
+                    <a href="#unete" class="bg-apex-blue text-white px-6 py-2 rounded-sm hover:bg-white hover:text-apex-black transition-colors">
+                        Empezar
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button class="md:hidden text-2xl text-white">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-10 lg:pt-48 lg:pb-0 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-apex-blue/20 rounded-full blur-[120px] -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-apex-blue/30 bg-apex-blue/10 text-apex-blue text-xs font-bold uppercase tracking-wider mb-6 animate-pulse">
+                        <span class="w-2 h-2 rounded-full bg-apex-blue"></span>
+                        Plazas Abiertas: Enero 2025
+                    </div>
+                    
+                    <h1 class="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.9] text-white mb-6">
+                        Define tu <br> 
+                        <span class="text-gradient">Potencial</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Deja de adivinar en el gimnasio. Consigue un plan estructurado, nutrición personalizada y la mentalidad de un atleta. Tu mejor versión empieza aquí.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#planes" class="btn-glow bg-apex-blue text-white px-8 py-4 rounded font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2">
+                            Ver Programas <i class="fa-solid fa-bolt"></i>
+                        </a>
+                        <a href="#transformaciones" class="border border-white/20 text-white px-8 py-4 rounded font-bold uppercase tracking-wider text-sm hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+                            Ver Resultados
+                        </a>
+                    </div>
+
+                    <div class="mt-12 flex items-center justify-center lg:justify-start gap-4 text-sm text-gray-500 font-bold uppercase tracking-widest">
+                        <span><i class="fa-solid fa-check text-apex-blue mr-2"></i> Ciencia</span>
+                        <span><i class="fa-solid fa-check text-apex-blue mr-2"></i> Datos</span>
+                        <span><i class="fa-solid fa-check text-apex-blue mr-2"></i> Resultados</span>
+                    </div>
+                </div>
+
+                <!-- Coach Image (Pexels) -->
+                <div class="relative mt-10 lg:mt-0 flex justify-center">
+                    <!-- Glow behind image -->
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[60%] bg-gradient-to-t from-apex-blue/20 to-transparent blur-3xl"></div>
+                    
+                    <img src="https://images.pexels.com/photos/1552248/pexels-photo-1552248.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                         alt="Fitness Coach" 
+                         class="relative z-10 w-full max-w-md lg:max-w-lg object-cover mask-image-gradient">
+                    
+                    <!-- Floating Stats Card -->
+                    <div class="absolute bottom-20 -left-4 lg:left-0 bg-apex-gray/80 backdrop-blur border border-white/10 p-4 rounded-xl shadow-2xl z-20" data-aos="fade-right" data-aos-delay="500">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-apex-blue rounded-full flex items-center justify-center text-white">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-white leading-none">500+</p>
+                                <p class="text-xs text-gray-400 uppercase">Vidas Cambiadas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGOS -->
+    <div class="border-y border-white/5 bg-apex-gray py-8">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-center lg:justify-between gap-8 opacity-40 grayscale">
+            <i class="fa-brands fa-nutritionix text-3xl hover:text-white transition-colors"></i>
+            <i class="fa-brands fa-strava text-3xl hover:text-white transition-colors"></i>
+            <i class="fa-brands fa-apple text-3xl hover:text-white transition-colors"></i>
+            <i class="fa-brands fa-spotify text-3xl hover:text-white transition-colors"></i> <!-- Podcast -->
+            <i class="fa-brands fa-youtube text-3xl hover:text-white transition-colors"></i>
+        </div>
+    </div>
+
+    <!-- MÉTODO (Grid) -->
+    <section id="metodo" class="py-24 bg-apex-black relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-apex-blue font-bold uppercase tracking-widest text-xs">El Sistema Apex</span>
+                <h2 class="font-display text-5xl md:text-6xl text-white mt-2">No es suerte, <br> es <span class="text-gray-500">estrategia</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="bg-apex-gray p-8 rounded-2xl border border-white/5 hover:border-apex-blue/50 transition-colors group">
+                    <div class="text-6xl font-display text-white/10 mb-4 group-hover:text-apex-blue transition-colors">01</div>
+                    <h3 class="text-xl font-bold text-white mb-4 uppercase">Entrenamiento Híbrido</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Combinamos fuerza (hipertrofia) con acondicionamiento metabólico. Diseñado específicamente para tu tipo de cuerpo y horario disponible.
+                    </p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-apex-gray p-8 rounded-2xl border border-white/5 hover:border-apex-blue/50 transition-colors group">
+                    <div class="text-6xl font-display text-white/10 mb-4 group-hover:text-apex-blue transition-colors">02</div>
+                    <h3 class="text-xl font-bold text-white mb-4 uppercase">Nutrición Flexible</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Olvídate de dietas de pollo y arroz. Aprende a comer lo que te gusta mientras cumples tus macros. Sostenibilidad es la clave del éxito.
+                    </p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-apex-gray p-8 rounded-2xl border border-white/5 hover:border-apex-blue/50 transition-colors group">
+                    <div class="text-6xl font-display text-white/10 mb-4 group-hover:text-apex-blue transition-colors">03</div>
+                    <h3 class="text-xl font-bold text-white mb-4 uppercase">Mindset & Soporte</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Revisiones semanales por video. Ajustes constantes. Acceso directo a mí por WhatsApp para resolver dudas al instante.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSFORMACIONES (Before/After) -->
+    <section id="transformaciones" class="py-24 bg-apex-gray border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="font-display text-5xl md:text-6xl text-white">Resultados Reales</h2>
+                    <p class="text-gray-400 mt-2">Personas normales logrando cosas extraordinarias.</p>
+                </div>
+                <a href="#unete" class="text-apex-blue font-bold uppercase text-sm tracking-widest border-b border-apex-blue pb-1 hover:text-white hover:border-white transition-colors mt-4 md:mt-0">Ver más historias</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Case 1 -->
+                <div class="group relative overflow-hidden rounded-xl">
+                    <img src="https://images.pexels.com/photos/3912953/pexels-photo-3912953.jpeg?auto=compress&cs=tinysrgb&q=80&w=1200&h=800" class="w-full h-80 object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Transformation 1">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+                        <h4 class="font-display text-3xl text-white uppercase">Carlos, 28</h4>
+                        <p class="text-apex-blue font-bold text-sm">-15kg en 12 semanas</p>
+                    </div>
+                </div>
+                <!-- Case 2 -->
+                <div class="group relative overflow-hidden rounded-xl">
+                    <img src="https://images.pexels.com/photos/13087350/pexels-photo-13087350.jpeg?auto=compress&cs=tinysrgb&q=80&w=1200&h=800" class="w-full h-80 object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Transformation 2">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+                        <h4 class="font-display text-3xl text-white uppercase">Marta, 34</h4>
+                        <p class="text-apex-blue font-bold text-sm">Ganancia muscular + Definición</p>
+                    </div>
+                </div>
+                <!-- Case 3 -->
+                <div class="group relative overflow-hidden rounded-xl">
+                    <img src="https://images.pexels.com/photos/6339758/pexels-photo-6339758.jpeg?auto=compress&cs=tinysrgb&q=80&w=1200&h=800" class="w-full h-80 object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt="Transformation 3">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+                        <h4 class="font-display text-3xl text-white uppercase">David, 45</h4>
+                        <p class="text-apex-blue font-bold text-sm">Recuperación de vitalidad</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANES -->
+    <section id="planes" class="py-24 bg-apex-black relative overflow-hidden">
+        <!-- Glow Effect -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-apex-blue/5 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-apex-blue font-bold uppercase tracking-widest text-xs">Unirse al Equipo</span>
+                <h2 class="font-display text-5xl md:text-6xl text-white mt-2">Elige tu Nivel</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Plan 1: App -->
+                <div class="bg-apex-gray p-8 rounded-2xl border border-white/5 text-center">
+                    <h3 class="font-display text-3xl text-white mb-2">The App</h3>
+                    <p class="text-gray-500 text-sm mb-6">Para los autodidactas.</p>
+                    <div class="text-4xl font-bold text-white mb-6">29€<span class="text-sm font-normal text-gray-500">/mes</span></div>
+                    <ul class="text-left space-y-4 mb-8 text-sm text-gray-400">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Rutina mensual en App</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Videos demostrativos</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Guía de macros general</li>
+                        <li class="flex gap-3 opacity-50"><i class="fa-solid fa-xmark"></i> Sin soporte directo</li>
+                    </ul>
+                    <a href="#unete" class="block w-full py-3 border border-white/20 text-white font-bold uppercase text-sm hover:bg-white hover:text-black transition-colors rounded">Elegir</a>
+                </div>
+
+                <!-- Plan 2: 1:1 Coaching (Featured) -->
+                <div class="bg-apex-gray p-10 rounded-2xl border-2 border-apex-blue text-center relative transform md:scale-110 shadow-2xl shadow-apex-blue/10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-apex-blue text-white px-4 py-1 text-xs font-bold uppercase rounded-full">Más Popular</div>
+                    <h3 class="font-display text-4xl text-white mb-2">1:1 Coaching</h3>
+                    <p class="text-gray-500 text-sm mb-6">La experiencia completa.</p>
+                    <div class="text-5xl font-bold text-white mb-6">150€<span class="text-sm font-normal text-gray-500">/mes</span></div>
+                    <ul class="text-left space-y-4 mb-10 text-sm text-gray-300">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Plan 100% Personalizado</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Dieta Ajustable Semanal</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Check-ins por Video</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> WhatsApp 24/7</li>
+                    </ul>
+                    <a href="#unete" class="block w-full py-4 bg-apex-blue text-white font-bold uppercase text-sm hover:bg-white hover:text-black transition-colors rounded btn-glow">Aplicar Ahora</a>
+                </div>
+
+                <!-- Plan 3: Nutrition -->
+                <div class="bg-apex-gray p-8 rounded-2xl border border-white/5 text-center">
+                    <h3 class="font-display text-3xl text-white mb-2">Solo Nutri</h3>
+                    <p class="text-gray-500 text-sm mb-6">Domina tu alimentación.</p>
+                    <div class="text-4xl font-bold text-white mb-6">70€<span class="text-sm font-normal text-gray-500">/mes</span></div>
+                    <ul class="text-left space-y-4 mb-8 text-sm text-gray-400">
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Plan nutricional a medida</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Lista de la compra</li>
+                        <li class="flex gap-3"><i class="fa-solid fa-check text-apex-blue"></i> Recetas saludables</li>
+                        <li class="flex gap-3 opacity-50"><i class="fa-solid fa-xmark"></i> Sin rutina de entreno</li>
+                    </ul>
+                    <a href="#unete" class="block w-full py-3 border border-white/20 text-white font-bold uppercase text-sm hover:bg-white hover:text-black transition-colors rounded">Elegir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-20 bg-apex-gray border-t border-white/5">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="font-display text-4xl text-white mb-10 text-center">Preguntas Frecuentes</h2>
+            
+            <div class="space-y-4">
+                <div class="border border-white/10 rounded-lg p-6 hover:border-apex-blue/50 transition-colors">
+                    <h4 class="text-white font-bold mb-2">¿Necesito ir al gimnasio?</h4>
+                    <p class="text-gray-400 text-sm">No necesariamente. Adapto el plan al material que tengas en casa o a tu gimnasio habitual.</p>
+                </div>
+                <div class="border border-white/10 rounded-lg p-6 hover:border-apex-blue/50 transition-colors">
+                    <h4 class="text-white font-bold mb-2">¿Cómo son los pagos?</h4>
+                    <p class="text-gray-400 text-sm">Pagos mensuales seguros vía Stripe o PayPal. Puedes cancelar cuando quieras sin permanencia.</p>
+                </div>
+                <div class="border border-white/10 rounded-lg p-6 hover:border-apex-blue/50 transition-colors">
+                    <h4 class="text-white font-bold mb-2">¿Cuánto tardaré en ver resultados?</h4>
+                    <p class="text-gray-400 text-sm">Depende de tu punto de partida, pero mis clientes suelen ver cambios visuales y de energía en las primeras 4 semanas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <a href="#" class="font-display text-2xl text-white tracking-wider">APEX<span class="text-apex-blue">.</span></a>
+                <p class="text-gray-500 text-xs mt-2 uppercase tracking-widest">Elevate your game.</p>
+            </div>
+            
+            <div class="flex gap-6">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-apex-blue hover:text-white transition-all">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-apex-blue hover:text-white transition-all">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-apex-blue hover:text-white transition-all">
+                    <i class="fa-brands fa-spotify"></i>
+                </a>
+            </div>
+
+            <div class="text-gray-600 text-xs text-center md:text-right">
+                <p>&copy; 2025 Apex Coaching. All Rights Reserved.</p>
+                <div class="mt-1 space-x-2">
+                    <a href="#" class="hover:text-white transition-colors">Legal</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800
+        });
+    </script>
+</body>
+</html>
