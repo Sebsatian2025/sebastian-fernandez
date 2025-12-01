@@ -391,11 +391,29 @@
         
         <!-- BOTÓN 1: CATÁLOGO (Nuevo) -->
         <!-- Enlaza a tu nuevo archivo Portfolio_Explorer.html -->
-        <a href="Portfolio_Explorer.html" target="_blank" style="text-decoration: none;">
-          <button class="d-flex justify-content-center btn btn-outline-light btn-lg align-items-center" type="button" style="width: 265px; height: 55px; border-radius: 50px; font-weight: 600; letter-spacing: 1px;">
-            <i class="fa-solid fa-layer-group me-2"></i> <span data-i18n="video.templates">VER PLANTILLAS</span>
-          </button>
-        </a>
+<a href="Portfolio_Explorer.html" target="_blank" style="text-decoration: none;">
+  <button class="d-flex justify-content-center btn btn-outline-light btn-lg align-items-center" 
+          type="button" 
+          style="width: 265px; height: 55px; border-radius: 50px; font-weight: 600; letter-spacing: 1px;">
+    
+    <!-- Aquí va el SVG en vez del <i> -->
+    <div class="svg-wrapper-1">
+      <div class="svg-wrapper">
+        <svg class="svg-icono" xmlns="http://www.w3.org/2000/svg" 
+             viewBox="0 0 24 24" width="24" height="24">
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path fill="currentColor"
+            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+          </path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Texto del botón -->
+    <span data-i18n="video.templates">VER PLANTILLAS</span>
+  </button>
+</a>
+
 
         <!-- BOTÓN 2: EDITOR (Existente) -->
         <!-- Mantiene tu estilo original con el SVG animado -->
