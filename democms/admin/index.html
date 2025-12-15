@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS Admin - Modo Demo</title>
+
+  <!-- Cargar browser-image-compression -->
+  <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Banner y estilos de modal de activación -->
+  <style>
+    /* ========================= Modal =========================== */
+    #demo-activation-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.95) 0%, rgba(118, 75, 162, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999999;
+      animation: fadeIn 0.3s ease;
+      padding: 16px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    .demo-activation-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.5s ease;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .demo-activation-card h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .demo-activation-card .emoji {
+      font-size: 64px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .demo-activation-card p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .demo-activation-card ul {
+      text-align: left;
+      margin: 20px auto;
+      max-width: 350px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .demo-activation-card ul li {
+      padding: 8px 0;
+      font-size: 15px;
+      color: #555;
+    }
+
+    .demo-activation-card ul li::before {
+      content: "✓ ";
+      color: #667eea;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    #activate-demo-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 18px 50px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    #activate-demo-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+    }
+
+    #activate-demo-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .demo-note {
+      font-size: 13px;
+      color: #999;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 640px) {
+      .demo-activation-card {
+        padding: 20px 20px;
+        border-radius: 16px;
+        max-height: 100vh;
+      }
+
+      .demo-activation-card h1 {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+
+      .demo-activation-card .emoji {
+        font-size: 18px;
+        margin-bottom: 1px;
+      }
+
+      .demo-activation-card p {
+        font-size: 14px;
+        margin-bottom: 6px;
+        margin-top: 1px;
+      }
+
+      .demo-activation-card ul {
+        max-width: 100%;
+        margin: 10px auto;
+      }
+
+      .demo-activation-card ul li {
+        padding: 6px 0;
+        font-size: 14px;
+      }
+
+      #activate-demo-btn {
+        padding: 14px 32px;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .demo-note {
+        font-size: 12px;
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .demo-activation-card {
+        padding: 24px 16px;
+      }
+
+      .demo-activation-card h1 {
+        font-size: 20px;
+      }
+
+      .demo-activation-card .emoji {
+        font-size: 40px;
+      }
+
+      .demo-activation-card ul li {
+        font-size: 13px;
+      }
+
+      #activate-demo-btn {
+        padding: 12px 24px;
+        font-size: 15px;
+      }
+    }
+
+    /* ================= COOLDOWN MODAL =================== */
+    #cooldown-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.96) 0%, rgba(118, 75, 162, 0.97) 100%);
+      z-index: 10000001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: fadeIn 0.4s;
+    }
+
+    .cooldown-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 28px;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 100%;
+    }
+
+    .cooldown-card h2 {
+      color: #333;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .cooldown-timer {
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #7b4bbd;
+      margin: 22px 0 16px 0;
+    }
+
+    #cooldown-overlay button.whatsapp-btn {
+      background: #25d366;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 12px 32px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 14px;
+      transition: background .2s;
+    }
+
+    #cooldown-overlay button.whatsapp-btn:hover {
+      background: #128c7e;
+    }
+
+    .cooldown-note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    @media (max-width: 430px) {
+      .cooldown-card {
+        font-size: 15px;
+        padding: 20px 10px;
+      }
+
+      .cooldown-timer {
+        font-size: 22px;
+      }
+    }
+
+    /* ========================= TIMER FLOTANTE ========================= */
+    #demo-timer-float {
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 10px 6px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 16px;
+      z-index: 999998;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      display: none;
+    }
+
+    #demo-timer-float.warning {
+      background: #ff6b6b;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    #timer-display {
+      vertical-align: baseline;
+    }
+
+    /* ========================= LOADER DE SCROLL AUTOMÁTICO ========================= */
+    #scroll-loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    #scroll-loader-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .scroll-loader-content {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .scroll-loader-content {
+        background: #2a2a2a;
+        color: white;
+      }
+    }
+
+    .scroll-loader-spinner {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 20px;
+      border: 4px solid rgba(102, 126, 234, 0.2);
+      border-top-color: #667eea;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .scroll-loader-text {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .scroll-loader-text {
+        color: #f5f5f5;
+      }
+    }
+
+    .scroll-loader-subtext {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .scroll-loader-subtext {
+        color: #999;
+      }
+    }
+
+    /* ========================= TUTORIAL MODAL STYLES ========================= */
+    .cms-tutorial-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000000;
+      animation: tutorialFadeIn 0.3s ease;
+    }
+
+    .cms-tutorial-overlay.active {
+      display: block;
+    }
+
+    .cms-tutorial-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      max-height: 85vh;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      z-index: 10000001;
+      overflow: hidden;
+      animation: tutorialSlideUp 0.3s ease;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-modal {
+        background: #262828;
+        color: #f5f5f5;
+      }
+    }
+
+    .cms-tutorial-modal.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cms-tutorial-header {
+      padding: 24px 24px 20px;
+      border-bottom: 1px solid rgba(94, 82, 64, 0.2);
+      background: linear-gradient(135deg, #32b8c6 0%, #2da4b2 100%);
+      color: white;
+      position: relative;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-header {
+        border-bottom: 1px solid rgba(119, 124, 124, 0.3);
+      }
+    }
+
+    .cms-tutorial-header h2 {
+      margin: 0 0 8px 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .cms-tutorial-header p {
+      margin: 0;
+      opacity: 0.95;
+      font-size: 14px;
+    }
+
+    .cms-tutorial-content {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .cms-tutorial-section {
+      margin-bottom: 24px;
+    }
+
+    .cms-tutorial-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .cms-tutorial-section h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #134252;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-section h3 {
+        color: #f5f5f5;
+      }
+    }
+
+    .cms-tutorial-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #32b8c6;
+      color: white;
+      border-radius: 50%;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .cms-tutorial-section p {
+      margin: 0 0 8px 0;
+      color: #626c71;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-section p {
+        color: rgba(167, 169, 169, 0.7);
+      }
+    }
+
+    .cms-tutorial-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0 0;
+    }
+
+    .cms-tutorial-list li {
+      padding: 8px 0 8px 32px;
+      position: relative;
+      color: #626c71;
+      font-size: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-list li {
+        color: rgba(167, 169, 169, 0.7);
+      }
+    }
+
+    .cms-tutorial-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 8px;
+      color: #32b8c6;
+      font-weight: bold;
+    }
+
+    .cms-code-example {
+      background: #fcfcf9;
+      border: 1px solid rgba(94, 82, 64, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 8px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #32b8c6;
+      overflow-x: auto;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-code-example {
+        background: #1f2121;
+        border: 1px solid rgba(119, 124, 124, 0.3);
+      }
+    }
+
+    .cms-tutorial-footer {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(94, 82, 64, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-footer {
+        border-top: 1px solid rgba(119, 124, 124, 0.3);
+      }
+    }
+
+    .cms-checkbox-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #626c71;
+      cursor: pointer;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-checkbox-container {
+        color: rgba(167, 169, 169, 0.7);
+      }
+    }
+
+    .cms-checkbox-container input[type="checkbox"] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+    }
+
+    .cms-tutorial-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .cms-tutorial-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cms-tutorial-btn-primary {
+      background: #32b8c6;
+      color: white;
+    }
+
+    .cms-tutorial-btn-primary:hover {
+      background: #2da4b2;
+      transform: translateY(-1px);
+    }
+
+    .cms-tutorial-btn-secondary {
+      background: transparent;
+      color: #134252;
+      border: 1px solid rgba(94, 82, 64, 0.2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-btn-secondary {
+        color: #f5f5f5;
+        border: 1px solid rgba(119, 124, 124, 0.3);
+      }
+    }
+
+    .cms-tutorial-btn-secondary:hover {
+      background: #fcfcf9;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-btn-secondary:hover {
+        background: #1f2121;
+      }
+    }
+
+    .cms-tutorial-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .cms-tutorial-close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+
+    @keyframes tutorialFadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes tutorialSlideUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .cms-tutorial-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .cms-tutorial-content::-webkit-scrollbar-track {
+      background: #fcfcf9;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-content::-webkit-scrollbar-track {
+        background: #1f2121;
+      }
+    }
+
+    .cms-tutorial-content::-webkit-scrollbar-thumb {
+      background: rgba(94, 82, 64, 0.2);
+      border-radius: 4px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .cms-tutorial-content::-webkit-scrollbar-thumb {
+        background: rgba(119, 124, 124, 0.3);
+      }
+    }
+
+    .cms-tutorial-content::-webkit-scrollbar-thumb:hover {
+      background: #626c71;
+    }
+
+    @media (max-width: 640px) {
+      .cms-tutorial-modal {
+        width: 95%;
+        max-height: 90vh;
+      }
+
+      .cms-tutorial-header h2 {
+        font-size: 20px;
+      }
+
+      .cms-tutorial-footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cms-tutorial-buttons {
+        width: 100%;
+      }
+
+      .cms-tutorial-btn {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====================== MODAL DE ACTIVACIÓN ===================== -->
+  <div id="demo-activation-overlay">
+    <div class="demo-activation-card">
+      <span class="emoji">🎨</span>
+      <h1>Bienvenido al Demo</h1>
+      <p>Estás a punto de probar nuestro editor CMS profesional</p>
+      <ul>
+        <li>Tendrás 15 minutos de acceso completo</li>
+        <li>Edita textos, imágenes y colores</li>
+        <li>Ve los cambios en tiempo real</li>
+        <li>Tus ediciones son temporales</li>
+      </ul>
+      <button id="activate-demo-btn">
+        🚀 ACTIVAR DEMO (15 MIN)
+      </button>
+      <p class="demo-note">
+        Al hacer clic, el temporizador comenzará.<br>
+        Los cambios se resetean automáticamente al finalizar.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== MODAL DE COOLDOWN (ESCONDER POR DEFECTO) ========== -->
+  <div id="cooldown-overlay" style="display:none;">
+    <div class="cooldown-card">
+      <span class="emoji" style="font-size:52px;">🚫</span>
+      <h2>Debes esperar antes de probar el demo otra vez</h2>
+      <div class="cooldown-timer" id="cooldown-timer">2:00:00</div>
+      <div class="cooldown-note">
+        Ya has usado el demo.<br />
+        Podrás activarlo nuevamente cuando termine la cuenta regresiva.<br />
+        Si tienes dudas urgentes:
+      </div>
+      <button class="whatsapp-btn" onclick="window.open('https://wa.me/34612469565','_blank')">
+        💬 Contactar por WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- =================== TEMPORIZADOR FLOTANTE ===================== -->
+  <div id="demo-timer-float">
+    ⏱️ Tiempo: <span id="timer-display">15:00</span>
+  </div>
+
+  <!-- =================== LOADER DE SCROLL AUTOMÁTICO ===================== -->
+  <div id="scroll-loader-overlay">
+    <div class="scroll-loader-content">
+      <div class="scroll-loader-spinner"></div>
+      <p class="scroll-loader-text">Cargando editor...</p>
+      <p class="scroll-loader-subtext">Preparando todos los campos</p>
+    </div>
+  </div>
+
+  <!-- =================== TUTORIAL MODAL ===================== -->
+  <div class="cms-tutorial-overlay" id="cmsTutorialOverlay"></div>
+
+  <div class="cms-tutorial-modal" id="cmsTutorialModal">
+    <div class="cms-tutorial-header">
+      <button class="cms-tutorial-close-btn" onclick="closeCMSTutorial()" aria-label="Cerrar">×</button>
+      <h2>🎯 Bienvenido al Editor CMS</h2>
+      <p>Aprende a editar tu sitio web de forma fácil y rápida</p>
+    </div>
+
+    <div class="cms-tutorial-content">
+      <!-- Sección 1: Textos y Links -->
+      <div class="cms-tutorial-section">
+        <h3>
+          <span class="cms-tutorial-icon">📝</span>
+          Editar Textos y Enlaces
+        </h3>
+        <p>Modifica cualquier texto o enlace de tu sitio directamente desde el panel lateral:</p>
+        <ul class="cms-tutorial-list">
+          <li>Haz clic en la sección que deseas editar (Header, About, Services, etc.)</li>
+          <li>Busca el campo de texto que quieres modificar</li>
+          <li>Escribe el nuevo contenido y se actualizará automáticamente</li>
+          <li>Los enlaces pueden ser internos (#about) o externos (https://...)</li>
+        </ul>
+      </div>
+
+      <!-- Sección 2: Imágenes -->
+      <div class="cms-tutorial-section">
+        <h3>
+          <span class="cms-tutorial-icon">🖼️</span>
+          Cambiar Imágenes
+        </h3>
+        <p>Actualiza las imágenes de tu sitio fácilmente:</p>
+        <ul class="cms-tutorial-list">
+          <li>Busca el campo "Imagen" en la sección correspondiente</li>
+          <li>Haz clic en "Choose an image" o arrastra una imagen</li>
+          <li>Sube tu nueva imagen (JPG, PNG, WebP)</li>
+          <li>La imagen se mostrará automáticamente en tu sitio</li>
+        </ul>
+      </div>
+
+      <!-- Sección 3: Colores -->
+      <div class="cms-tutorial-section">
+        <h3>
+          <span class="cms-tutorial-icon">🎨</span>
+          Personalizar Colores
+        </h3>
+        <p>Dale estilo a tu sitio con colores personalizados:</p>
+        <ul class="cms-tutorial-list">
+          <li>Encuentra los campos "Color de fondo", "Color del texto", etc.</li>
+          <li>Haz clic en el selector de color</li>
+          <li>Elige tu color favorito o introduce un código hexadecimal</li>
+          <li>Los cambios se aplican instantáneamente</li>
+        </ul>
+        <div class="cms-code-example">Ejemplo: #32b8c6 o rgb(50, 184, 198)</div>
+      </div>
+
+      <!-- Sección 4: Iconos -->
+      <div class="cms-tutorial-section">
+        <h3>
+          <span class="cms-tutorial-icon">🎯</span>
+          Configurar Iconos
+        </h3>
+        <p>Cambia los iconos de tus servicios y secciones:</p>
+        <ul class="cms-tutorial-list">
+          <li>Busca el campo "Clase de Icono" en la sección Services</li>
+          <li>Introduce el nombre de la clase del icono (Font Awesome, Material Icons)</li>
+          <li>Personaliza el color y tamaño del icono con los campos correspondientes</li>
+          <li>El color de fondo del círculo también es ajustable</li>
+        </ul>
+        <div class="cms-code-example">Ejemplos: fas fa-laptop-code | fas fa-palette | fas fa-rocket</div>
+      </div>
+
+      <!-- Sección 5: URLs -->
+      <div class="cms-tutorial-section">
+        <h3>
+          <span class="cms-tutorial-icon">🔗</span>
+          Gestionar URLs y Enlaces
+        </h3>
+        <p>Configura los enlaces de botones y navegación:</p>
+        <ul class="cms-tutorial-list">
+          <li>Enlaces internos: usa # seguido del ID de sección (#about, #contact)</li>
+          <li>Enlaces externos: usa la URL completa (https://ejemplo.com)</li>
+          <li>Los enlaces externos se abrirán en nueva pestaña automáticamente</li>
+          <li>Puedes configurar redes sociales en el Footer</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cms-tutorial-footer">
+      <label class="cms-checkbox-container">
+        <input type="checkbox" id="cmsDontShowAgain">
+        <span>No mostrar de nuevo</span>
+      </label>
+      <div class="cms-tutorial-buttons">
+        <button class="cms-tutorial-btn cms-tutorial-btn-secondary" onclick="closeCMSTutorial()">Cerrar</button>
+        <button class="cms-tutorial-btn cms-tutorial-btn-primary" onclick="startCMSEditing()">¡Empezar a
+          Editar!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================ CMS ADMIN (tu demo) ================== -->
+  <script src="sveltia-cms.js"></script>
+
+  <!-- =================== VALIDACIÓN INPUT FILE ====================== -->
+  <script>
+    const MAX_UPLOAD = 5 * 1024 * 1024; // ✅ 5MB (más realista)
+    const RECOMMENDED_SIZE = 2 * 1024 * 1024; // 2MB recomendado
+
+    function formatBytes(bytes, decimals = 2) {
+      if (!bytes) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return `${(bytes / Math.pow(k, i)).toFixed(decimals)} ${sizes[i]}`;
+    }
+
+    document.addEventListener('change', e => {
+      const tgt = e.target;
+      if (tgt.tagName !== 'INPUT' || tgt.type !== 'file') return;
+      const file = tgt.files[0];
+      if (!file) return;
+
+      if (file.size > MAX_UPLOAD) {
+        alert(`❌ Imagen demasiado grande (${formatBytes(file.size)}).\n\n` +
+          `📏 Máximo: ${formatBytes(MAX_UPLOAD)}\n` +
+          `💡 Recomendado: ${formatBytes(RECOMMENDED_SIZE)}`);
+        tgt.value = '';
+        return;
+      }
+
+      // ⭐ Advertencia para imágenes grandes
+      if (file.size > RECOMMENDED_SIZE) {
+        console.warn(`⚠️ Imagen grande (${formatBytes(file.size)}). Se comprimirá significativamente.`);
+      }
+
+      console.log(`✅ Imagen aceptada: ${file.name} (${formatBytes(file.size)})`);
+    }, true);
+  </script>
+
+  <!-- =================== SCRIPT DE ACTIVACIÓN DEL DEMO ====================== -->
+  <script>
+    const DEMO_DURATION = 15 * 60 * 1000;
+    let demoActive = localStorage.getItem('demo_active');
+    let demoEndTime = parseInt(localStorage.getItem('demo_end_time'));
+
+    if (demoActive === 'true' && demoEndTime) {
+      sessionStorage.setItem('demo_active', demoActive);
+      sessionStorage.setItem('demo_end_time', demoEndTime);
+      const startTime = localStorage.getItem('demo_start_time');
+      if (startTime) sessionStorage.setItem('demo_start_time', startTime);
+      console.log('✅ Sesión demo sincronizada desde localStorage');
+    }
+
+    if (demoActive === 'true' && demoEndTime && Date.now() < demoEndTime) {
+      document.getElementById('demo-activation-overlay').style.display = 'none';
+      document.getElementById('demo-timer-float').style.display = 'block';
+      document.getElementById('demo-banner').style.display = 'block';
+      startTimer(demoEndTime);
+    } else {
+      sessionStorage.clear();
+      localStorage.removeItem('demo_active');
+      localStorage.removeItem('demo_end_time');
+      localStorage.removeItem('demo_start_time');
+      document.getElementById('activate-demo-btn').addEventListener('click', activateDemo);
+    }
+
+    function activateDemo() {
+      const endTime = Date.now() + DEMO_DURATION;
+
+      sessionStorage.setItem('demo_active', 'true');
+      sessionStorage.setItem('demo_end_time', endTime);
+      sessionStorage.setItem('demo_start_time', Date.now());
+
+      localStorage.setItem('demo_active', 'true');
+      localStorage.setItem('demo_end_time', endTime);
+      localStorage.setItem('demo_start_time', Date.now());
+
+      const overlay = document.getElementById('demo-activation-overlay');
+      overlay.style.animation = 'fadeOut 0.5s ease';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        document.getElementById('demo-timer-float').style.display = 'block';
+        
+        // ⭐ MOSTRAR TUTORIAL DESPUÉS DE ACTIVAR DEMO
+        setTimeout(() => {
+          initCMSTutorial();
+        }, 3000); // Esperar 3 segundos para que el CMS cargue
+      }, 500);
+      startTimer(endTime);
+      console.log('✅ Demo activado y compartido con otras pestañas');
+    }
+
+    function startTimer(endTime) {
+      const timerDisplay = document.getElementById('timer-display');
+      const timerFloat = document.getElementById('demo-timer-float');
+
+      function updateTimer() {
+        const currentEndTime = parseInt(sessionStorage.getItem('demo_end_time')) || endTime;
+        const remaining = currentEndTime - Date.now();
+
+        if (remaining <= 0) {
+          expireDemo();
+          return;
+        }
+
+        const minutes = Math.floor(remaining / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+
+        timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        if (remaining < 2 * 60 * 1000) {
+          timerFloat.classList.add('warning');
+        }
+
+        setTimeout(updateTimer, 1000);
+      }
+
+      updateTimer();
+    }
+
+    function expireDemo() {
+      sessionStorage.clear();
+
+      const prefs = localStorage.getItem('sveltia-cms.prefs');
+      const user = localStorage.getItem('sveltia-cms.user');
+      localStorage.clear();
+      if (prefs) localStorage.setItem('sveltia-cms.prefs', prefs);
+      if (user) localStorage.setItem('sveltia-cms.user', user);
+
+      const isInIframe = window.self !== window.top;
+
+      if (isInIframe) {
+        // ⭐ AGREGAR ESTA LÍNEA - Notificar al parent que demo expiró
+        window.parent.postMessage({ type: 'demo-expired' }, '*');
+
+        alert('⏱️ Tu sesión de demo ha expirado.\n\n¿Te gustó el editor?\n\n💰 Web completa desde €600\n📱 WhatsApp: +34 612 46 95 65');
+
+        try {
+          window.parent.location.reload();
+        } catch (e) {
+          window.location.reload();
+        }
+      } else {
+        alert('⏱️ Tu sesión de demo ha expirado.\n\n¿Te gustó el editor?\n\n💰 Web completa desde €600\n📱 WhatsApp: +34 612 46 95 65\n\nLa página se recargará en 3 segundos...');
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+    }
+  </script>
+
+  <!-- =================== TUTORIAL CMS SCRIPT ======================= -->
+  <!-- =================== TUTORIAL CMS SCRIPT ======================= -->
+<script>
+  // Configuración del tutorial
+  const CMS_TUTORIAL_STORAGE_KEY = 'cms_tutorial_completed';
+
+  // Mostrar tutorial del CMS
+  function showCMSTutorial() {
+    const overlay = document.getElementById('cmsTutorialOverlay');
+    const modal = document.getElementById('cmsTutorialModal');
+
+    overlay.classList.add('active');
+    modal.classList.add('active');
+
+    // Prevenir scroll del body
+    document.body.style.overflow = 'hidden';
+    
+    console.log('🎓 Tutorial del CMS mostrado');
+  }
+
+  // Cerrar tutorial del CMS
+  function closeCMSTutorial() {
+    const overlay = document.getElementById('cmsTutorialOverlay');
+    const modal = document.getElementById('cmsTutorialModal');
+    const dontShow = document.getElementById('cmsDontShowAgain');
+
+    // Guardar preferencia si está marcado
+    if (dontShow.checked) {
+      localStorage.setItem(CMS_TUTORIAL_STORAGE_KEY, 'true');
+      console.log('✅ Tutorial del CMS marcado como completado');
+    }
+
+    overlay.classList.remove('active');
+    modal.classList.remove('active');
+
+    // Restaurar scroll del body
+    document.body.style.overflow = '';
+  }
+
+  // Empezar a editar (cierra el modal y marca como completado)
+  function startCMSEditing() {
+    // Siempre marcar como completado cuando hace clic en "Empezar a Editar"
+    localStorage.setItem(CMS_TUTORIAL_STORAGE_KEY, 'true');
+    console.log('✅ Tutorial del CMS completado - Usuario listo para editar');
+
+    closeCMSTutorial();
+  }
+
+  // Cerrar con tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('cmsTutorialModal');
+      if (modal && modal.classList.contains('active')) {
+        closeCMSTutorial();
+      }
+    }
+  });
+
+  // Cerrar al hacer clic en el overlay
+  document.getElementById('cmsTutorialOverlay').addEventListener('click', closeCMSTutorial);
+
+  // Función para inicializar el tutorial automáticamente
+  function initCMSTutorial() {
+    // Verificar si ya vio el tutorial
+    const hasSeenTutorial = localStorage.getItem(CMS_TUTORIAL_STORAGE_KEY);
+
+    if (hasSeenTutorial === 'true') {
+      console.log('ℹ️ Tutorial del CMS ya completado anteriormente');
+      return;
+    }
+
+    // Detectar si Sveltia CMS está cargado
+    let attemptCount = 0;
+    const checkCMSLoaded = setInterval(() => {
+      attemptCount++;
+      
+      // Buscar elementos específicos de Sveltia CMS (selectores ampliados)
+      const cmsLoaded = 
+        document.querySelector('[data-sveltia-cms]') !== null ||
+        document.querySelector('.svelte-') !== null ||
+        document.querySelector('[class*="svelte-"]') !== null ||
+        document.querySelector('#first-pane-body') !== null ||
+        document.querySelector('main[role="main"]') !== null ||
+        document.querySelector('.wrapper') !== null;
+
+      if (cmsLoaded) {
+        clearInterval(checkCMSLoaded);
+        console.log(`🚀 Sveltia CMS detectado en intento ${attemptCount} - Mostrando tutorial`);
+        
+        // Esperar 2 segundos para asegurar que el CMS esté completamente renderizado
+        setTimeout(() => {
+          showCMSTutorial();
+        }, 2000);
+      } else {
+        console.log(`🔍 Intento ${attemptCount}/30: CMS aún no detectado...`);
+      }
+    }, 500); // Verificar cada 500ms
+
+    // Timeout de seguridad: si después de 15 segundos no se detectó el CMS
+    setTimeout(() => {
+      clearInterval(checkCMSLoaded);
+      if (attemptCount >= 30) {
+        console.warn('⚠️ No se detectó Sveltia CMS después de 15 segundos. El tutorial no se mostrará automáticamente.');
+        console.log('💡 Puedes mostrar el tutorial manualmente con: window.showCMSTutorial()');
+      }
+    }, 15000);
+  }
+
+  // Función para reset manual (útil para testing)
+  function resetCMSTutorial() {
+    localStorage.removeItem(CMS_TUTORIAL_STORAGE_KEY);
+    console.log('🔄 Tutorial del CMS reseteado - se mostrará en la próxima activación');
+  }
+
+  // Exponer funciones globalmente para integración
+  window.showCMSTutorial = showCMSTutorial;
+  window.resetCMSTutorial = resetCMSTutorial;
+</script>
+
+
+  <!-- =================== LOCALSTORAGE/BRIDGE ======================= -->
+  <script>
+    window.addEventListener('load', () => {
+      console.log('✅ CMS Admin cargado');
+      console.log('📦 Modo: test-repo (demo)');
+      console.log('🔗 Puente localStorage activado');
+    });
+  </script>
+
+  <!-- =================== FORZAR MONTAJE (ADAPTATIVO MÓVIL/DESKTOP) CON LOADER ====================== -->
+  <script>
+    (function () {
+      console.log('🔧 Iniciando sistema de forzado de renderizado v5 (con loader)...');
+
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSlowBrowser = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
+      const config = isMobile || isSlowBrowser ? {
+        scrollStep: 0.15,     // ⭐ Pasos muy pequeños
+        interval: 40,         // ⭐ Muy pausado
+        finalDelay: 200,      // ⭐ Mucho tiempo de montaje
+        debounce: 800,
+        detection: 300
+      } : {
+        scrollStep: 0.1,      // ⭐ Pasos muy pequeños
+        interval: 15,         // ⭐ 3x más lento que antes
+        finalDelay: 75,       // ⭐ 3x más tiempo de montaje
+        debounce: 500,
+        detection: 200
+      };
+
+      console.log(`📱 Dispositivo: ${isMobile ? 'Móvil' : 'Desktop'}`);
+      console.log(`⚙️ Config: interval=${config.interval}ms, step=${config.scrollStep * 100}%`);
+
+      let scrollTimeout = null;
+      let lastScrollHash = '';
+
+      function findEditorContainer() {
+        // ⭐ SELECTOR ESPECÍFICO PARA SVELTIA CMS
+        const specificSelectors = [
+          '#first-pane-body .content',  // El contenedor exacto que vimos en el HTML
+          '.wrapper.svelte-1vy4qxn .content',
+          '[id*="pane-body"] .content',
+          '.content.svelte-1vy4qxn'
+        ];
+
+        for (const selector of specificSelectors) {
+          const el = document.querySelector(selector);
+          if (el) {
+            console.log(`✅ Contenedor encontrado: ${selector}`);
+            console.log(`   scrollHeight: ${el.scrollHeight}, clientHeight: ${el.clientHeight}`);
+            return el;
+          }
+        }
+
+        console.warn('⚠️ No se encontró contenedor específico de Sveltia');
+        return null;
+      }
+
+      function forceRenderAllInputs() {
+        const container = findEditorContainer();
+
+        if (!container) {
+          console.warn('⚠️ No se pudo encontrar contenedor');
+          return;
+        }
+
+        console.log('🚀 Iniciando forzado de renderizado en Sveltia CMS...');
+
+        // MOSTRAR LOADER
+        const loader = document.getElementById('scroll-loader-overlay');
+        if (loader) {
+          loader.classList.add('active');
+        }
+
+        // BLOQUEAR SCROLL DEL USUARIO
+        const originalOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+
+        const originalScroll = container.scrollTop;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
+        const maxScroll = scrollHeight - clientHeight;
+
+        console.log(`📏 scrollHeight: ${scrollHeight}px`);
+        console.log(`📏 clientHeight: ${clientHeight}px`);
+        console.log(`📏 maxScroll (calculado): ${maxScroll}px`);
+        console.log(`📍 Posición original: ${originalScroll}px`);
+
+        // ⭐ PASO 1: BAJAR PROGRESIVAMENTE
+        let scrollPosition = 0;
+        const step = Math.max(50, Math.floor(clientHeight / 4));
+        let scrollCount = 0;
+
+        const scrollDownInterval = setInterval(() => {
+          scrollPosition += step;
+          container.scrollTop = scrollPosition;
+          scrollCount++;
+
+          console.log(`⬇️ Scroll ${scrollCount}: ${container.scrollTop}px / ${maxScroll}px`);
+
+          // ⭐ AGREGAR MARGEN EXTRA (+500px) para asegurar llegar AL FONDO REAL
+          if (scrollPosition >= maxScroll + 500) {
+            clearInterval(scrollDownInterval);
+
+            // Forzar scroll al máximo posible
+            container.scrollTop = container.scrollHeight;
+            console.log(`✅ Fondo alcanzado: ${container.scrollTop}px (forzado a scrollHeight completo)`);
+            console.log(`📊 scrollHeight actual: ${container.scrollHeight}px`);
+
+            // ⭐ PASO 2: Esperar 3 segundos en el fondo
+            setTimeout(() => {
+              console.log('⏱️ Esperando montaje de inputs...');
+
+              const inputCountBefore = document.querySelectorAll('input[type="text"], textarea, input[type="color"], select').length;
+              console.log(`📊 Inputs detectados en el fondo: ${inputCountBefore}`);
+
+              // ⭐ PASO 3: SUBIR PROGRESIVAMENTE (igual que bajó)
+              setTimeout(() => {
+                console.log('⬆️ Iniciando scroll hacia arriba progresivo...');
+
+                let upScrollCount = 0;
+
+                const scrollUpInterval = setInterval(() => {
+                  scrollPosition -= step;
+                  container.scrollTop = scrollPosition;
+                  upScrollCount++;
+
+                  console.log(`⬆️ Scroll arriba ${upScrollCount}: ${container.scrollTop}px`);
+
+                  // Cuando llegamos al inicio
+                  if (scrollPosition <= 0 || container.scrollTop <= 0) {
+                    clearInterval(scrollUpInterval);
+
+                    container.scrollTop = 0;
+                    console.log(`✅ Inicio alcanzado: ${container.scrollTop}px`);
+
+                    // ⭐ PASO 4: Verificar inputs montados
+                    setTimeout(() => {
+                      const inputCountAfter = document.querySelectorAll('input[type="text"], textarea, input[type="color"], select').length;
+                      console.log(`✅ Renderizado completado. Inputs montados: ${inputCountAfter}`);
+
+                      if (inputCountAfter < 12) {
+                        console.warn(`⚠️ Pocos inputs montados (${inputCountAfter}). Esperados: ~13`);
+                      } else {
+                        console.log(`🎉 ¡Todos los inputs montados correctamente!`);
+                      }
+
+                      // DESBLOQUEAR Y OCULTAR LOADER
+                      document.body.style.overflow = originalOverflow;
+
+                      if (loader) {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                          loader.classList.remove('active');
+                          loader.style.opacity = '1';
+                        }, 300);
+                      }
+                    }, 100); // Esperar 500ms después de llegar arriba
+
+                  }
+                }, 50); // Cada 80ms sube un paso
+
+              }, 100); // Esperar 500ms antes de empezar a subir
+
+            }, 300); // Esperar 3s en el fondo
+          }
+        }, 20); // Cada 80ms baja un paso
+      }
+
+      function scheduleScroll(hash) {
+        if (hash === lastScrollHash && scrollTimeout) {
+          console.log('⏭️ Scroll duplicado cancelado');
+          return;
+        }
+
+        if (scrollTimeout) {
+          clearTimeout(scrollTimeout);
+        }
+
+        lastScrollHash = hash;
+
+        scrollTimeout = setTimeout(() => {
+          console.log(`🚀 Ejecutando scroll para: ${hash}`);
+          forceRenderAllInputs();
+          scrollTimeout = null;
+        }, config.debounce);
+      }
+
+      let currentHash = window.location.hash;
+      setInterval(() => {
+        if (window.location.hash !== currentHash) {
+          currentHash = window.location.hash;
+          console.log('🔄 Cambio de sección detectado:', currentHash);
+
+          if (currentHash.includes('/entries/')) {
+            scheduleScroll(currentHash);
+          }
+        }
+      }, config.detection);
+
+      setTimeout(() => {
+        if (window.location.hash.includes('/entries/')) {
+          console.log('🚀 Iniciando forzado inicial...');
+          scheduleScroll(window.location.hash);
+        }
+      }, 3000);
+
+    })();
+  </script>
+
+  <!-- PUENTE FINAL ULTRA-OPTIMIZADO CON BROADCAST CHANNEL -->
+  <script>
+    const DEBUG = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+    const broadcastChannel = new BroadcastChannel('cms-preview-sync');
+
+    setTimeout(() => {
+      if (DEBUG) console.log('🔍 Iniciando puente localStorage OPTIMIZADO v6 con Broadcast...');
+
+      let lastHash = {};
+      let imageCache = {};
+      let lastImageId = {};
+      let lastSaveTime = 0;
+      const SAVE_DEBOUNCE = 1500;
+
+      setInterval(async () => {
+        try {
+          const hashMatch = window.location.hash.match(/\/entries\/([^/?]+)/);
+          const slug = hashMatch ? hashMatch[1] : null;
+          if (!slug) return;
+
+          const textInputs = Array.from(document.querySelectorAll('input[type="text"], textarea'));
+          const colorInputs = Array.from(document.querySelectorAll('input[type="color"]'));
+          const selectInputs = Array.from(document.querySelectorAll('select'));
+
+          let imageBase64 = null;
+          let imageIdentifier = null;
+
+          // ⭐ MÉTODO 1: Input file (con caché inteligente)
+          const fileInputs = document.querySelectorAll('input[type="file"]');
+          for (let input of fileInputs) {
+            if (input.files && input.files[0]) {
+              const file = input.files[0];
+              imageIdentifier = `file:${file.name}-${file.size}-${file.lastModified}`;
+
+              if (imageCache[imageIdentifier]) {
+                imageBase64 = imageCache[imageIdentifier];
+              } else {
+                if (DEBUG) console.log(`📸 Nueva imagen: ${file.name}`);
+
+                imageBase64 = await new Promise((resolve) => {
+                  const canvas = document.createElement('canvas');
+                  const ctx = canvas.getContext('2d');
+                  const img = new Image();
+
+                  img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    let quality = 0.4;
+                    if (file.size > 3 * 1024 * 1024) quality = 0.15;
+                    else if (file.size > 1 * 1024 * 1024) quality = 0.25;
+
+                    const compressed = canvas.toDataURL('image/jpeg', quality);
+                    imageCache[imageIdentifier] = compressed;
+
+                    if (DEBUG) console.log(`✅ Comprimida (${Math.round(quality * 100)}% calidad)`);
+                    resolve(compressed);
+                  };
+                  img.onerror = () => resolve(null);
+                  img.src = URL.createObjectURL(file);
+                });
+              }
+              break;
+            }
+          }
+
+          // ⭐ MÉTODO 2: Preview del CMS
+          if (!imageBase64 && !imageIdentifier) {
+            const previewDiv = document.querySelector('.preview:not(.tile)');
+            if (previewDiv) {
+              const img = previewDiv.querySelector('img[src^="blob:"]');
+
+              if (img && img.src.startsWith('blob:')) {
+                if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+                  if (DEBUG) console.log('⏭️ Imagen vacía detectada, saltando');
+                } else {
+                  const dimensions = `${img.naturalWidth}x${img.naturalHeight}`;
+                  imageIdentifier = `preview:${dimensions}`;
+
+                  if (imageCache[imageIdentifier]) {
+                    imageBase64 = imageCache[imageIdentifier];
+                  } else {
+                    if (DEBUG) console.log(`🖼️ Nuevo preview (${dimensions})`);
+
+                    try {
+                      if (!img.complete) {
+                        await new Promise((resolve) => {
+                          img.onload = resolve;
+                          img.onerror = resolve;
+                          setTimeout(resolve, 100);
+                        });
+                      }
+
+                      const canvas = document.createElement('canvas');
+                      canvas.width = img.naturalWidth;
+                      canvas.height = img.naturalHeight;
+                      const ctx = canvas.getContext('2d');
+                      ctx.drawImage(img, 0, 0);
+
+                      const pixels = img.naturalWidth * img.naturalHeight;
+                      let quality = 0.5;
+                      if (pixels > 10000000) quality = 0.2;
+                      else if (pixels > 5000000) quality = 0.3;
+
+                      imageBase64 = canvas.toDataURL('image/jpeg', quality);
+                      imageCache[imageIdentifier] = imageBase64;
+
+                      if (DEBUG) console.log(`✅ Preview comprimido (${Math.round(quality * 100)}%)`);
+                    } catch (e) {
+                      console.warn('⚠️ Error al leer canvas:', e.message);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          // ⭐ MAPEO DE DATOS
+          const currentData = {};
+
+          if (slug === 'header') {
+            if (selectInputs[0]) currentData.header_background_mode = selectInputs[0].value;
+            if (colorInputs[1]) currentData.header_title_color = colorInputs[1].value;
+            if (colorInputs[2]) currentData.header_subtitle_color = colorInputs[2].value;
+            if (colorInputs[3]) currentData.header_button_bg_color = colorInputs[3].value;
+            if (colorInputs[4]) currentData.header_button_text_color = colorInputs[4].value;
+            if (textInputs[0]) currentData.header_title_es = textInputs[0].value;
+            if (textInputs[1]) currentData.header_title_en = textInputs[1].value;
+            if (textInputs[2]) currentData.header_subtitle_es = textInputs[2].value;
+            if (textInputs[3]) currentData.header_subtitle_en = textInputs[3].value;
+            if (textInputs[4]) currentData.header_button_text_es = textInputs[4].value;
+            if (textInputs[5]) currentData.header_button_text_en = textInputs[5].value;
+            if (textInputs[6]) currentData.header_button_link = textInputs[6].value;
+
+            let hasFileInput = false;
+            let fileInputIsEmpty = false;
+
+            const allFileInputs = document.querySelectorAll('input[type="file"]');
+            for (let input of allFileInputs) {
+              if (input.closest('[data-field-name*="background"]') || input.closest('.preview')) {
+                hasFileInput = true;
+                fileInputIsEmpty = (!input.files || input.files.length === 0);
+                break;
+              }
+            }
+
+            if (imageBase64 && imageIdentifier) {
+              currentData.header_background = imageBase64;
+
+              if (imageIdentifier !== lastImageId[slug]) {
+                if (DEBUG) console.log(`🆕 Nueva imagen: ${imageIdentifier}`);
+              }
+            } else if (hasFileInput && fileInputIsEmpty && lastImageId[slug]) {
+              currentData.header_background = '';
+              if (DEBUG) console.log(`🗑️ Imagen eliminada (input vacío)`);
+              delete lastImageId[slug];
+            }
+          }
+          else if (slug === 'navigation') {
+            for (let i = 1; i <= 5; i++) {
+              const idx = (i - 1) * 3;
+              if (textInputs[idx]) currentData[`nav_link_${i}_text_es`] = textInputs[idx].value;
+              if (textInputs[idx + 1]) currentData[`nav_link_${i}_text_en`] = textInputs[idx + 1].value;
+              if (textInputs[idx + 2]) currentData[`nav_link_${i}_href`] = textInputs[idx + 2].value;
+            }
+          }
+          else if (slug === 'about') {
+            if (colorInputs[0]) currentData.about_background_color = colorInputs[0].value;
+            if (textInputs[0]) currentData.about_title_es = textInputs[0].value;
+            if (textInputs[1]) currentData.about_title_en = textInputs[1].value;
+            if (textInputs[2]) currentData.about_subtitle_es = textInputs[2].value;
+            if (textInputs[3]) currentData.about_subtitle_en = textInputs[3].value;
+            if (textInputs[4]) currentData.about_button_text_es = textInputs[4].value;
+            if (textInputs[5]) currentData.about_button_text_en = textInputs[5].value;
+            if (textInputs[6]) currentData.about_button_link = textInputs[6].value;
+          }
+          else if (slug === 'services') {
+            if (colorInputs[0]) currentData.services_background_color = colorInputs[0].value;
+            if (colorInputs[1]) currentData.services_subtitle_color = colorInputs[1].value;
+            if (textInputs[0]) currentData.services_subtitle_es = textInputs[0].value;
+            if (textInputs[1]) currentData.services_subtitle_en = textInputs[1].value;
+            if (textInputs[2]) currentData.services_title_es = textInputs[2].value;
+            if (textInputs[3]) currentData.services_title_en = textInputs[3].value;
+          }
+          else if (slug === 'portfolio') {
+            if (textInputs[0]) currentData.portfolio_subtitle_es = textInputs[0].value;
+            if (textInputs[1]) currentData.portfolio_subtitle_en = textInputs[1].value;
+            if (textInputs[2]) currentData.portfolio_title_main_es = textInputs[2].value;
+            if (textInputs[3]) currentData.portfolio_title_main_en = textInputs[3].value;
+          }
+          else if (slug === 'callout') {
+            if (textInputs[0]) currentData.callout_title_es = textInputs[0].value;
+            if (textInputs[1]) currentData.callout_title_en = textInputs[1].value;
+            if (textInputs[2]) currentData.callout_button_text_es = textInputs[2].value;
+            if (textInputs[3]) currentData.callout_button_text_en = textInputs[3].value;
+            if (textInputs[4]) currentData.callout_button_link = textInputs[4].value;
+
+            if (imageBase64 && imageIdentifier) {
+              if (imageIdentifier !== lastImageId[slug]) {
+                currentData.callout_background = imageBase64;
+                if (DEBUG) console.log(`🆕 Nueva imagen: ${imageIdentifier}`);
+              } else {
+                currentData.callout_background = imageBase64;
+              }
+            } else if (!imageBase64 && !imageIdentifier && lastImageId[slug]) {
+              currentData.callout_background = '';
+              if (DEBUG) console.log(`🗑️ Imagen eliminada`);
+              delete lastImageId[slug];
+            }
+          }
+          else if (slug === 'cta') {
+            if (colorInputs[0]) currentData.cta_background_color = colorInputs[0].value;
+            if (colorInputs[1]) currentData.cta_title_text_color = colorInputs[1].value;
+            if (textInputs[0]) currentData.cta_title_es = textInputs[0].value;
+            if (textInputs[1]) currentData.cta_title_en = textInputs[1].value;
+            if (textInputs[2]) currentData.cta_button_1_text_es = textInputs[2].value;
+            if (textInputs[3]) currentData.cta_button_1_text_en = textInputs[3].value;
+            if (textInputs[4]) currentData.cta_button_1_link = textInputs[4].value;
+            if (textInputs[5]) currentData.cta_button_2_text_es = textInputs[5].value;
+            if (textInputs[6]) currentData.cta_button_2_text_en = textInputs[6].value;
+            if (textInputs[7]) currentData.cta_button_2_link = textInputs[7].value;
+          }
+          else if (slug === 'footer') {
+            if (textInputs[0]) currentData.footer_link_facebook = textInputs[0].value;
+            if (textInputs[1]) currentData.footer_link_twitter = textInputs[1].value;
+            if (textInputs[2]) currentData.footer_link_github = textInputs[2].value;
+            if (textInputs[3]) currentData.footer_copy_text_es = textInputs[3].value;
+            if (textInputs[4]) currentData.footer_copy_text_en = textInputs[4].value;
+          }
+
+          const currentHash = JSON.stringify(currentData);
+          const now = Date.now();
+
+          if (currentHash === (lastHash[slug] || '') || (now - lastSaveTime) < SAVE_DEBOUNCE) {
+            return;
+          }
+
+          lastHash[slug] = currentHash;
+          lastSaveTime = now;
+
+          const payload = {
+            slug: slug,
+            data: currentData,
+            timestamp: Date.now()
+          };
+
+          try {
+            const payloadString = JSON.stringify(payload);
+            const payloadSize = new Blob([payloadString]).size;
+
+            // ⭐ VERIFICAR LÍMITE DE LOCALSTORAGE
+            const totalSize = new Blob([JSON.stringify(localStorage)]).size;
+            const MAX_STORAGE = 4.5 * 1024 * 1024;
+
+            if (totalSize + payloadSize > MAX_STORAGE) {
+              console.error('⚠️ localStorage casi lleno. Limpiando datos antiguos...');
+
+              Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('sveltia-live-preview-') && !key.includes(slug)) {
+                  localStorage.removeItem(key);
+                  if (DEBUG) console.log(`🗑️ Eliminado: ${key}`);
+                }
+              });
+            }
+
+            localStorage.setItem('sveltia-live-preview', payloadString);
+            localStorage.setItem(`sveltia-live-preview-${slug}`, payloadString);
+
+            broadcastChannel.postMessage({
+              type: 'cms-data-update',
+              payload: payloadString,
+              timestamp: Date.now()
+            });
+
+            if (imageIdentifier && currentData[slug === 'header' ? 'header_background' : (slug === 'callout' ? 'callout_background' : null)]) {
+              lastImageId[slug] = imageIdentifier;
+            }
+
+            if (DEBUG) {
+              console.log(`💾 Guardado: ${slug} (${(payloadSize / 1024).toFixed(2)} KB)`);
+              console.log(`📡 Broadcast enviado a otras ventanas`);
+            }
+          } catch (e) {
+            console.error('❌ Error localStorage:', e.message);
+
+            if (e.message.includes('quota') || e.message.includes('storage')) {
+              alert('⚠️ Error: Espacio de almacenamiento lleno.\n\n' +
+                'Solución: Recarga la página o usa imágenes más pequeñas.');
+            }
+          }
+
+        } catch (e) {
+          console.error('❌ Error en puente:', e);
+        }
+      }, 1500);
+
+    }, 2000);
+  </script>
+
+</body>
+
+</html>
