@@ -1,0 +1,116 @@
+/* assets/css/custom.css */
+
+.masthead {
+  position: relative;
+  overflow: hidden;
+  background:none
+}
+
+.header-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+/* Esto es lo que debes agregar */
+#callout-section {
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  min-height: 400px; 
+}
+
+/* Contenedor del selector dentro del header */
+.lang-selector-header {
+  position: fixed;       /* Posición relativa al header */
+  top: 15px;                /* Desde la parte superior del header */
+  left: 15px;               /* Desde la izquierda del header */
+  z-index: 1050;            /* Por encima del contenido del header */
+}
+
+/* Botón principal del selector */
+.lang-selector-header .btn {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, transform 0.1s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Hover: efecto visual */
+.lang-selector-header .btn:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+/* Dropdown del selector */
+.lang-selector-header .dropdown-menu {
+  min-width: 120px;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Items del dropdown */
+.lang-selector-header .dropdown-item {
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+/* Hover de cada opción */
+.lang-selector-header .dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+/* Estilos del Preloader */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff; /* Fondo blanco, cámbialo si quieres */
+  z-index: 99999; /* Asegura que esté por encima de todo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+/* Estilo simple de spinner (puedes mejorarlo) */
+.loader {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid #555; /* Darker blue/grey */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Clase para ocultarlo con una transición suave */
+.hidden-preloader {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+#header-section[data-mode="image"] {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+#header-section[data-mode="image"] #header-background {
+  display: block !important;
+}
