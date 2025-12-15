@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Demo - Vista en Tiempo Real</title>
+  
+  <!-- Google Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #1a1a1a;
+      overflow: hidden;
+    }
+
+    /* ========================= BANNER UNIFICADO ========================= */
+    .demo-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 999999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.4s cubic-bezier(.7,.2,.27,.99);
+      will-change: transform;
+      min-height: 44px;
+    }
+
+    .demo-banner.closed {
+      transform: translateY(-100%);
+    }
+
+    .demo-banner.open {
+      transform: translateY(0%);
+    }
+
+    .banner-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    #demo-banner-text {
+      flex: 1;
+      min-width: 0;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #demo-banner-text .material-symbols-outlined {
+      font-size: 20px;
+      vertical-align: middle;
+    }
+
+    .banner-controls {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .banner-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .banner-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .banner-btn:active {
+      transform: translateY(0);
+    }
+
+    #demo-banner-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      flex-shrink: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      position: fixed;
+    }
+
+    #demo-banner-mini {
+      position: fixed;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999992;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 8px 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      font-size: 18px;
+      display: none;
+      cursor: pointer;
+      transition: opacity 0.3s, transform 0.2s;
+      border: none;
+    }
+
+    #demo-banner-mini:hover {
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* ================= COOLDOWN MODAL =================== */
+    #cooldown-overlay-parent {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.96) 0%, rgba(118, 75, 162, 0.97) 100%);
+      z-index: 10000001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    #cooldown-overlay-parent.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .cooldown-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 28px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cooldown-card h2 {
+      color: #333;
+      font-size: 26px;
+      margin-bottom: 10px;
+      margin-top: 0;
+    }
+
+    .cooldown-card .emoji {
+      font-size: 52px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cooldown-note {
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    .cooldown-timer {
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: #7b4bbd;
+      margin: 22px 0 16px 0;
+      font-family: monospace;
+    }
+
+    .cooldown-card button.whatsapp-btn {
+      background: #25d366;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      padding: 12px 32px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 14px;
+      transition: background 0.2s ease;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .cooldown-card button.whatsapp-btn:hover {
+      background: #128c7e;
+      box-shadow: 0 6px 20px rgba(18, 140, 126, 0.4);
+    }
+
+    .cooldown-card button.landing-btn {
+      width: 100%;
+      background: #f0f0f0;
+      color: #333;
+      border: none;
+      padding: 12px;
+      border-radius: 24px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 10px;
+    }
+
+    .cooldown-card button.landing-btn:hover {
+      background: #e0e0e0;
+    }
+
+    @media (max-width: 480px) {
+      .cooldown-card {
+        padding: 20px 16px;
+      }
+      .cooldown-card h2 {
+        font-size: 20px;
+      }
+      .cooldown-timer {
+        font-size: 28px;
+      }
+      .cooldown-card button.whatsapp-btn {
+        padding: 10px 24px;
+        font-size: 14px;
+      }
+    }
+
+    /* Container principal */
+    .container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      gap: 2px;
+      background: #2a2a2a;
+      padding: 2px;
+    }
+
+    /* Paneles */
+    .panel {
+      flex: 1;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      background: #f5f5f5;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-header .label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel-header .status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4caf50;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .panel iframe {
+      width: 100%;
+      flex: 1;
+      border: none;
+    }
+
+    /* Divisor ajustable */
+    .resizer {
+      width: 6px;
+      cursor: col-resize;
+      background: #2a2a2a;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .resizer:hover {
+      background: #667eea;
+    }
+
+    .resizer::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 2px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+    }
+
+    /* ========================= RESPONSIVE ========================= */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .resizer {
+        display: none;
+      }
+      
+      .btn-text {
+        display: none;
+      }
+      
+      .banner-btn {
+        padding: 6px 10px;
+        font-size: 16px;
+      }
+      
+      .demo-banner {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .banner-controls {
+        gap: 4px;
+      }
+      
+      .banner-btn {
+        padding: 4px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ====================== BANNER UNIFICADO ===================== -->
+  <div id="demo-banner" class="demo-banner closed">
+    <div class="banner-content">
+      <span id="demo-banner-text">
+        🎨 Modo Demo Activo - Usa el botón 
+        <span class="material-symbols-outlined">visibility</span> 
+        para ver el cambio de imagen en tiempo real
+      </span>
+    </div>
+    
+    <div class="banner-controls">
+      <button class="banner-btn" onclick="openAdmin()" title="Abrir Admin en nueva pestaña">
+        ⚙️ <span class="btn-text">Admin</span>
+      </button>
+      <button class="banner-btn" onclick="openFrontend()" title="Abrir Frontend en nueva pestaña">
+        👁️ <span class="btn-text">Frontend</span>
+      </button>
+    </div>
+    
+    <button id="demo-banner-toggle" onclick="toggleBanner()">▼</button>
+  </div>
+
+  <!-- Botón mini para mostrar el banner -->
+  <button id="demo-banner-mini" onclick="showBanner()">▲</button>
+
+  <!-- ========== MODAL DE COOLDOWN ========== -->
+  <div id="cooldown-overlay-parent">
+    <div class="cooldown-card">
+      <span class="emoji">🚫</span>
+      <h2>Debes esperar antes de probar el demo otra vez</h2>
+      
+      <p class="cooldown-note">
+        ⏱️ Próxima prueba disponible en:
+      </p>
+      
+      <div class="cooldown-timer" id="cooldown-timer-parent">2:00:00</div>
+      
+      <p style="font-size: 12px; color: #999; margin: 16px 0;">
+        ¿Te gustó el editor? Contáctanos para obtener tu web completa con este sistema.
+      </p>
+
+      <button class="whatsapp-btn" onclick="window.open('https://wa.me/34612469565','_blank')">
+        💬 Contactar por WhatsApp
+      </button>
+      
+    </div>
+  </div>
+
+  <!-- Container principal -->
+  <div class="container" id="container">
+    <!-- Panel Admin (izquierda) -->
+    <div class="panel" id="panel-admin">
+      <div class="panel-header">
+        <div class="label">
+          <span>⚙️ Admin / Editor</span>
+        </div>
+        <div class="status" title="Conectado"></div>
+      </div>
+      <iframe src="/democms/admin/index.html" id="iframe-admin"></iframe>
+    </div>
+
+    <!-- Divisor ajustable -->
+    <div class="resizer" id="resizer"></div>
+
+    <!-- Panel Frontend (derecha) -->
+    <div class="panel" id="panel-frontend">
+      <div class="panel-header">
+        <div class="label">
+          <span>👁️ Vista Previa / Frontend</span>
+        </div>
+        <div class="status" title="Sincronizado"></div>
+      </div>
+      <iframe src="index.html" id="iframe-frontend"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const DEBUG = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const DEMO_DURATION = 15 * 60 * 1000;
+    const COOLDOWN_DURATION = 2 * 60 * 60 * 1000; // 2 horas
+
+    // =================== BANNER UNIFICADO ===================
+    function toggleBanner() {
+      const banner = document.getElementById('demo-banner');
+      const isOpen = banner.classList.contains('open');
+      
+      if (isOpen) {
+        hideBanner();
+      } else {
+        showBanner();
+      }
+    }
+
+    function showBanner() {
+      const banner = document.getElementById('demo-banner');
+      const mini = document.getElementById('demo-banner-mini');
+      const toggle = document.getElementById('demo-banner-toggle');
+      
+      banner.classList.add('open');
+      banner.classList.remove('closed');
+      mini.style.display = 'none';
+      toggle.textContent = '▼';
+      
+      localStorage.setItem('demo-banner-state', 'open');
+    }
+
+    function hideBanner() {
+      const banner = document.getElementById('demo-banner');
+      const mini = document.getElementById('demo-banner-mini');
+      const toggle = document.getElementById('demo-banner-toggle');
+      
+      banner.classList.remove('open');
+      banner.classList.add('closed');
+      setTimeout(() => {
+        mini.style.display = 'block';
+      }, 400);
+      toggle.textContent = '▲';
+      
+      localStorage.setItem('demo-banner-state', 'closed');
+    }
+
+    function openAdmin() {
+      window.open('/democms/admin/index.html', '_blank');
+    }
+
+    function openFrontend() {
+      window.open('index.html', '_blank');
+    }
+
+    // =================== SISTEMA DE COOLDOWN EN PARENT ===================
+    function checkCooldown() {
+      const cooldownEnd = parseInt(localStorage.getItem('demo_cooldown_end')) || 0;
+      if (cooldownEnd && Date.now() < cooldownEnd) {
+        return { active: true, remaining: cooldownEnd - Date.now() };
+      }
+      return { active: false };
+    }
+
+    function setCooldown() {
+      const cooldownEnd = Date.now() + COOLDOWN_DURATION;
+      localStorage.setItem('demo_cooldown_end', cooldownEnd);
+      if (DEBUG) console.log('⏳ Cooldown de 2 horas iniciado desde demo.html (parent)');
+      showCooldownModal(cooldownEnd - Date.now());
+    }
+
+    function showCooldownModal(remainingMS) {
+      const overlay = document.getElementById('cooldown-overlay-parent');
+      const timer = document.getElementById('cooldown-timer-parent');
+      const container = document.getElementById('container');
+      
+      overlay.classList.add('active');
+      container.style.display = 'none';
+
+      function updateCountdown() {
+        let totalSeconds = Math.max(0, Math.floor(remainingMS / 1000));
+        let hours = Math.floor(totalSeconds / 3600);
+        let minutes = Math.floor((totalSeconds % 3600) / 60);
+        let seconds = totalSeconds % 60;
+
+        timer.textContent = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        if (totalSeconds > 0) {
+          remainingMS -= 1000;
+          setTimeout(updateCountdown, 1000);
+        } else {
+          if (DEBUG) console.log('✅ Cooldown expirado, recargando desde parent...');
+          location.reload();
+        }
+      }
+
+      updateCountdown();
+    }
+
+    window.addEventListener('message', (event) => {
+      if (event.origin !== window.location.origin) return;
+
+      if (event.data.type === 'demo-expired') {
+        if (DEBUG) console.log('📡 Parent recibió evento: demo expirado desde admin iframe');
+        setCooldown();
+      }
+    });
+
+    // =================== INICIALIZACIÓN AL CARGAR ===================
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedBannerState = localStorage.getItem('demo-banner-state');
+      
+      if (savedBannerState === 'open') {
+        showBanner();
+      } else {
+        hideBanner();
+      }
+
+      const cooldown = checkCooldown();
+      if (cooldown.active) {
+        if (DEBUG) console.log('⏳ Cooldown activo detectado al cargar demo.html');
+        const container = document.getElementById('container');
+        container.style.display = 'none';
+        showCooldownModal(cooldown.remaining);
+      } else {
+        if (DEBUG) console.log('✅ Sin cooldown, mostrar iframes normalmente');
+      }
+    });
+
+    // =================== RESIZER (DIVISOR AJUSTABLE) ===================
+    const container = document.getElementById('container');
+    const resizer = document.getElementById('resizer');
+    const panelAdmin = document.getElementById('panel-admin');
+    const panelFrontend = document.getElementById('panel-frontend');
+
+    let isResizing = false;
+
+    resizer.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const offsetX = e.clientX - containerRect.left;
+      const percentage = (offsetX / containerRect.width) * 100;
+
+      if (percentage >= 20 && percentage <= 80) {
+        panelAdmin.style.flex = `0 0 ${percentage}%`;
+        panelFrontend.style.flex = `0 0 ${100 - percentage}%`;
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      }
+    });
+
+    // =================== ATAJOS DE TECLADO ===================
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === '1') {
+        e.preventDefault();
+        openAdmin();
+      }
+      
+      if ((e.ctrlKey || e.metaKey) && e.key === '2') {
+        e.preventDefault();
+        openFrontend();
+      }
+
+      if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+        e.preventDefault();
+        toggleBanner();
+      }
+    });
+
+    // =================== RESPONSIVE ===================
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 768) {
+        panelAdmin.style.flex = '1';
+        panelFrontend.style.flex = '1';
+      }
+    });
+  </script>
+  
+</body>
+</html>
