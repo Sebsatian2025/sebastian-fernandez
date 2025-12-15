@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Diseños Web | Premium Templates</title>
+        <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+      <rect x='10' y='10' width='80' height='20' rx='4' fill='white'/>
+      <rect x='10' y='40' width='50' height='20' rx='4' fill='white'/>
+      <rect x='65' y='40' width='25' height='20' rx='4' fill='white'/>
+      <rect x='10' y='70' width='80' height='20' rx='4' fill='white'/>
+    </svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+    <!-- Configuración de Colores y Modo Oscuro -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'stone-50': '#fafaf9',
+                        'stone-100': '#f5f5f4',
+                        'stone-200': '#e7e5e4',
+                        'stone-800': '#292524',
+                        'stone-900': '#1c1917',
+                        'stone-950': '#0c0a09',
+                        'accent-gold': '#d4af37',
+                        'accent-gold-light': '#e6c86e',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Base */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Ocultar barra de scroll pero permitir funcionalidad */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Chips de Navegación (Botones del Grid) */
+        .niche-chip {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            border: 1px solid transparent;
+            width: 100%; /* Asegurar que ocupen el ancho de la celda */
+            justify-content: center; /* Centrar contenido */
+        }
+        .niche-chip:hover {
+            transform: translateY(-2px);
+            background-color: white;
+            border-color: #d4af37;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .dark .niche-chip:hover {
+            background-color: #292524;
+            border-color: #e6c86e;
+        }
+
+        .niche-chip.active {
+            background-color: #1c1917;
+            color: white;
+            border-color: #1c1917;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+        .dark .niche-chip.active {
+            background-color: #e6c86e;
+            color: #0c0a09;
+            border-color: #e6c86e;
+        }
+        
+        /* Icono dentro del chip */
+        .niche-chip i {
+            transition: transform 0.2s;
+        }
+        .niche-chip:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Tarjetas de Plantilla */
+        .template-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .dark .template-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            border-color: #e6c86e;
+        }
+
+        /* Botón Scroll Top */
+        #scrollTopBtn {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+        #scrollTopBtn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Preloader */
+        .loader-ring {
+            animation: spin 1s linear infinite;
+            border-top-color: #d4af37;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Swatches */
+        .swatch {
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-200 min-h-screen flex flex-col">
+
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white dark:bg-stone-950 transition-opacity duration-500">
+        <div class="w-16 h-16 border-4 border-stone-200 dark:border-stone-800 rounded-full loader-ring"></div>
+        <p class="mt-4 text-xs uppercase tracking-widest font-bold text-accent-gold">Cargando Catálogo</p>
+    </div>
+
+    <!-- HEADER (Sticky) -->
+    <header class="sticky top-0 z-40 w-full bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="bg-stone-900 dark:bg-white text-white dark:text-stone-900 w-8 h-8 rounded flex items-center justify-center font-serif font-bold text-lg">SF</div>
+                <span class="font-serif font-bold text-lg tracking-wide hidden sm:inline-block">Plantillas Web</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <a href="https://wa.me/3461246565" 
+              target="_blank" 
+              class="bg-accent-gold hover:bg-yellow-600 text-white text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded shadow transition-transform hover:scale-105">
+              Hablar por WhatsApp
+           </a>           
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors text-stone-500 dark:text-stone-400">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        
+        <!-- SECCIÓN DE CATEGORÍAS (GRID) -->
+        <div class="mb-10 animate-fade-in">
+            <div class="flex items-center justify-between mb-4 px-1">
+                <h2 class="font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest text-xs">Explorar por Nicho</h2>
+            </div>
+            
+            <div id="nicheList" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <!-- Se llena con JS -->
+            </div>
+        </div>
+
+        <!-- PANEL DE DETALLES & GRID -->
+        <div id="detailPanel" class="bg-white dark:bg-stone-900 rounded-3xl shadow-xl border border-stone-200 dark:border-stone-800 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-300 scroll-mt-24">
+            
+            <!-- Header del Nicho -->
+            <div class="bg-stone-100 dark:bg-stone-950/50 border-b border-stone-200 dark:border-stone-800 p-8 md:p-10 relative overflow-hidden">
+                <div class="absolute right-0 top-0 opacity-5 dark:opacity-10 transform translate-x-1/4 -translate-y-1/4 pointer-events-none">
+                     <i id="headerIconBg" class="fa-solid fa-layer-group text-[12rem]"></i>
+                </div>
+
+                <div class="relative z-10 max-w-3xl">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="w-8 h-1 bg-accent-gold rounded-full"></span>
+                        <span class="text-accent-gold text-xs font-bold uppercase tracking-[0.2em]">Categoría Seleccionada</span>
+                    </div>
+                    <h2 id="detailTitle" class="font-serif text-3xl md:text-5xl text-stone-900 dark:text-white mb-3 animate-fade-in">Selecciona una Categoría</h2>
+                    <p id="detailDesc" class="text-stone-600 dark:text-stone-400 text-lg leading-relaxed animate-fade-in" style="animation-delay: 100ms;">Navega por nuestra colección de plantillas premium diseñadas específicamente para cada industria.</p>
+                </div>
+            </div>
+
+            <!-- Grid de Plantillas -->
+            <div id="detailContent" class="p-6 md:p-10 bg-white dark:bg-stone-900 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 content-start">
+                <!-- Se llena con JS -->
+            </div>
+            
+        </div>
+
+    </main>
+
+    <!-- BOTÓN SCROLL TOP -->
+    <button id="scrollTopBtn" class="fixed bottom-8 right-8 z-50 w-14 h-14 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 rounded-full shadow-2xl flex items-center justify-center hover:-translate-y-1 transition-all" title="Volver arriba">
+        <i class="fa-solid fa-arrow-up text-lg"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-4">
+                <span class="font-serif font-bold text-xl">Sebastian Fernandez.</span>
+            </div>
+            <p class="text-stone-500 dark:text-stone-400 text-sm">© 2025 Web Templates Collection. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- LÓGICA -->
+    <script>
+      // --- DATOS DEL CATÁLOGO (15 Nichos / 60 Plantillas) ---
+      const catalogData = [
+          {
+              id: 1, name: "Estética", icon: "fa-scissors",
+              desc: "Diseños visuales de alto impacto para el sector de la belleza.",
+              templates: [
+                  { name: "Aura", style: "Dark Luxury", concept: "Alta Costura & Spa", colors: ["#0a0a0a", "#D4AF37"], url: 'A-Estetica/aura.html' },
+                  { name: "Blade & Soul", style: "Urbano", concept: "Barbería Moderna", colors: ["#0f0f0f", "#FF2E00"], url: 'A-Estetica/bladesoul.html' },
+                  { name: "Pure Skin", style: "Minimalista", concept: "Clínica Dermatológica", colors: ["#94a399", "#f9f8f6"], url: 'A-Estetica/pureskin.html' },
+                  { name: "RazorEdge", style: "Gentleman", concept: "Club Privado", colors: ["#121212", "#c5a059"], url: 'A-Estetica/razoredge.html' }
+              ]
+          },
+          {
+              id: 2, name: "Bienes Raíces", icon: "fa-house-chimney",
+              desc: "Soluciones profesionales para inmobiliarias de lujo, arquitectos, desarrolladoras y venta de propiedades exclusivas.",
+              templates: [
+                  { name: "Opulence", style: "High-End", concept: "Inmobiliaria de Lujo", colors: ["#0B0B0B", "#C5A059"], url: 'B-BienesRaices/opulence.html' },
+                  { name: "Structura", style: "Brutalismo", concept: "Desarrolladora", colors: ["#FFFFFF", "#EDF228"], url: 'B-BienesRaices/structura.html' },
+                  { name: "UrbanLiving", style: "Corporativo", concept: "Agencia Familiar", colors: ["#0F172A", "#3B82F6"], url: 'B-BienesRaices/urbanliving.html' },
+                  { name: "VistaPoint", style: "Single Property", concept: "Venta Exclusiva", colors: ["#1a2e26", "#d4af37"], url: 'B-BienesRaices/vistapoint.html' }
+              ]
+          },
+          {
+              id: 3, name: "Gastronomía", icon: "fa-utensils",
+              desc: "Menús apetitosos y reservas fáciles para restaurantes.",
+              templates: [
+                  { name: "Brew & Botanicals", style: "Hipster", concept: "Cafetería Orgánica", colors: ["#84A98C", "#352208"], url: 'C-Gastronomia/brewbotanicals.html' },
+                  { name: "Crust & Co.", style: "Artesanal", concept: "Pizzería Auténtica", colors: ["#D9381E", "#F4EBD9"], url: 'C-Gastronomia/crustandco.html' },
+                  { name: "Lumière", style: "Fine Dining", concept: "Restaurante Elegante", colors: ["#0f0f0f", "#D4AF37"], url: 'C-Gastronomia/lumiere.html' },
+                  { name: "Smash District", style: "Fast Food", concept: "Burger Joint", colors: ["#FF4D00", "#FFD600"], url: 'C-Gastronomia/smashdistrict.html' }
+              ]
+          },
+          {
+              id: 4, name: "Salud", icon: "fa-heart-pulse",
+              desc: "Confianza y tranquilidad para clínicas médicas y bienestar.",
+              templates: [
+                  { name: "DentiCare", style: "Dental", concept: "Odontología", colors: ["#0EA5E9", "#0F172A"], url: 'D-Salud/denticare.html' },
+                  { name: "Gaia Wellness", style: "Holístico", concept: "Centro de Yoga", colors: ["#D4A373", "#588157"], url: 'D-Salud/gaiawellness.html' },
+                  { name: "MediCore", style: "Clínico", concept: "Centro Médico", colors: ["#0056b3", "#FFFFFF"], url: 'D-Salud/medicore.html' },
+                  { name: "Tiny Care", style: "Infantil", concept: "Pediatría Amigable", colors: ["#4ECDC4", "#FF6B6B"], url: 'D-Salud/tinycare.html' }
+              ]
+          },
+          {
+              id: 5, name: "Servicios Prof.", icon: "fa-briefcase",
+              desc: "Landing pages para profesionales que venden servicios.",
+              templates: [
+                  { name: "Alex Studio", style: "Portafolio", concept: "Diseñador Visual", colors: ["#0a0a0a", "#2563EB"], url: 'E-Servicios/alex.html' },
+                  { name: "GrowthX", style: "Agencia", concept: "Marketing Digital", colors: ["#0b0b0f", "#ccf381"], url: 'E-Servicios/growthx.html' },
+                  { name: "Justitia", style: "Clásico", concept: "Bufete Abogados", colors: ["#0F172A", "#C5A059"], url: 'E-Servicios/justitia.html' },
+                  { name: "NexGen", style: "Tech", concept: "Consultora", colors: ["#4F46E5", "#06B6D4"], url: 'E-Servicios/nexgen.html' }
+              ]
+          },
+          {
+              id: 6, name: "Oficios", icon: "fa-wrench",
+              desc: "Soluciones prácticas para servicios del hogar y reparaciones.",
+              templates: [
+                  { name: "FixIt Pro", style: "Vecinal", concept: "Manitas", colors: ["#003049", "#F77F00"], url: 'F-Oficios/fixitpro.html' },
+                  { name: "Flash Fix", style: "Urgencia", concept: "Reparaciones 24h", colors: ["#FFC107", "#212529"], url: 'F-Oficios/flashfix.html' },
+                  { name: "PureHome", style: "Limpieza", concept: "Servicios Hogar", colors: ["#4ADE80", "#38BDF8"], url: 'F-Oficios/purehome.html' },
+                  { name: "Renova", style: "Diseño", concept: "Reformas Integrales", colors: ["#2c3e50", "#c0a062"], url: 'F-Oficios/renova.html' }
+              ]
+          },
+          {
+              id: 7, name: "Fitness", icon: "fa-dumbbell",
+              desc: "Energía y movimiento para gimnasios y entrenadores.",
+              templates: [
+                  { name: "Apex", style: "High Perf", concept: "Online Coach", colors: ["#050505", "#3B82F6"], url: 'G-Fitnnes/apex.html' },
+                  { name: "Flow State", style: "Zen", concept: "Pilates / Yoga", colors: ["#EAE7E2", "#D6D2CE"], url: 'G-Fitnnes/flow.html' },
+                  { name: "Iron Forge", style: "Hardcore", concept: "Cross Training", colors: ["#0a0a0a", "#ccff00"], url: 'G-Fitnnes/ironforge.html' },
+                  { name: "Zen Space", style: "Japandi", concept: "Meditación", colors: ["#e7e5e4", "#84a98c"], url: 'G-Fitnnes/zenspace.html' }
+              ]
+          },
+          {
+              id: 8, name: "Automotriz", icon: "fa-car",
+              desc: "Velocidad y técnica para el mundo del motor.",
+              templates: [
+                  { name: "GearHead", style: "Técnico", concept: "Taller Mecánico", colors: ["#457B9D", "#E63946"], url: 'H-Automotriz/gearhead.html' },
+                  { name: "Gloss", style: "Premium", concept: "Detailing Studio", colors: ["#000000", "#00A8E8"], url: 'H-Automotriz/gloss.html' },
+                  { name: "Onyx", style: "Lujo", concept: "Auto Spa", colors: ["#050505", "#8B5CF6"], url: 'H-Automotriz/onix.html' },
+                  { name: "Turbo Pit", style: "Rápido", concept: "Mecánica Exprés", colors: ["#0066FF", "#FAFF00"], url: 'H-Automotriz/turbopit.html' }
+              ]
+          },
+          {
+              id: 9, name: "Educación", icon: "fa-graduation-cap",
+              desc: "Plataformas de aprendizaje para colegios y cursos.",
+              templates: [
+                  { name: "Ivy Academy", style: "Institucional", concept: "Colegio Privado", colors: ["#002147", "#D4AF37"], url: 'I-Educación/ivyacademy.html' },
+                  { name: "Little Explorers", style: "Infantil", concept: "Jardín", colors: ["#EF476F", "#FFD166"], url: 'I-Educación/littleexplorers.html' },
+                  { name: "Masterclass", style: "Venta", concept: "Infoproducto", colors: ["#6D28D9", "#D9F99D"], url: 'I-Educación/masterclass.html' },
+                  { name: "SkillUp", style: "Bootcamp", concept: "Academia Tech", colors: ["#2563EB", "#FF6B6B"], url: 'I-Educación/skillup.html' }
+              ]
+          },
+          {
+              id: 10, name: "Turismo", icon: "fa-plane",
+              desc: "Escapadas inolvidables y alojamientos únicos.",
+              templates: [
+                  { name: "Casa Viva", style: "Alquiler", concept: "Hogar Local", colors: ["#E07A5F", "#3D405B"], url: 'J-Turismo/casaviva.html' },
+                  { name: "Terra", style: "Eco-Lodge", concept: "Glamping Sostenible", colors: ["#3A5A40", "#DAD7CD"], url: 'J-Turismo/terra.html' },
+                  { name: "Velvet", style: "Hotel Lujo", concept: "Sofisticación 5 Estrellas", colors: ["#0A192F", "#D4AF37"], url: 'J-Turismo/velvet.html' },
+                  { name: "Wild Horizon", style: "Aventura", concept: "Naturaleza y Acción", colors: ["#2D6A4F", "#E36414"], url: 'J-Turismo/wildhorizon.html' }
+              ]
+          },
+          {
+              id: 11, name: "Eventos", icon: "fa-champagne-glasses",
+              desc: "Celebraciones únicas, bodas y conferencias.",
+              templates: [
+                  { name: "Ana & David", style: "Romántico", concept: "Boda", colors: ["#E8D6CB", "#9CAF88"], url: 'K-Eventos/anaydavid.html' },
+                  { name: "Neon Beat", style: "Nocturno", concept: "Fiesta / DJ", colors: ["#050505", "#00FFFF"], url: 'K-Eventos/neonbeat.html' },
+                  { name: "Nexus", style: "Business", concept: "Conferencia", colors: ["#0056D2", "#F8FAFC"], url: 'K-Eventos/nexus.html' },
+                  { name: "Venture", style: "Pro", concept: "Agencia Eventos", colors: ["#0f172a", "#C5A059"], url: 'K-Eventos/venture.html' }
+              ]
+          },
+          {
+              id: 12, name: "E-commerce", icon: "fa-bag-shopping",
+              desc: "Tiendas online optimizadas para productos.",
+              templates: [
+                  { name: "Clay & Soul", style: "Artesanal", concept: "Tienda Cerámica", colors: ["#C08552", "#5F6F52"], url: 'L-Tienda/claysoul.html' },
+                  { name: "LuxeHome", style: "Editorial", concept: "Muebles Lujo", colors: ["#2B2B2B", "#C5A059"], url: 'L-Tienda/luxehome.html' },
+                  { name: "Urban Store", style: "Fashion", concept: "Tienda Ropa", colors: ["#FFFFFF", "#111827"], url: 'L-Tienda/urbanstore.html' },
+                  { name: "Zenith", style: "Tech", concept: "Producto Único", colors: ["#050505", "#00FF9D"], url: 'L-Tienda/zenith.html' }
+              ]
+          },
+          {
+              id: 13, name: "Mascotas", icon: "fa-paw",
+              desc: "Cuidado y amor para los mejores amigos.",
+              templates: [
+                  { name: "VetLife", style: "Clínica", concept: "Veterinaria 24h", colors: ["#0EA5E9", "#10B981"], url: 'M-Mascotas/vetlife.html' },
+                  { name: "HappyPaws", style: "Servicio", concept: "Paseador de Perros", colors: ["#FF9F1C", "#2EC4B6"], url: 'M-Mascotas/happypaws.html' },
+                  { name: "PetGroom", style: "Estética", concept: "Peluquería Canina", colors: ["#F472B6", "#831843"], url: 'M-Mascotas/petgroom.html' },
+                  { name: "AdoptMe", style: "ONG", concept: "Refugio Animales", colors: ["#E76F51", "#2A9D8F"], url: 'M-Mascotas/adoptme.html' }
+              ]
+          },
+          {
+              id: 14, name: "Tecnología", icon: "fa-microchip",
+              desc: "Innovación y soluciones digitales.",
+              templates: [
+                  { name: "AppLaunch", style: "Mobile", concept: "App Landing", colors: ["#6366f1", "#0f172a"], url: 'N-Tecnologia/applaunch.html' },
+                  { name: "SaaSy", style: "B2B", concept: "Software SaaS", colors: ["#2563EB", "#0F172A"], url: 'N-Tecnologia/saasy.html' },
+                  { name: "ChainBlock", style: "Web3", concept: "Crypto & Fintech", colors: ["#00F0FF", "#7000FF"], url: 'N-Tecnologia/chainblock.html' },
+                  { name: "CyberSec", style: "Seguridad", concept: "Ciberseguridad", colors: ["#00ff41", "#020617"], url: 'N-Tecnologia/cybersec.html' }
+              ]
+          },
+          {
+              id: 15, name: "Arte & Foto", icon: "fa-camera",
+              desc: "Expresión visual y creatividad sin límites.",
+              templates: [
+                  { name: "Shutter", style: "Fotografía", concept: "Portafolio Pro", colors: ["#0a0a0a", "#ffffff"], url: 'O-Arte/shutter.html' },
+                  { name: "Reel", style: "Video", concept: "Filmmaker", colors: ["#E50914", "#000000"], url: 'O-Arte/reel.html' },
+                  { name: "Ink Studio", style: "Tattoo", concept: "Estudio Tatuaje", colors: ["#C5A059", "#111111"], url: 'O-Arte/inkstudio.html' },
+                  { name: "Minimal", style: "Arquitectura", concept: "Diseño Interior", colors: ["#111111", "#888888"], url: 'O-Arte/minimal.html' }
+              ]
+          }
+      ];
+
+        // --- RENDERIZADO ---
+        function renderNicheList() {
+            const nicheList = document.getElementById('nicheList');
+            nicheList.innerHTML = '';
+
+            catalogData.forEach((niche, index) => {
+                const chip = document.createElement('button');
+                // Estilo "Chip" de navegación Grid
+                chip.className = `niche-chip px-5 py-3 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${index === 0 ? 'active' : 'bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-400'}`;
+                chip.innerHTML = `<i class="fa-solid ${niche.icon}"></i> ${niche.name}`;
+                
+                chip.onclick = () => {
+                    // Actualizar estado activo visual
+                    document.querySelectorAll('.niche-chip').forEach(c => {
+                        c.classList.remove('active', 'bg-stone-900', 'text-white', 'border-stone-900');
+                        c.classList.add('bg-white', 'text-stone-600', 'dark:bg-stone-900', 'dark:text-stone-400');
+                    });
+                    
+                    chip.classList.add('active');
+                    chip.classList.remove('bg-white', 'text-stone-600', 'dark:bg-stone-900', 'dark:text-stone-400');
+                    
+                    selectNiche(index);
+                };
+                
+                nicheList.appendChild(chip);
+            });
+        }
+
+        function selectNiche(index) {
+            const niche = catalogData[index];
+            const content = document.getElementById('detailContent');
+            const panel = document.getElementById('detailPanel');
+            
+            // Actualizar Header del Nicho
+            document.getElementById('headerIconBg').className = `fa-solid ${niche.icon} text-[10rem] text-stone-200 dark:text-stone-800`;
+            document.getElementById('detailTitle').innerText = niche.name;
+            document.getElementById('detailDesc').innerText = niche.desc;
+
+            // Renderizar Plantillas
+            content.innerHTML = '';
+            
+            // Pequeño timeout para efecto visual suave
+            setTimeout(() => {
+    niche.templates.forEach((tpl, i) => {
+
+        const colorSwatches = tpl.colors.map(c => 
+            `<div class="w-4 h-4 rounded-full border border-stone-200 dark:border-stone-600 shadow-sm" style="background-color: ${c}" title="${c}"></div>`
+        ).join('');
+
+        // 🔥 Mensaje dinámico para WhatsApp
+        const msg = encodeURIComponent(
+            `Hola Sebastian, vi la plantilla "${tpl.name}" (${tpl.style}) y quiero algo así. Aquí está la demo: ${tpl.url}`
+        );
+
+        const card = `
+            <div class="template-card bg-white dark:bg-stone-950 p-6 md:p-8 rounded-2xl border border-stone-200 dark:border-stone-800 animate-fade-in group cursor-default" style="animation-delay: ${i * 50}ms">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-accent-gold mb-1 block">${tpl.style}</span>
+                        <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white group-hover:text-accent-gold transition-colors">${tpl.name}</h3>
+                    </div>
+                    <div class="flex -space-x-1 pl-2">
+                        ${colorSwatches}
+                    </div>
+                </div>
+                
+                <p class="text-sm text-stone-500 dark:text-stone-400 leading-relaxed mb-8 h-10 line-clamp-2">
+                    ${tpl.concept}
+                </p>
+                
+                <div class="grid grid-cols-2 gap-3 mt-auto">
+                    <a href="${tpl.url}" target="_blank" 
+                      class="btn-demo flex items-center justify-center gap-2 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wide hover:shadow-sm transition-all text-center">
+                        <i class="fa-solid fa-eye"></i> Ver Demo
+                    </a>
+
+                    <a href="https://wa.me/34612469565?text=${msg}" 
+                      target="_blank"
+                      class="flex items-center justify-center gap-2 bg-stone-900 dark:bg-white text-white dark:text-black px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wide hover:opacity-90 transition-opacity text-center shadow-md">
+                        <i class="fa-solid fa-comments"></i> Quiero algo así
+                    </a>
+                </div>
+
+            </div>
+        `;
+
+        content.innerHTML += card;
+    });
+}, 50);
+
+
+            // Auto-scroll al panel (Mejor UX en móvil al seleccionar)
+            if(window.innerWidth < 1024) {
+                 setTimeout(() => {
+                    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        // --- MODO OSCURO ---
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.theme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // --- INIT ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const body = document.body;
+            
+            renderNicheList();
+            selectNiche(0);
+
+            setTimeout(() => {
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+                body.classList.remove('overflow-hidden');
+            }, 1000);
+        });
+
+        // Scroll to Top
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) scrollTopBtn.classList.add('visible');
+            else scrollTopBtn.classList.remove('visible');
+        });
+        scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    </script>
+</body>
+</html>
