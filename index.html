@@ -411,7 +411,7 @@
 
         <!-- BOTÓN 2: EDITOR (Existente) -->
         <!-- Mantiene tu estilo original con el SVG animado -->
-        <a href="/democms/demo.html" target="_blank" style="text-decoration: none;">
+        <a href="https://wa.me/34612469565?text=Hola%20Sebastian,%20me%20gustaria%20probar%20el%20editor" target="_blank" style="text-decoration: none;">
           <button class="d-flex justify-content-center align-items-center" type="button" style="width: 265px;">
             <div class="svg-wrapper-1">
               <div class="svg-wrapper">
@@ -508,69 +508,82 @@
     </section>
   </main>
   <!-- SECCIÓN TIENDA / PLANTILLAS -->
-<section id="shop" class="philosophy-section position-relative overflow-hidden" style="background: linear-gradient(135deg, #0f0c29, #302b6305, #24243e); color: white;">
-  
-  <!-- Fondo decorativo sutil -->
-  <div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none;"></div>
+  <section id="shop" class="philosophy-section position-relative overflow-hidden" 
+  style="background: linear-gradient(135deg, #0f0c29, #302b6305, #24243e); color: white;">
 
-  <div class="container py-5 position-relative z-1">
-    <div class="section-header text-center mb-5">
-      <h2 class="section-title text-white mb-3"><strong>Para Desarrolladores y Agencias</strong></h2>
-      <p class="section-subtitle text-white-50" style="max-width: 700px; margin: 0 auto;">
-        ¿Te dedicas al diseño web? He empaquetado mi flujo de trabajo. Accede a mi colección privada de plantillas HTML5 + Tailwind CSS.
-      </p>
-    </div>
+<div style="position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; 
+       background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px); 
+       background-size: 30px 30px; pointer-events: none;"></div>
 
-    <div class="row align-items-center justify-content-center g-5">
-      
-<!-- Columna Imagen / Preview -->
-<div class="col-lg-6">
-  <div class="card bg-dark text-white border-0 shadow-lg overflow-hidden" 
-       style="transform: rotate(-2deg); transition: transform 0.3s;">
-    
-    <div class="card-body p-0">
-      <div style="background: #1a1a1a; height: 380px; overflow: hidden;">
-        <img src="/assets/img/collage.png" 
-             alt="Preview del catálogo" 
-             style="width: 100%; height: 100%; object-fit: cover;">
-      </div>      
-    </div>
+<div class="container py-5 position-relative z-1">
 
-  </div>
+<div class="section-header text-center mb-5">
+<h2 class="section-title text-white mb-3" data-i18n="shop.title"></h2>
+<p class="section-subtitle text-white-50" style="max-width: 700px; margin: 0 auto;" 
+  data-i18n="shop.subtitle"></p>
 </div>
 
+<div class="row align-items-center justify-content-center g-5">
 
-      <!-- Columna Info y Compra -->
-      <div class="col-lg-6">
-        <h3 class="display-6 fw-bold mb-3">The Ultimate Template Pack</h3>
-        <p class="lead mb-4 text-white-50">
-          Ahorra más de 500 horas de desarrollo. Una colección de <strong>60 plantillas premium</strong> divididas en 15 nichos de mercado (Real Estate, Salud, Restaurantes, etc.).
-        </p>
-        
-        <ul class="list-unstyled mb-5">
-          <li class="mb-2 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> <strong>Single File:</strong> Todo en un solo archivo HTML.</li>
-          <li class="mb-2 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> <strong>Tailwind CSS:</strong> Sin instalaciones complejas.</li>
-          <li class="mb-2 d-flex align-items-center gap-2"><i class="fa-solid fa-check text-success"></i> <strong>Licencia Comercial:</strong> Úsalas para tus clientes.</li>
-        </ul>
+<!-- Imagen -->
+<div class="col-lg-6">
+ <div class="card bg-dark text-white border-0 shadow-lg overflow-hidden" 
+      style="transform: rotate(-2deg); transition: transform 0.3s;">
+   <div class="card-body p-0">
+     <div style="background: #1a1a1a; height: 380px; overflow: hidden;">
+       <img src="/assets/img/collage.png" alt="Preview del catálogo" 
+            style="width: 100%; height: 100%; object-fit: cover;">
+     </div>
+   </div>
+ </div>
+</div>
 
-        <div class="d-flex flex-column flex-md-row gap-3">
-          <!-- Botón ir a GUMROAD (Compra directa) -->
-          <a href="https://sebastianweb.gumroad.com/l/vnkgl" target="_blank" class="btn btn-lg fw-bold" style="background-color: #d4af37; color: #000; border: none;">
-            <i class="fa-solid fa-cart-shopping me-2"></i> Comprar Pack
-          </a>
+<!-- Info -->
+<div class="col-lg-6">
 
-          <!-- Botón ir al CATÁLOGO (index.html que creamos antes) -->
-          <!-- IMPORTANTE: Asegúrate de subir la carpeta del catálogo y enlazarla aquí -->
-          <a href="/Catalogo/index.html" class="btn btn-outline-light btn-lg">
-            <i class="fa-solid fa-eye me-2"></i> Ver Catálogo Completo
-          </a>
-        </div>
-        <p class="mt-3 small text-white-50">*Garantía de devolución de 30 días.</p>
-      </div>
+ <h3 class="display-6 fw-bold mb-3" data-i18n="shop.product_title"></h3>
 
-    </div>
-  </div>
+ <p class="lead mb-4 text-white-50" data-i18n="shop.product_description"></p>
+
+ <ul class="list-unstyled mb-5">
+   <li class="mb-2 d-flex align-items-center gap-2">
+     <i class="fa-solid fa-check text-success"></i>
+     <span data-i18n="shop.feature_single"></span>
+   </li>
+   <li class="mb-2 d-flex align-items-center gap-2">
+     <i class="fa-solid fa-check text-success"></i>
+     <span data-i18n="shop.feature_tailwind"></span>
+   </li>
+   <li class="mb-2 d-flex align-items-center gap-2">
+     <i class="fa-solid fa-check text-success"></i>
+     <span data-i18n="shop.feature_license"></span>
+   </li>
+ </ul>
+
+ <div class="d-flex flex-column flex-md-row gap-3">
+
+   <a href="https://sebastianweb.gumroad.com/l/vnkgl" 
+      target="_blank" 
+      class="btn btn-lg fw-bold" 
+      style="background-color: #d4af37; color: #000; border: none;"
+      data-i18n="shop.btn_buy">
+   </a>
+
+   <a href="/Catalogo/index.html" 
+      class="btn btn-outline-light btn-lg"
+      data-i18n="shop.btn_catalog">
+   </a>
+
+ </div>
+
+ <p class="mt-3 small text-white-50" data-i18n="shop.guarantee"></p>
+
+</div>
+
+</div>
+</div>
 </section>
+
   <footer class="text-center" data-bs-theme="dark">
     <div class="container py-4 py-lg-5">
       <div class="section-header" style="margin-bottom: 35px;">
