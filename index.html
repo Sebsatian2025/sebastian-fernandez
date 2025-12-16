@@ -379,12 +379,18 @@
 
 <!-- Video -->
 <div class="d-flex justify-content-center pb-5">
-  <video width="560" height="315" autoplay loop muted controls>
+  <video 
+      class="w-100" 
+      style="max-width: 560px;" 
+      autoplay 
+      loop 
+      muted 
+      playsinline
+  >
+    <source src="assets/video.mp4" type="video/mp4">
     <source src="assets/video.webm" type="video/webm">
-    <track kind="subtitles">
   </video>
 </div>
-
 
       <!-- Contenedor de Botones (Flexbox para alinearlos) -->
       <div class="d-flex justify-content-center align-items-center gap-4 flex-column flex-md-row contact-container">
