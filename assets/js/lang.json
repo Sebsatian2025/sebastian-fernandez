@@ -104,6 +104,20 @@
         }
       }
     },
+    "shop": {
+      "title": "Para Desarrolladores y Agencias",
+      "subtitle": "¿Te dedicas al diseño web? He empaquetado mi flujo de trabajo. Accede a mi colección privada de plantillas HTML5 + Tailwind CSS.",
+      "product_title": "The Ultimate Template Pack",
+      "product_description": "Ahorra más de 500 horas de desarrollo. Una colección de 60 plantillas premium divididas en 15 nichos de mercado (Real Estate, Salud, Restaurantes, etc.).",
+      "feature_single": "Single File: Todo en un solo archivo HTML.",
+      "feature_tailwind": "Tailwind CSS: Sin instalaciones complejas.",
+      "feature_license": "Licencia Comercial: Úsalas para tus clientes.",
+      "btn_buy": "Comprar Pack",
+      "btn_catalog": "Ver Catálogo Completo",
+      "guarantee": "*Garantía de devolución de 30 días."
+
+    }, 
+
     "contact": {
       "title": "Hablemos",
       "subtitle": "Estoy aquí para escuchar tu proyecto y ayudarte a darle forma.",
@@ -221,6 +235,19 @@
         }
       }
     },
+    "shop": {
+  "title": "For Developers and Agencies",
+  "subtitle": "Do you work in web design? I’ve packaged my workflow. Access my private collection of HTML5 + Tailwind CSS templates.",
+  "product_title": "The Ultimate Template Pack",
+  "product_description": "Save over 500 development hours. A collection of 60 premium templates across 15 market niches (Real Estate, Health, Restaurants, etc.).",
+  "feature_single": "Single File: Everything in one HTML file.",
+  "feature_tailwind": "Tailwind CSS: No complex installations.",
+  "feature_license": "Commercial License: Use them for your clients.",
+  "btn_buy": "Buy Pack",
+  "btn_catalog": "View Full Catalog",
+  "guarantee": "*30‑day money‑back guarantee."
+},
+
     "contact": {
       "title": "Let's talk",
       "subtitle": "I'm here to hear your project and help shape it.",
