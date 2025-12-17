@@ -282,14 +282,20 @@
                     <h2 class="font-serif text-4xl text-luxe-charcoal">Nuestros Favoritos</h2>
                     <p class="text-luxe-gray mt-2 text-sm uppercase tracking-widest">Diseño & Confort</p>
                 </div>
-                <div class="hidden md:flex gap-4">
-                    <button class="w-10 h-10 border border-luxe-charcoal/20 flex items-center justify-center hover:bg-luxe-charcoal hover:text-white transition-colors"><i class="fa-solid fa-angle-left"></i></button>
-                    <button class="w-10 h-10 border border-luxe-charcoal/20 flex items-center justify-center hover:bg-luxe-charcoal hover:text-white transition-colors"><i class="fa-solid fa-angle-right"></i></button>
+                <div class="flex gap-4">
+                  <button onclick="scrollSlider('left')" class="w-10 h-10 border border-luxe-charcoal/20 flex items-center justify-center hover:bg-luxe-charcoal hover:text-white transition-colors">
+                    <i class="fa-solid fa-angle-left"></i>
+                </button>
+                
+                <button onclick="scrollSlider('right')" class="w-10 h-10 border border-luxe-charcoal/20 flex items-center justify-center hover:bg-luxe-charcoal hover:text-white transition-colors">
+                    <i class="fa-solid fa-angle-right"></i>
+                </button>
+                
                 </div>
             </div>
 
             <!-- Horizontal Scroll Container -->
-            <div class="flex gap-8 overflow-x-auto pb-8 no-scrollbar snap-x snap-mandatory">
+            <div id="slider-container" class="flex gap-8 overflow-x-auto pb-8 no-scrollbar snap-x snap-mandatory">
                 
                 <!-- Product 1 -->
                 <div class="min-w-[280px] md:min-w-[350px] group cursor-pointer snap-start">
@@ -529,6 +535,25 @@
         acceptCookies.addEventListener('click', hideBanner);
         closeCookies.addEventListener('click', hideBanner);
     </script>
-
+<script>
+  function scrollSlider(direction) {
+      const slider = document.querySelector("#shop #slider-container");
+  
+      // Selecciona la primera card real
+      const card = slider.querySelector(":scope > .group");
+      if (!card) return;
+  
+      const cardWidth = card.offsetWidth;
+      const gap = parseInt(getComputedStyle(slider).gap) || 0;
+  
+      const scrollAmount = cardWidth + gap;
+  
+      slider.scrollBy({
+          left: direction === "left" ? -scrollAmount : scrollAmount,
+          behavior: "smooth"
+      });
+  }
+  </script>
+  
 </body>
 </html>
