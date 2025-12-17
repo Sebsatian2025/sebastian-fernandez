@@ -37,7 +37,64 @@
   <link rel="manifest" href="manifest.json?h=8bfd5b047d801da9c17d08c2ef79ec93" crossorigin="use-credentials">
   <link rel="stylesheet" href="assets/css/styles.min.css?h=a429e634741875727feb0ed37f2eeccf">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons/css/flag-icons.min.css">
+
+  <!-- ESTILOS DEL BANNER DE COOKIES -->
+  <style>
+    .cookie-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(15, 12, 41, 0.95); /* Fondo oscuro semitransparente */
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 1.5rem;
+        z-index: 10000;
+        display: none; /* Oculto por defecto, JS lo activa */
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        animation: slideUp 0.5s ease-out;
+    }
+
+    .cookie-banner.show {
+        display: block;
+    }
+
+    .cookie-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    @media (min-width: 768px) {
+        .cookie-content {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+        }
+    }
+
+    .cookie-text a {
+        color: #d4af37; /* Color dorado acorde a tu botón de compra */
+        text-decoration: underline;
+    }
+
+    .cookie-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+  </style>
 </head>
+
 <body>
   <div id="particles" class="philosophy-particles"></div>
   <div id="loader" class="loader">
@@ -180,46 +237,6 @@
       </div>
       <div class="auto-carousel">
         <div class="p-5 pt-6 philosophy-pillars-services carousel-track">
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>🧠</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.autonomy">AUTONOMÍA</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>🎨</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.design">DISEÑO</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>🚀</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.hosting">HOSTING</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>✍️</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.editing">EDICIÓN</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>📈</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.seo">SEO</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>🛠️</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.support">SOPORTE</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>🧾</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.domain">DOMINIO</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>🔐</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.security">SEGURIDAD</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>⚙️</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.optimization">OPTIMIZACIÓN</h3>
-          </div>
-          <div class="pillar-servicios">
-            <div class="pillar-icon-services"><span>📊</span></div>
-            <h3 class="pillar-title-services" data-i18n="services.items.analytics">ANÁLISIS</h3>
-          </div>
           <div class="pillar-servicios">
             <div class="pillar-icon-services"><span>🧠</span></div>
             <h3 class="pillar-title-services" data-i18n="services.items.autonomy">AUTONOMÍA</h3>
@@ -633,6 +650,26 @@
       <div class="prism-line-footer"></div>
     </div>
 </footer>
+
+<!-- BANNER DE COOKIES (INICIO) -->
+<div id="cookie-consent-banner" class="cookie-banner">
+  <div class="cookie-content">
+      <div class="cookie-text">
+          <p class="mb-0">
+              Usamos cookies para mejorar tu experiencia y analizar el tráfico de la web. 
+              Al continuar, aceptas el uso de cookies. 
+              <br>
+              <small>Puedes leer más en nuestra <a href="#" target="_blank">Política de Privacidad</a>.</small>
+          </p>
+      </div>
+      <div class="cookie-buttons">
+          <button id="btn-reject-cookies" class="btn btn-outline-light btn-sm">Rechazar</button>
+          <button id="btn-accept-cookies" class="btn btn-sm fw-bold" style="background-color: #d4af37; color: #000; border: none;">Aceptar</button>
+      </div>
+  </div>
+</div>
+<!-- BANNER DE COOKIES (FIN) -->
+
 <link rel="manifest" href="/manifest.json?h=8bfd5b047d801da9c17d08c2ef79ec93" crossorigin="use-credentials">
   <script>
 document.getElementById('contactForm').addEventListener('submit', async (e) => {
@@ -667,6 +704,37 @@ document.getElementById('contactForm').addEventListener('submit', async (e) => {
   }
 });
 </script>
+
+<!-- SCRIPT DE COOKIES -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('cookie-consent-banner');
+      const acceptBtn = document.getElementById('btn-accept-cookies');
+      const rejectBtn = document.getElementById('btn-reject-cookies');
+
+      // 1. Comprobar si ya existe una elección guardada
+      if (!localStorage.getItem('cookieConsent')) {
+          // Si no existe, mostramos el banner
+          banner.classList.add('show');
+      }
+
+      // 2. Lógica para el botón Aceptar
+      acceptBtn.addEventListener('click', () => {
+          localStorage.setItem('cookieConsent', 'accepted');
+          banner.classList.remove('show');
+          // AQUÍ puedes activar tus scripts de Google Analytics o Pixel
+          // ejemplo: loadAnalytics();
+      });
+
+      // 3. Lógica para el botón Rechazar
+      rejectBtn.addEventListener('click', () => {
+          localStorage.setItem('cookieConsent', 'rejected');
+          banner.classList.remove('show');
+          // Aquí te aseguras de NO cargar scripts de rastreo
+      });
+  });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" defer></script>
 <script src="assets/js/script.min.js?h=b7b806f4f34b9961e509dd73fc3cf197" defer></script>
 </body>
