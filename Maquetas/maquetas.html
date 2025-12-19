@@ -229,11 +229,11 @@
     </footer>
 
     <!-- LÓGICA -->
-    <script>
-      // --- DATOS DEL CATÁLOGO (15 Nichos / 60 Plantillas) ---
+<script>
+      // --- DATOS DEL CATÁLOGO ---
       const catalogData = [
           {
-              id: 1, name: "Estética", icon: "fa-scissors",
+              id: 1, name: "Estética", slug: "estetica", icon: "fa-scissors",
               desc: "Diseños visuales de alto impacto para el sector de la belleza.",
               templates: [
                   { name: "Aura", style: "Dark Luxury", concept: "Alta Costura & Spa", colors: ["#0a0a0a", "#D4AF37"], url: 'A-Estetica/aura.html' },
@@ -243,8 +243,8 @@
               ]
           },
           {
-              id: 2, name: "Bienes Raíces", icon: "fa-house-chimney",
-              desc: "Soluciones profesionales para inmobiliarias de lujo, arquitectos, desarrolladoras y venta de propiedades exclusivas.",
+              id: 2, name: "Bienes Raíces", slug: "bienes-raices", icon: "fa-house-chimney",
+              desc: "Soluciones profesionales para inmobiliarias de lujo.",
               templates: [
                   { name: "Opulence", style: "High-End", concept: "Inmobiliaria de Lujo", colors: ["#0B0B0B", "#C5A059"], url: 'B-BienesRaices/opulence.html' },
                   { name: "Structura", style: "Brutalismo", concept: "Desarrolladora", colors: ["#FFFFFF", "#EDF228"], url: 'B-BienesRaices/structura.html' },
@@ -253,7 +253,7 @@
               ]
           },
           {
-              id: 3, name: "Gastronomía", icon: "fa-utensils",
+              id: 3, name: "Gastronomía", slug: "gastronomia", icon: "fa-utensils",
               desc: "Menús apetitosos y reservas fáciles para restaurantes.",
               templates: [
                   { name: "Brew & Botanicals", style: "Hipster", concept: "Cafetería Orgánica", colors: ["#84A98C", "#352208"], url: 'C-Gastronomia/brewbotanicals.html' },
@@ -263,7 +263,7 @@
               ]
           },
           {
-              id: 4, name: "Salud", icon: "fa-heart-pulse",
+              id: 4, name: "Salud", slug: "salud", icon: "fa-heart-pulse",
               desc: "Confianza y tranquilidad para clínicas médicas y bienestar.",
               templates: [
                   { name: "DentiCare", style: "Dental", concept: "Odontología", colors: ["#0EA5E9", "#0F172A"], url: 'D-Salud/denticare.html' },
@@ -273,7 +273,7 @@
               ]
           },
           {
-              id: 5, name: "Servicios Prof.", icon: "fa-briefcase",
+              id: 5, name: "Servicios Prof.", slug: "servicios", icon: "fa-briefcase",
               desc: "Landing pages para profesionales que venden servicios.",
               templates: [
                   { name: "Alex Studio", style: "Portafolio", concept: "Diseñador Visual", colors: ["#0a0a0a", "#2563EB"], url: 'E-Servicios/alex.html' },
@@ -283,7 +283,7 @@
               ]
           },
           {
-              id: 6, name: "Oficios", icon: "fa-wrench",
+              id: 6, name: "Oficios", slug: "oficios", icon: "fa-wrench",
               desc: "Soluciones prácticas para servicios del hogar y reparaciones.",
               templates: [
                   { name: "FixIt Pro", style: "Vecinal", concept: "Manitas", colors: ["#003049", "#F77F00"], url: 'F-Oficios/fixitpro.html' },
@@ -293,7 +293,7 @@
               ]
           },
           {
-              id: 7, name: "Fitness", icon: "fa-dumbbell",
+              id: 7, name: "Fitness", slug: "fitness", icon: "fa-dumbbell",
               desc: "Energía y movimiento para gimnasios y entrenadores.",
               templates: [
                   { name: "Apex", style: "High Perf", concept: "Online Coach", colors: ["#050505", "#3B82F6"], url: 'G-Fitnnes/apex.html' },
@@ -303,7 +303,7 @@
               ]
           },
           {
-              id: 8, name: "Automotriz", icon: "fa-car",
+              id: 8, name: "Automotriz", slug: "automotriz", icon: "fa-car",
               desc: "Velocidad y técnica para el mundo del motor.",
               templates: [
                   { name: "GearHead", style: "Técnico", concept: "Taller Mecánico", colors: ["#457B9D", "#E63946"], url: 'H-Automotriz/gearhead.html' },
@@ -313,7 +313,7 @@
               ]
           },
           {
-              id: 9, name: "Educación", icon: "fa-graduation-cap",
+              id: 9, name: "Educación", slug: "educacion", icon: "fa-graduation-cap",
               desc: "Plataformas de aprendizaje para colegios y cursos.",
               templates: [
                   { name: "Ivy Academy", style: "Institucional", concept: "Colegio Privado", colors: ["#002147", "#D4AF37"], url: 'I-Educación/ivyacademy.html' },
@@ -323,7 +323,7 @@
               ]
           },
           {
-              id: 10, name: "Turismo", icon: "fa-plane",
+              id: 10, name: "Turismo", slug: "turismo", icon: "fa-plane",
               desc: "Escapadas inolvidables y alojamientos únicos.",
               templates: [
                   { name: "Casa Viva", style: "Alquiler", concept: "Hogar Local", colors: ["#E07A5F", "#3D405B"], url: 'J-Turismo/casaviva.html' },
@@ -333,7 +333,7 @@
               ]
           },
           {
-              id: 11, name: "Eventos", icon: "fa-champagne-glasses",
+              id: 11, name: "Eventos", slug: "eventos", icon: "fa-champagne-glasses",
               desc: "Celebraciones únicas, bodas y conferencias.",
               templates: [
                   { name: "Ana & David", style: "Romántico", concept: "Boda", colors: ["#E8D6CB", "#9CAF88"], url: 'K-Eventos/anaydavid.html' },
@@ -343,7 +343,7 @@
               ]
           },
           {
-              id: 12, name: "E-commerce", icon: "fa-bag-shopping",
+              id: 12, name: "E-commerce", slug: "ecommerce", icon: "fa-bag-shopping",
               desc: "Tiendas online optimizadas para productos.",
               templates: [
                   { name: "Clay & Soul", style: "Artesanal", concept: "Tienda Cerámica", colors: ["#C08552", "#5F6F52"], url: 'L-Tienda/claysoul.html' },
@@ -353,7 +353,7 @@
               ]
           },
           {
-              id: 13, name: "Mascotas", icon: "fa-paw",
+              id: 13, name: "Mascotas", slug: "mascotas", icon: "fa-paw",
               desc: "Cuidado y amor para los mejores amigos.",
               templates: [
                   { name: "VetLife", style: "Clínica", concept: "Veterinaria 24h", colors: ["#0EA5E9", "#10B981"], url: 'M-Mascotas/vetlife.html' },
@@ -363,7 +363,7 @@
               ]
           },
           {
-              id: 14, name: "Tecnología", icon: "fa-microchip",
+              id: 14, name: "Tecnología", slug: "tecnologia", icon: "fa-microchip",
               desc: "Innovación y soluciones digitales.",
               templates: [
                   { name: "AppLaunch", style: "Mobile", concept: "App Landing", colors: ["#6366f1", "#0f172a"], url: 'N-Tecnologia/applaunch.html' },
@@ -373,7 +373,7 @@
               ]
           },
           {
-              id: 15, name: "Arte & Foto", icon: "fa-camera",
+              id: 15, name: "Arte & Foto", slug: "arte", icon: "fa-camera",
               desc: "Expresión visual y creatividad sin límites.",
               templates: [
                   { name: "Shutter", style: "Fotografía", concept: "Portafolio Pro", colors: ["#0a0a0a", "#ffffff"], url: 'O-Arte/shutter.html' },
@@ -391,95 +391,104 @@
 
             catalogData.forEach((niche, index) => {
                 const chip = document.createElement('button');
-                // Estilo "Chip" de navegación Grid
-                chip.className = `niche-chip px-5 py-3 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${index === 0 ? 'active' : 'bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-400'}`;
+                chip.id = `btn-niche-${index}`;
+                chip.className = `niche-chip px-5 py-3 rounded-full border border-stone-200 dark:border-stone-800 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-400`;
                 chip.innerHTML = `<i class="fa-solid ${niche.icon}"></i> ${niche.name}`;
                 
                 chip.onclick = () => {
-                    // Actualizar estado activo visual
-                    document.querySelectorAll('.niche-chip').forEach(c => {
-                        c.classList.remove('active', 'bg-stone-900', 'text-white', 'border-stone-900');
-                        c.classList.add('bg-white', 'text-stone-600', 'dark:bg-stone-900', 'dark:text-stone-400');
-                    });
-                    
-                    chip.classList.add('active');
-                    chip.classList.remove('bg-white', 'text-stone-600', 'dark:bg-stone-900', 'dark:text-stone-400');
-                    
-                    selectNiche(index);
+                    // 🔥 Activamos historial y activamos el scroll (3er parámetro en true)
+                    selectNiche(index, true, true); 
                 };
                 
                 nicheList.appendChild(chip);
             });
         }
 
-        function selectNiche(index) {
+        // 🔥 Función selectNiche actualizada con parámetro 'shouldScroll'
+        function selectNiche(index, updateHistory = false, shouldScroll = false) {
             const niche = catalogData[index];
             const content = document.getElementById('detailContent');
             const panel = document.getElementById('detailPanel');
             
-            // Actualizar Header del Nicho
+            // Gestión Visual
+            document.querySelectorAll('.niche-chip').forEach(c => {
+                c.classList.remove('active', 'bg-stone-900', 'text-white', 'border-stone-900');
+                c.classList.add('bg-white', 'text-stone-600', 'dark:bg-stone-900', 'dark:text-stone-400');
+            });
+            
+            const activeChip = document.getElementById(`btn-niche-${index}`);
+            if(activeChip) {
+                activeChip.classList.add('active');
+                activeChip.classList.remove('bg-white', 'text-stone-600', 'dark:bg-stone-900', 'dark:text-stone-400');
+            }
+
+            // Actualización de URL
+            if (updateHistory) {
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('cat', niche.slug);
+                window.history.pushState({ index: index }, '', newUrl);
+            }
+
+            // Renderizado
             document.getElementById('headerIconBg').className = `fa-solid ${niche.icon} text-[10rem] text-stone-200 dark:text-stone-800`;
             document.getElementById('detailTitle').innerText = niche.name;
             document.getElementById('detailDesc').innerText = niche.desc;
 
-            // Renderizar Plantillas
             content.innerHTML = '';
             
-            // Pequeño timeout para efecto visual suave
             setTimeout(() => {
-    niche.templates.forEach((tpl, i) => {
+                niche.templates.forEach((tpl, i) => {
+                    const colorSwatches = tpl.colors.map(c => 
+                        `<div class="w-4 h-4 rounded-full border border-stone-200 dark:border-stone-600 shadow-sm" style="background-color: ${c}" title="${c}"></div>`
+                    ).join('');
 
-        const colorSwatches = tpl.colors.map(c => 
-            `<div class="w-4 h-4 rounded-full border border-stone-200 dark:border-stone-600 shadow-sm" style="background-color: ${c}" title="${c}"></div>`
-        ).join('');
+                    const msg = encodeURIComponent(
+                        `Hola Sebastian, vi la plantilla "${tpl.name}" (${tpl.style}) y quiero algo así. Aquí está la demo: ${tpl.url}`
+                    );
 
-        // 🔥 Mensaje dinámico para WhatsApp
-        const msg = encodeURIComponent(
-            `Hola Sebastian, vi la plantilla "${tpl.name}" (${tpl.style}) y quiero algo así. Aquí está la demo: ${tpl.url}`
-        );
+                    const card = `
+                        <div class="template-card bg-white dark:bg-stone-950 p-6 md:p-8 rounded-2xl border border-stone-200 dark:border-stone-800 animate-fade-in group cursor-default" style="animation-delay: ${i * 50}ms">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <span class="text-[10px] font-bold uppercase tracking-widest text-accent-gold mb-1 block">${tpl.style}</span>
+                                    <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white group-hover:text-accent-gold transition-colors">${tpl.name}</h3>
+                                </div>
+                                <div class="flex -space-x-1 pl-2">
+                                    ${colorSwatches}
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-stone-500 dark:text-stone-400 leading-relaxed mb-8 h-10 line-clamp-2">
+                                ${tpl.concept}
+                            </p>
+                            
+                            <div class="grid grid-cols-2 gap-3 mt-auto">
+                                <a href="${tpl.url}" 
+                                  class="btn-demo flex items-center justify-center gap-2 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wide hover:shadow-sm transition-all text-center">
+                                    <i class="fa-solid fa-eye"></i> Ver Demo
+                                </a>
 
-        const card = `
-            <div class="template-card bg-white dark:bg-stone-950 p-6 md:p-8 rounded-2xl border border-stone-200 dark:border-stone-800 animate-fade-in group cursor-default" style="animation-delay: ${i * 50}ms">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-accent-gold mb-1 block">${tpl.style}</span>
-                        <h3 class="font-serif text-2xl font-bold text-stone-900 dark:text-white group-hover:text-accent-gold transition-colors">${tpl.name}</h3>
-                    </div>
-                    <div class="flex -space-x-1 pl-2">
-                        ${colorSwatches}
-                    </div>
-                </div>
-                
-                <p class="text-sm text-stone-500 dark:text-stone-400 leading-relaxed mb-8 h-10 line-clamp-2">
-                    ${tpl.concept}
-                </p>
-                
-                <div class="grid grid-cols-2 gap-3 mt-auto">
-                    <a href="${tpl.url}" 
-                      class="btn-demo flex items-center justify-center gap-2 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-300 px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wide hover:shadow-sm transition-all text-center">
-                        <i class="fa-solid fa-eye"></i> Ver Demo
-                    </a>
+                                <a href="https://wa.me/34612469565?text=${msg}" 
+                                  target="_blank"
+                                  class="flex items-center justify-center gap-2 bg-stone-900 dark:bg-white text-white dark:text-black px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wide hover:opacity-90 transition-opacity text-center shadow-md">
+                                    <i class="fa-solid fa-comments"></i> Quiero algo así
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    content.innerHTML += card;
+                });
+            }, 50);
 
-                    <a href="https://wa.me/34612469565?text=${msg}" 
-                      target="_blank"
-                      class="flex items-center justify-center gap-2 bg-stone-900 dark:bg-white text-white dark:text-black px-4 py-3 rounded-lg font-bold text-xs uppercase tracking-wide hover:opacity-90 transition-opacity text-center shadow-md">
-                        <i class="fa-solid fa-comments"></i> Quiero algo así
-                    </a>
-                </div>
-
-            </div>
-        `;
-
-        content.innerHTML += card;
-    });
-}, 50);
-
-
-            // Auto-scroll al panel (Mejor UX en móvil al seleccionar)
-            if(window.innerWidth < 1024) {
+            // 🔥 LOGICA DE AUTO SCROLL
+            // Si se pide scroll, esperamos un poquito a que renderice y bajamos
+            if(shouldScroll) {
                  setTimeout(() => {
+                    // scrollIntoView baja la pantalla hasta el elemento 'panel'
+                    // 'block: start' lo pone arriba del todo
+                    // 'behavior: smooth' hace que la bajada sea animada
                     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
+                }, 150); // Pequeño delay para asegurar suavidad
             }
         }
 
@@ -498,18 +507,56 @@
             localStorage.theme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
         });
 
-        // --- INIT ---
+        // --- INIT & HISTORIAL ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const body = document.body;
             
             renderNicheList();
-            selectNiche(0);
+
+            // Detectar URL inicial
+            const params = new URLSearchParams(window.location.search);
+            const categorySlug = params.get('cat');
+            
+            let initialIndex = 0;
+            // 🔥 Variable para saber si debemos hacer scroll al cargar
+            let doInitialScroll = false; 
+
+            if (categorySlug) {
+                const foundIndex = catalogData.findIndex(item => item.slug === categorySlug);
+                if (foundIndex !== -1) {
+                    initialIndex = foundIndex;
+                    // 🔥 Si hay categoría en la URL, queremos scroll
+                    doInitialScroll = true; 
+                }
+            }
+            
+            // Cargamos la categoría. 
+            // 2do parametro false (no duplicar historial)
+            // 3er parametro: doInitialScroll (true si vino por url, false si entró al home normal)
+            selectNiche(initialIndex, false, doInitialScroll);
 
             setTimeout(() => {
                 preloader.classList.add('opacity-0', 'pointer-events-none');
                 body.classList.remove('overflow-hidden');
             }, 1000);
+        });
+
+        // Manejar botones Atrás/Adelante
+        window.addEventListener('popstate', (event) => {
+            let index = 0;
+            if (event.state && event.state.index !== undefined) {
+                index = event.state.index;
+            } else {
+                const params = new URLSearchParams(window.location.search);
+                const categorySlug = params.get('cat');
+                if (categorySlug) {
+                    const foundIndex = catalogData.findIndex(item => item.slug === categorySlug);
+                    if (foundIndex !== -1) index = foundIndex;
+                }
+            }
+            // Al dar atrás, también activamos scroll (true al final) para volver a enfocar el contenido
+            selectNiche(index, false, true);
         });
 
         // Scroll to Top
@@ -524,3 +571,4 @@
 </body>
 
 </html>
+
