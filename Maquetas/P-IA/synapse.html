@@ -27,12 +27,12 @@
                         sans: ['Manrope', 'sans-serif'],
                     },
                     colors: {
-                        bg: '#0B1120', // Navy casi negro
-                        surface: '#151e32', // Navy más claro
-                        primary: '#3b82f6', // Azul brillante
-                        secondary: '#06b6d4', // Cyan
-                        accent: '#6366f1', // Indigo
-                        success: '#10b981', // Verde datos
+                        bg: '#0B1120',
+                        surface: '#151e32',
+                        primary: '#3b82f6',
+                        secondary: '#06b6d4',
+                        accent: '#6366f1',
+                        success: '#10b981',
                     },
                     animation: {
                         'float': 'float 8s ease-in-out infinite',
@@ -52,7 +52,7 @@
                         grow: {
                             '0%': { height: '0%' },
                             '100%': { height: 'var(--h)' },
-                        }
+                        },
                     }
                 }
             }
@@ -66,7 +66,6 @@
             overflow-x: hidden;
         }
 
-        /* Background Grid sofisticado */
         .data-grid {
             background-image: 
                 linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
@@ -75,7 +74,6 @@
             mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 100%);
         }
 
-        /* Glassmorphism Clean */
         .glass-panel {
             background: rgba(21, 30, 50, 0.7);
             backdrop-filter: blur(20px);
@@ -96,18 +94,60 @@
             transform: translateY(-5px);
         }
 
-        /* Gráfico SVG Animado */
+        /* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
+        
+        /* 1. Estado Base: Animaciones definidas pero PAUSADAS */
         .chart-line {
             stroke-dasharray: 1000;
             stroke-dashoffset: 1000;
-            animation: drawLine 3s ease-out forwards 1s;
+            animation: drawLine 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-play-state: paused; /* Esperando al JS */
+            animation-delay: 0.2s; /* Pequeño delay inicial */
         }
 
+        .chart-area {
+            opacity: 0;
+            animation: fadeArea 1.8s ease-out forwards;
+            animation-play-state: paused;
+            animation-delay: 0.6s; /* Aparece después de que la línea avanza */
+        }
+
+        .chart-point {
+            transform-origin: center;
+            opacity: 0;
+            transform: scale(0);
+            animation: chartPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation-play-state: paused;
+        }
+
+        /* Delays en cascada para los puntos */
+        .chart-point:nth-child(3) { animation-delay: 0.9s; } /* Ajustado por orden en SVG */
+        .chart-point:nth-child(4) { animation-delay: 1.2s; }
+        .chart-point:nth-child(5) { animation-delay: 1.5s; }
+
+        /* 2. Estado Activado: Cuando el JS agrega la clase .is-visible */
+        .is-visible .chart-line,
+        .is-visible .chart-area,
+        .is-visible .chart-point {
+            animation-play-state: running;
+        }
+
+        /* Keyframes */
         @keyframes drawLine {
-            to { stroke-dashoffset: 0; }
+            to { stroke-dashoffset: 0; opacity: 1; }
         }
 
-        /* Preloader */
+        @keyframes fadeArea {
+            from { opacity: 0; }
+            to { opacity: 0.25; }
+        }
+
+        @keyframes chartPop {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.4); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         .loader-bar {
             width: 0%;
             transition: width 0.5s ease;
@@ -163,14 +203,12 @@
 
     <!-- HERO SECTION -->
     <section class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden">
-        <!-- Background Elements -->
         <div class="absolute inset-0 data-grid opacity-30 pointer-events-none"></div>
         <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
             
-            <!-- Left Content -->
             <div>
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-8 animate-pulse-slow">
                     <span class="w-2 h-2 rounded-full bg-primary"></span>
@@ -203,12 +241,8 @@
                 </div>
             </div>
 
-            <!-- Right Visual: Floating Dashboard -->
             <div class="relative h-[500px] w-full hidden lg:block perspective-1000">
-                
-                <!-- Main Glass Card (Dashboard) -->
                 <div class="absolute inset-0 glass-panel rounded-2xl p-6 transform rotate-y-[-5deg] rotate-x-[5deg] animate-float transition-transform hover:rotate-0 hover:scale-105 duration-500 border-t border-white/10">
-                    <!-- Fake Header -->
                     <div class="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
                         <div class="flex gap-4">
                             <div class="h-2 w-20 bg-gray-600 rounded-full opacity-20"></div>
@@ -219,7 +253,6 @@
                         </div>
                     </div>
 
-                    <!-- Chart Simulation -->
                     <div class="flex items-end justify-between h-48 gap-2 mb-8 px-2">
                         <div class="w-full bg-primary/20 rounded-t-sm animate-bar-grow" style="--h: 40%; animation-delay: 0.1s"></div>
                         <div class="w-full bg-primary/30 rounded-t-sm animate-bar-grow" style="--h: 65%; animation-delay: 0.2s"></div>
@@ -231,7 +264,6 @@
                         <div class="w-full bg-accent rounded-t-sm animate-bar-grow" style="--h: 100%; animation-delay: 0.8s"></div>
                     </div>
 
-                    <!-- Metric Cards Row -->
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-bg/50 rounded-lg p-4 border border-white/5">
                             <div class="text-gray-400 text-xs uppercase mb-1">Total Revenue</div>
@@ -244,15 +276,13 @@
                     </div>
                 </div>
 
-                <!-- Floating Element Behind -->
                 <div class="absolute -right-10 top-20 w-48 h-32 glass-panel rounded-xl p-4 animate-float-delayed z-[1]">
                     <div class="flex items-center gap-3 mb-3">
-                         <div class="w-8 h-8 rounded bg-accent/20 flex items-center justify-center text-accent"><i class="fa-solid fa-brain"></i></div>
-                         <div class="text-xs text-white font-bold">AI Insight</div>
+                        <div class="w-8 h-8 rounded bg-accent/20 flex items-center justify-center text-accent"><i class="fa-solid fa-brain"></i></div>
+                        <div class="text-xs text-white font-bold">AI Insight</div>
                     </div>
                     <p class="text-[10px] text-gray-400 leading-relaxed">Anomaly detected in cluster US-East-1. Optimization recommended.</p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -274,7 +304,7 @@
                 </div>
                 <div class="text-xs text-gray-500 font-bold uppercase tracking-wider">Data Processed</div>
             </div>
-             <div>
+            <div>
                 <div class="text-3xl font-extrabold text-white mb-1">
                     <span class="counter" data-target="24">0</span>/7
                 </div>
@@ -304,21 +334,23 @@
                         <h3 class="text-3xl font-bold mb-4 text-white">Streaming en Tiempo Real</h3>
                         <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-md">Olvídate del procesamiento por lotes. Synapse ingesta streams de Kafka, Kinesis y APIs REST con latencia sub-milisegundo, actualizando tus dashboards instantáneamente.</p>
                         
-                        <!-- Mini visualization -->
-                        <div class="mt-auto bg-bg/50 border border-white/5 rounded-xl p-6 relative overflow-hidden">
+                        <!-- js-scroll-trigger AÑADIDO AQUI -->
+                        <div class="mt-auto bg-bg/50 border border-white/5 rounded-xl p-6 relative overflow-hidden js-scroll-trigger">
                             <div class="flex items-center gap-4 text-xs font-mono text-gray-500 mb-4">
                                 <span class="text-success">● CONNECTED</span>
                                 <span>throughput: 4.2 GB/s</span>
                             </div>
-                            <svg class="w-full h-30 stroke-primary" fill="none" viewBox="0 -10 300 100">
-                                <path d="M0 80 Q 30 70, 60 80 T 120 50 T 180 60 T 240 30 T 300 50" stroke-width="2" class="chart-line" />
-                                <path d="M0 80 Q 30 70, 60 80 T 120 50 T 180 60 T 240 30 T 300 50 V 100 H 0 Z" fill="url(#grad)" opacity="0.2" />
+                            <svg class="w-full h-32 stroke-primary" fill="none" viewBox="0 -10 300 100">
                                 <defs>
-                                    <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:rgb(59,130,246);stop-opacity:1" />
+                                    <linearGradient id="grad-realtime" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:rgb(59,130,246);stop-opacity:0.5" />
                                         <stop offset="100%" style="stop-color:rgb(59,130,246);stop-opacity:0" />
                                     </linearGradient>
                                 </defs>
+                                <!-- Area con fill -->
+                                <path d="M0 80 Q 30 70, 60 80 T 120 50 T 180 60 T 240 30 T 300 50 V 100 H 0 Z" fill="url(#grad-realtime)" class="chart-area" style="stroke:none" />
+                                <!-- Línea animada -->
+                                <path d="M0 80 Q 30 70, 60 80 T 120 50 T 180 60 T 240 30 T 300 50" stroke-width="3" stroke-linecap="round" class="chart-line" />
                             </svg>
                         </div>
                     </div>
@@ -331,6 +363,26 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-white">Seguridad Militar</h3>
                     <p class="text-gray-400 text-sm">Encriptación E2E, gestión de roles (RBAC) granular y auditoría de logs inmutable.</p>
+                    
+                    <!-- js-scroll-trigger AÑADIDO AQUI -->
+                    <div class="mt-6 bg-bg/50 border border-white/5 rounded-xl p-5 relative overflow-hidden js-scroll-trigger">
+                        <div class="flex items-center gap-3 text-xs font-mono text-gray-500 mb-3">
+                            <span class="text-success">● SECURE</span>
+                            <span>RBAC checks: 98/ms</span>
+                        </div>
+                        <svg class="w-full h-24 stroke-success" fill="none" viewBox="0 0 300 80">
+                            <defs>
+                                <linearGradient id="grad-security" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgb(34,197,94);stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:rgb(34,197,94);stop-opacity:0" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Path cerrado para el relleno -->
+                            <path d="M20 60 L60 20 L100 60 L140 20 L180 60 L220 20 L260 60 V 80 H 20 Z" fill="url(#grad-security)" class="chart-area" style="stroke:none" />
+                            <!-- Path abierto para la línea -->
+                            <path d="M20 60 L60 20 L100 60 L140 20 L180 60 L220 20 L260 60" stroke-width="2" stroke-linejoin="round" class="chart-line" />
+                        </svg>
+                    </div>
                 </div>
 
                 <!-- Feature: AI Prediction -->
@@ -340,8 +392,32 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3 text-white">ML Predictivo</h3>
                     <p class="text-gray-400 text-sm">Nuestros modelos detectan anomalías y tendencias futuras automáticamente sobre tus datos raw.</p>
+                    
+                    <!-- js-scroll-trigger AÑADIDO AQUI -->
+                    <div class="mt-6 bg-bg/50 border border-white/5 rounded-xl p-5 relative overflow-hidden js-scroll-trigger">
+                        <div class="flex items-center gap-3 text-xs font-mono text-gray-500 mb-3">
+                            <span class="text-secondary">● MODEL ACTIVE</span>
+                            <span>anomalies: 0.02%</span>
+                        </div>
+                        <svg class="w-full h-24 stroke-secondary" fill="none" viewBox="0 0 300 80">
+                            <defs>
+                                <linearGradient id="grad-ml" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:rgb(6,182,212);stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:rgb(6,182,212);stop-opacity:0" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Path cerrado para el relleno -->
+                            <path d="M0 60 Q 40 10, 80 40 T 160 30 T 240 50 T 300 20 V 80 H 0 Z" fill="url(#grad-ml)" class="chart-area" style="stroke:none" />
+                            <!-- Path abierto para la línea -->
+                            <path d="M0 60 Q 40 10, 80 40 T 160 30 T 240 50 T 300 20" stroke-width="2" class="chart-line" />
+                            
+                            <!-- Puntos animados -->
+                            <circle cx="80" cy="40" r="4" fill="#0B1120" stroke="currentColor" stroke-width="2" class="chart-point" />
+                            <circle cx="160" cy="30" r="4" fill="#0B1120" stroke="currentColor" stroke-width="2" class="chart-point" />
+                            <circle cx="240" cy="50" r="4" fill="#0B1120" stroke="currentColor" stroke-width="2" class="chart-point" />
+                        </svg>
+                    </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -353,8 +429,6 @@
             <p class="text-gray-400 text-center mb-16">Paga por volumen de datos procesados, no por usuarios.</p>
 
             <div class="grid md:grid-cols-3 gap-8 items-start">
-                
-                <!-- Starter -->
                 <div class="glass-card p-8 rounded-2xl border-t-4 border-t-gray-500">
                     <h3 class="text-lg font-bold text-gray-300 mb-2">Starter</h3>
                     <div class="text-4xl font-extrabold text-white mb-1">$0</div>
@@ -367,7 +441,6 @@
                     <button class="w-full py-3 rounded-lg border border-white/10 hover:bg-white/5 font-bold transition-all">Start Free</button>
                 </div>
 
-                <!-- Scale (Highlighted) -->
                 <div class="glass-card p-8 rounded-2xl border-t-4 border-t-primary bg-primary/5 relative transform md:-translate-y-4">
                     <div class="absolute top-4 right-4 text-xs font-bold bg-primary text-white px-2 py-1 rounded">MOST POPULAR</div>
                     <h3 class="text-lg font-bold text-primary mb-2">Scale</h3>
@@ -382,7 +455,6 @@
                     <button class="w-full py-3 rounded-lg bg-primary hover:bg-blue-600 text-white font-bold transition-all shadow-lg shadow-primary/20">Get Started</button>
                 </div>
 
-                <!-- Enterprise -->
                 <div class="glass-card p-8 rounded-2xl border-t-4 border-t-secondary">
                     <h3 class="text-lg font-bold text-secondary mb-2">Enterprise</h3>
                     <div class="text-4xl font-extrabold text-white mb-1">Custom</div>
@@ -395,7 +467,6 @@
                     </ul>
                     <button class="w-full py-3 rounded-lg border border-white/10 hover:bg-white/5 font-bold transition-all">Contact Sales</button>
                 </div>
-
             </div>
         </div>
     </section>
@@ -448,7 +519,7 @@
         </div>
     </footer>
 
-    <!-- DATA PRIVACY MODAL (COOKIES) -->
+    <!-- DATA PRIVACY MODAL -->
     <div id="dataConsent" class="fixed bottom-6 right-6 w-96 bg-surface/90 backdrop-blur-xl border border-white/10 p-6 rounded-xl shadow-2xl z-50 transform translate-y-[150%] transition-transform duration-500">
         <div class="flex items-start gap-4">
             <div class="w-8 h-8 rounded bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
@@ -469,7 +540,6 @@
 
     <!-- LOGIC -->
     <script>
-        // 1. PRELOADER LOGIC (Data Ingestion Sim)
         window.addEventListener('load', () => {
             const bar = document.getElementById('loadingBar');
             const stats = document.getElementById('loaderStats');
@@ -481,7 +551,6 @@
                 if(progress > 100) progress = 100;
                 
                 bar.style.width = progress + '%';
-                // Simulate TB processed
                 let tb = (progress * 0.42).toFixed(1); 
                 stats.innerText = tb + ' TB';
 
@@ -489,14 +558,15 @@
                     clearInterval(interval);
                     setTimeout(() => {
                         preloader.classList.add('opacity-0', 'pointer-events-none');
-                        triggerAnimations();
+                        triggerTicker();
+                        setupObserver(); // Iniciar observador de scroll
                     }, 500);
                 }
             }, 50);
         });
 
-        // 2. COUNTER ANIMATION
-        function triggerAnimations() {
+        // Ticker Logic
+        function triggerTicker() {
             const counters = document.querySelectorAll('.counter');
             counters.forEach(counter => {
                 const target = +counter.getAttribute('data-target');
@@ -523,7 +593,30 @@
             }, 2000);
         }
 
-        // 3. COOKIES
+        // === NUEVO: INTERSECTION OBSERVER PARA SVGS ===
+        function setupObserver() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 // Disparar cuando el 50% del elemento es visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Agregar clase para "descongelar" la animación CSS
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Dejar de observar una vez activado
+                    }
+                });
+            }, observerOptions);
+
+            const targets = document.querySelectorAll('.js-scroll-trigger');
+            targets.forEach(target => {
+                observer.observe(target);
+            });
+        }
+
         function acceptData() {
             const banner = document.getElementById('dataConsent');
             banner.classList.add('translate-y-[150%]');
